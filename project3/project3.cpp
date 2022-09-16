@@ -2,38 +2,28 @@
 // Grant Gutterman
 // 09-16-2022
 // project3.cpp
-// Ceaser Cypher program that decrypts by taking a cipher text and returns a
-// decrypted message.
+// Ceaser Cypher program that decrypts by taking a cipher text and key, and then
+// returns a decrypted message.
 // ============================================
 
-
+// INCLUSIONS
 #include <iostream>
 #include <iomanip>
 #include <cctype>
 #include <string>
-#include <fstream>
+
 using namespace std;
 
-
-const int SIZE = 25;
-
-
-// function declarations
-int integerize(char character);
-
-char convert();
+// FUNCTION DECLARATIONS
+int integerize(char encryptChar);
+int shift(int value, int key);
+char characterize(int decryptVal);
 
 // ============================================
 // main
 // ============================================
 int main ( int argc, char *argv[] )
 {
-
-    int values[SIZE] =
-    {
-        (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
-    17, 18, 19, 20, 21, 22, 23, 24, 25)
-    };
 
     // FILE INPUTS
 
@@ -44,37 +34,72 @@ int main ( int argc, char *argv[] )
         key = 3;
 
     string message, temp;
-
-    while ( getline(cin,temp) )
-        message = message+temp;
-
+    string decryptStr;
     char activeChar;
-
+    while ( getline(cin,temp) ){
+        message = message+temp;
+    }
 
     for (int i=0; i<message.length(); i++)
     {
 
         if ( isspace(message[i]) == 0 ){
             activeChar = message[i];
-            int thing = integerize(activeChar);
-            cout << thing;
+            int encryptVal = integerize(message[i]);
+            int decryptVal = shift(encryptVal, key);
+            char decryptChar = characterize(decryptVal);
+            decryptStr = decryptStr + decryptChar;
         }
+        else if ( isspace(message[i]) != 0 )
+            decryptStr = decryptStr + message[i];
+        else if ( message[i] == '\n' )
+            decryptStr = decryptStr + " ";
     }
-
+        cout << decryptStr;
     return 0;
 }
 
-
-int integerize(char character){
-    string alpha = "abcdefghijklmnopqrstuvwxyz";
-    for (int i=0; i<=25; i++){
-        if (character == alpha[i])
-            return i;
-    }
-    return 69;
+//=========================================================
+// integerize
+// Takes an encrpyted character and then takes its ASCII value from it, then
+// subtracts 97 from it to be put in the 0-25 value range.
+// PARAMS:
+// - encryptChar: an encrypted character
+// RETURNS:
+// - encryptVal: the encrypted character's value in terms of 0-25
+//=========================================================
+int integerize(char encryptChar){
+    int encryptVal = int(encryptChar)-97;
+    return encryptVal;
 }
-
-char convert(){
-
-    return 0;
+//=========================================================
+// shift
+// Takes the encrypted value and subtracts the key number from it, decrypting
+// the value and then putting it back in terms of ASCII values (+97)
+// PARAMS:
+// - value: encrypted value for the character (not yet decrypted)
+// - key: the "key" for the encryption that moves the values over for decryption
+// RETURNS:
+// - value+97: the decrypted value, now back in terms of ASCII
+//=========================================================
+int shift(int value, int key){
+    value = value-key;
+    if (value > 25)
+        value = value%26;
+    else if (value < 0)
+        value = value+26;
+    return value+97;
+}
+//=========================================================
+// characterize
+// Takes the decrypted value and converts it back to ASCII. Essentially does
+// the reverse of integerize.
+// PARAMS:
+// - decryptVal: decrypted value for the character
+// RETURNS:
+// - decryptChar: decrypted character that will be placed in the output string
+//=========================================================
+char characterize(int decryptVal){
+    char decryptChar = decryptVal;
+    return decryptChar;
 }
