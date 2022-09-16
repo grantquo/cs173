@@ -11,7 +11,8 @@
 using namespace std;
 
 //function declarations
-void printArray ( float a[], int n );
+void printArray( float a[], int n );
+float addValues(float a[], int n);
 
 //====================
 // main
@@ -30,11 +31,9 @@ int main ( void )
 
     // output by index
 
-    for (int i=0; i<SIZE; i++)
-    {
-        cout << "Index " << i << ": " << fixed << setw(6) << setprecision(2)
-        << data[i] << endl;
-    }
+    printArray(data, SIZE);
+    float sum = addValues(data, SIZE);
+    cout << "Sum of values is " << sum << endl;
 
     return 0;
 }
@@ -50,9 +49,26 @@ int main ( void )
 
 void printArray ( float a[], int n )
 {
-    for (int i=0; i<SIZE; i++){
+    for (int i=0; i<n; i++){
         cout << "Value " << i+1 << " = " << fixed << setw(6)
         << setprecision(2) << a[i] << endl;
     }
 
+}
+
+//====================
+// addValues
+// PARAMETERS:
+// - a[] : an array of floats
+// - n : (int) size of array
+// RETURN:
+// Adds all values together.
+//====================
+
+float addValues(float a[], int n)
+{
+    float total = 0;
+    for (int i=0; i<n; i++)
+        total += a[i];
+    return total;
 }
