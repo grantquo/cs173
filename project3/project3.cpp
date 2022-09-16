@@ -6,13 +6,17 @@
 // decrypted message.
 // ============================================
 
-#define SIZE 25
+
 #include <iostream>
 #include <iomanip>
 #include <cctype>
 #include <string>
 #include <fstream>
 using namespace std;
+
+
+const int SIZE = 25;
+
 
 // function declarations
 int integerize(char character);
@@ -25,11 +29,11 @@ char convert();
 int main ( int argc, char *argv[] )
 {
 
-    char alpha[SIZE] = {('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'
-    , 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z')};
-
-    int values[SIZE] = {(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
-    17, 18, 19, 20, 21, 22, 23, 24, 25)};
+    int values[SIZE] =
+    {
+        (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+    17, 18, 19, 20, 21, 22, 23, 24, 25)
+    };
 
     // FILE INPUTS
 
@@ -44,23 +48,30 @@ int main ( int argc, char *argv[] )
     while ( getline(cin,temp) )
         message = message+temp;
 
+    char activeChar;
 
-    /*
+
     for (int i=0; i<message.length(); i++)
     {
+
         if ( isspace(message[i]) == 0 ){
-            cout << message[i];
+            activeChar = message[i];
+            int thing = integerize(activeChar);
+            cout << thing;
         }
     }
-    */
 
     return 0;
 }
 
 
 int integerize(char character){
-
-    return 0;
+    string alpha = "abcdefghijklmnopqrstuvwxyz";
+    for (int i=0; i<=25; i++){
+        if (character == alpha[i])
+            return i;
+    }
+    return 69;
 }
 
 char convert(){
