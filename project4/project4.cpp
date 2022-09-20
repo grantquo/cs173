@@ -9,7 +9,7 @@
 #include <string>
 using namespace std;
 
-string convert(int year);
+int convert(int year);
 
 int main ( void )
 {
@@ -24,16 +24,22 @@ int main ( void )
             cout << "Error! Year out of range. Try again." << endl;
             continue;
         }
-        /*
-        string output = convert(year);
+
+        int output = convert(year);
         cout << year << " = " << output << endl;
-        */
+
     }
 
     return 0;
 }
 
-string convert(int year){
+int convert(int year){
+    int ones, tens, hundreds, thousands;
+    ones = (year)%10;
+    tens = (year-ones)%100;
+    hundreds = (year-tens-ones)%1000;
+    thousands = (year-hundreds-tens-ones)%10000;
+    // cout << ones << ", " << tens << ", " << hundreds << ", " << thousands << endl;
+    
 
-    return 0;
 }
