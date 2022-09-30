@@ -18,6 +18,7 @@ const int M = 10;
 void	readGrid	( int G[M][M] );
 void	printGrid	( int G[M][M] );
 void 	floodFill	( int grid[M][M], int r, int c, int source, int target );
+bool isConnected	( int grid[M][M], int r1. int c1, int r2, int c2);
 
 //====================================================
 // main
@@ -31,6 +32,14 @@ int main ( void )
 	printGrid(grid);
 	floodFill(grid,0,0,1,2);
 	printGrid(grid);
+
+	int r1, r2, c1, c2;
+	r1 = 7; c1 = 0;
+	r2 = 6; c2 = 9;
+	if ( isConnected(grid,r1,c1,r2,c2) )
+		cout << r1 << "," << c2 << "connected to "
+		<< r2 << "," <<
+
 	return 0;
 }
 
@@ -110,6 +119,32 @@ void 	floodFill	( int grid[M][M], int r, int c, int source, int target ){
 	return;
 }
 //====================================================
+// isConnected
+// Determines if two coordinates in the grid are part of the same region.
+// PARAMS:
+// grid: MxM 2d array of ints
+// r1, c1: coordinates of the first box
+// r2, c2: coordinates of the second box
+// assume 0<= r1, c1, r2, c2
+// RETURNS:
+// True or false for if the two boxes are connected in the same region.
 //====================================================
+bool isConnected	(int grid[M][M], int r1, int r2, int c1, int c2){
+	if ( grid[r1][c1] != grid[r2][c2] )
+		return false;
+
+	int source = grid[r1][c1];
+	floodFill(grid,r1,c1,grid[r1][c1],99);
+
+	bool result = grid[r2][c2] == 99;
+
+	floodFill(grid,r1,c1,99,source);
+	return result;
+}
+
+
+
+
+
 //====================================================
 //====================================================
