@@ -1,4 +1,4 @@
-// ===========================================
+dna// ===========================================
 // Grant Gutterman
 // 09-30-22
 // project5.cpp
@@ -20,21 +20,19 @@ int strandSearch(char maindna[MAX], char segment1[MAX]);
 // ===========================================
 // main function
 // ===========================================
-int main ( void ){
+int main ( int argc, char *argv[] ){
 
-    // inputs
-    char dna[] = {'A','G','T','C','C','G','A','T','C','C','G','A','\0'};
-    int searchNum;
-    int indexNum;
-    // for (int i=0;i<searchNum;i++)
-    //     char segment[MAX];
-    //     cin >> segment;
-    //     indexNum = strandSearch(char dna, char segment);
-    //     cout << "The index of " << segment << " is " << indexNum << "." << endl;
-    char segment[] = {'G','A','T','C','C','\0'};
-    indexNum = strandSearch(dna, segment);
-    cout << "The index of " << segment << " is " << indexNum << "." << endl;
-
+    if (argc == 1){
+        ifstream inputfile;
+        inputfile.open(argv[0]);
+    }
+    for (int i=0;i<searchNum;i++)x
+        int indexNum = strandSearch(dna, segment);
+        cout << "The index of " << segment << " is " << indexNum << "." << endl;
+    // char segment[] = {'T','C','C','G','A','for (int segIndex=0; segIndex<segLen; segIndex++\0'};
+    // indexNum = strandSearch(dna, segment);
+    // cout << "The index of " << segment << " is " << indexNum << "." << endl;
+    inputfile.close();
     return 0;
 }
 // ===========================================
@@ -58,13 +56,17 @@ int strandSearch(char maindna[MAX], char segment1[MAX]){
         char dnaSlice[segLen+1];
         for (int segIndex=0; segIndex<segLen; segIndex++){
             int workingIndex = dnaIndex+segIndex;
-            dnaSlice[workingIndex] = maindna[workingIndex];
+            dnaSlice[segIndex] = maindna[workingIndex];
+            cout << dnaSlice << endl;
+        }
         int condOutput = strcmp(segment1, dnaSlice);
+        cout << condOutput << endl;
+        cout << dnaSlice << " compared to " << segment1 << endl;
         if (condOutput == 0)
             return dnaIndex;
         else
-            dnaIndex++;
-        }
+            dnaIndex = dnaIndex+1;
+
     }
     return -1;
 }
