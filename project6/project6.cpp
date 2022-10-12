@@ -8,7 +8,6 @@
 #include <iostream>
 #include <fstream>
 
-
 using namespace std;
 
 // function declarations
@@ -18,9 +17,23 @@ void readGrid( char grid[length][length] );
 void printGrid ( char grid[length][length] );
 int main(  void  ){
 
+    // initial puzzle read & print
     char grid[length][length];
     readGrid(grid);
     printGrid(grid);
+
+    // number of words inputs
+    int numWords;
+    cin >> numWords;
+    cout << numWords << endl;
+
+
+    // word search loop
+    for (int i=0; i<numWords; i++){
+            char word[100];
+            cin >> word;
+            cout << word << endl;
+    }
 
     return 0;
 }
