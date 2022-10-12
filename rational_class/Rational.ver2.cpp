@@ -80,6 +80,7 @@ void		Rational::setDenominator ( int d )
 void		Rational::setNumerator ( int n )
 {
 	num = n;
+	normalize();
 }
 
 //======================================================
@@ -116,7 +117,8 @@ int			Rational::getDenominator ( void )
 // RETURN VALUE none
 // but may change the Rational object values
 // 1) Make sure denominator not 0, quit if so
-//
+// 2) Make sure the negative sign is in the numerator and not
+// the denominator.
 //======================================================
 void		Rational::normalize ( void )
 {
@@ -125,18 +127,48 @@ void		Rational::normalize ( void )
 		cout << "Error: divide by zero not permitted\n";
 		exit(1);
 	}
+	if ( den < 0 )
+	{
+		den *= -1;
+		num *= -1;
+	}
+	int div = gcd(abs(num),abs(den));
+	if ( div != 1 )
+	{
+		num /= div;
+		den /= div;
+	}
 }
+//======================================================
+// gcd
+// Find greatest common divisor of a and b.
+// PARAMETERS:
+// int a ( a>=0 )
+// int b ( b>=0 )
+// RETURN VALUE:
+// Greatest common divisor of a and b.
+//======================================================
+int			Rational::gcd	( int a, int b )
+{
+	int r = a%b;
+	while (r)
+	{
+		a=b;
+		b=r;
+		r=a%b;
+	}
+	return b;
+}
+//======================================================
 
+//======================================================
+Rational	Rational::add	( Rational r )
+{
+	Rational ret;
 
+	ret.den = den * r.den;
+	ret.num = num*r.den + r.num*den;
+	ret.normalize();
 
-
-
-
-
-
-
-
-
-
-
-
+	return ret;
+}

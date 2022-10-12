@@ -24,11 +24,13 @@ public:
 	void			setNumerator    ( int n );
 	int				getNumerator   	( void );
 	int				getDenominator 	( void );
+	Rational		add				( Rational r );
 
 private:
 	int				num;
 	int				den;
 	void			normalize		( void );
+	int				gcd				( int a, int b );
 
 };
 
