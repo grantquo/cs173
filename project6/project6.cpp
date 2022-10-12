@@ -7,29 +7,37 @@
 
 #include <iostream>
 #include <fstream>
-#define SIZE 14
+
 
 using namespace std;
 
 // function declarations
 const int length = 14;
 
+void readGrid( char grid[length][length] );
 void printGrid ( char grid[length][length] );
-int main(  int argc, char* argv[]  ){
+int main(  void  ){
 
-    ifstream file;
-    file.open(argv[1]);
-    char maingrid[14][14];
-    for (int row = 0; row < SIZE; row++){
-        getline(maingrid, file);
-    }
-    cout << maingrid[14][14] << endl;
-
+    char grid[length][length];
+    readGrid(grid);
+    printGrid(grid);
 
     return 0;
 }
 
+void readGrid( char grid[length][length] ){
+    for (int i=0; i < length; i++)
+        for (int j=0; j < length; j++)
+            cin >> grid[i][j];
+    return;
+}
 
-void printGrid ( char grid[length][length]){
+void printGrid ( char grid[length][length] ){
+    for (int i=0; i < length; i++){
+        for (int j=0; j < length; j++){
+            cout << grid[i][j] << " ";
+        }
+        cout << endl;
+    }
     return;
 }

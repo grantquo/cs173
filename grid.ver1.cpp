@@ -18,7 +18,7 @@ const int M = 10;
 void	readGrid	( int G[M][M] );
 void	printGrid	( int G[M][M] );
 void 	floodFill	( int grid[M][M], int r, int c, int source, int target );
-bool isConnected	( int grid[M][M], int r1. int c1, int r2, int c2);
+bool isConnected	( int grid[M][M], int r1, int c1, int r2, int c2);
 
 //====================================================
 // main
@@ -38,7 +38,7 @@ int main ( void )
 	r2 = 6; c2 = 9;
 	if ( isConnected(grid,r1,c1,r2,c2) )
 		cout << r1 << "," << c2 << "connected to "
-		<< r2 << "," <<
+		<< r2 << ",";
 
 	return 0;
 }
