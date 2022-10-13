@@ -78,14 +78,17 @@ void findWord ( char grid[LENGTH][LENGTH], char word, string temp, char source, 
     assert(r<LENGTH);
     assert(c<LENGTH);
 
-    int x =
+
 
     if (word == temp)
+        // need to change temp to c style string for comparison
         return printLocation(word, r, c);
     // string temp = "";
     if (source == target)
         temp += source;
-        word[x+1] = target;
+        // need to change temp to c style string for comparison
+        // need to compare temp to word to find next word location for target
+        // word[] = target;
 
     if (r>0)
         // check up
@@ -111,17 +114,12 @@ void findWord ( char grid[LENGTH][LENGTH], char word, string temp, char source, 
     if (r<LENGTH-1 && c<LENGTH-1)
         // check down/right
         findWord(grid, word, temp, source, target, r+1, c+1)
-
-    return printLocation(target, -1. -1);
+    return;
 }
 // =======================================
 // printLocation
 // =======================================
 void printLocation( char target, int r, int c ){
-    /*
-    if r & c < 0:
-        cout << "The word "<< target <<" was not found in the puzzle." << endl;
-    */
     // cout << target " found at " << r << "," << c << endl;
     return;
 }
