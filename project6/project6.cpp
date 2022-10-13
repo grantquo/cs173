@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -15,12 +16,12 @@ const int LENGTH = 14;
 
 void readGrid( char grid[LENGTH][LENGTH] );
 void printGrid ( char grid[LENGTH][LENGTH] );
-void findWord ( char grid[LENGTH][LENGTH], char source, char target, int r, int c );
+void findWord ( char grid[LENGTH][LENGTH], char word, string temp, char source, char target, int r, int c );
 //bool isConnected( char grid[LENGTH][LENGTH], char source, char target, int r, int c);
 void printLocation (char target, int r, int c);
 
 // =======================================
-
+// main
 // =======================================
 int main(  void  ){
 
@@ -69,41 +70,52 @@ void printGrid ( char grid[LENGTH][LENGTH] ){
     return;
 }
 // =======================================
-
+// findWord
 // =======================================
-void findWord ( char grid[LENGTH][LENGTH], char word, char temp, char source, char target, int r, int c ){
+void findWord ( char grid[LENGTH][LENGTH], char word, string temp, char source, char target, int r, int c ){
     assert(r>=0);
     assert(c>=0);
     assert(r<LENGTH);
     assert(c<LENGTH);
 
-    if (word == temp) source
+    int x =
+
+    if (word == temp)
         return printLocation(word, r, c);
     // string temp = "";
     if (source == target)
         temp += source;
+        word[x+1] = target;
 
     if (r>0)
-        findWord(grid, word, temp, source, target, r, c)
+        // check up
+        findWord(grid, word, temp, source, target, r-1, c)
     if (r<LENGTH-1)
         // check down
+        findWord(grid, word, temp, source, target, r+1, c)
     if (c>0)
         // check left
+        findWord(grid, word, temp, source, target, r, c-1)
     if (c<LENGTH-1)
         // check right
+        findWord(grid, word, temp, source, target, r, c+1)
     if (r>0 && c>0)
         // check up/left
+        findWord(grid, word, temp, source, target, r-1, c-1)
     if (r>0 && c<LENGTH-1)
         // check up/right
+        findWord(grid, word, temp, source, target, r-1, c+1)
     if (r<LENGTH-1 && c>0)
         // check down/left
+        findWord(grid, word, temp, source, target, r+1, c-1)
     if (r<LENGTH-1 && c<LENGTH-1)
         // check down/right
+        findWord(grid, word, temp, source, target, r+1, c+1)
 
     return printLocation(target, -1. -1);
 }
 // =======================================
-
+// printLocation
 // =======================================
 void printLocation( char target, int r, int c ){
     /*
