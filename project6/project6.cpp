@@ -11,46 +11,70 @@
 using namespace std;
 
 // function declarations
-const int length = 14;
+const int LENGTH = 14;
 
-void readGrid( char grid[length][length] );
-void printGrid ( char grid[length][length] );
+void readGrid( char grid[LENGTH][LENGTH] );
+void printGrid ( char grid[LENGTH][LENGTH] );
+void findWord ( char grid[LENGTH][LENGTH], char source, char target, int r, int c );
+//bool isConnected( char grid[LENGTH][LENGTH], char source, char target, int r, int c);
+
+// =======================================
+
+// =======================================
 int main(  void  ){
 
-    // initial puzzle read & print
-    char grid[length][length];
+// initial puzzle read & print
+    char grid[LENGTH][LENGTH];
     readGrid(grid);
     printGrid(grid);
 
-    // number of words inputs
+// number of words inputs
     int numWords;
     cin >> numWords;
     cout << numWords << endl;
 
 
-    // word search loop
+// word search loop
     for (int i=0; i<numWords; i++){
-            char word[100];
-            cin >> word;
-            cout << word << endl;
+// getting individual word for searching
+        char word[100];
+        cin >> word;
+        cout << word << endl;
+// searching
+        findWord(grid, grid[0][0], word[1]);
     }
 
     return 0;
 }
-
-void readGrid( char grid[length][length] ){
-    for (int i=0; i < length; i++)
-        for (int j=0; j < length; j++)
+// =======================================
+// readGrid
+// =======================================
+void readGrid( char grid[LENGTH][LENGTH] ){
+    for (int i=0; i < LENGTH; i++)
+        for (int j=0; j < LENGTH; j++)
             cin >> grid[i][j];
     return;
 }
-
-void printGrid ( char grid[length][length] ){
-    for (int i=0; i < length; i++){
-        for (int j=0; j < length; j++){
+// =======================================
+// printGrid
+// =======================================
+void printGrid ( char grid[LENGTH][LENGTH] ){
+    for (int i=0; i < LENGTH; i++){
+        for (int j=0; j < LENGTH; j++){
             cout << grid[i][j] << " ";
         }
         cout << endl;
     }
+    return;
+}
+
+void findWord ( char grid[LENGTH][LENGTH], char source, char target, int r, int c ){
+    assert(r>=0);
+    assert(c>=0);
+    assert(r<LENGTH);
+    assert(c<LENGTH);
+
+
+
     return;
 }
