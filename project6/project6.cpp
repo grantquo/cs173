@@ -119,6 +119,14 @@ void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source
         searchDownRight(grid, word, temp, source, target, r+1, c+1);
 
     temp = "";
+
+    if (c<LENGTH-1)
+        findWord(grid[LENGTH][LENGTH], word, temp, grid[r][c+1], target, r, c+1);
+    else if (c == LENGTH-1)
+        findWord(grid[LENGTH][LENGTH], word, temp, grid[r+1][0], target, r+1, 0);
+    else
+        cout << "Function ran but did not complete word checks." << endl;
+
     return;
 }
 // =======================================
@@ -163,7 +171,7 @@ void searchDown ( char grid[LENGTH][LENGTH], string word, string temp, char sour
         temp += source;
         int tempLen = length(temp)+1;
         target = word[tempLen];
-        searchUp(grid, word, temp, source, target, r-1, c);
+        searchDown(grid, word, temp, source, target, r+1, c);
     }
 
     return;
@@ -183,7 +191,7 @@ void searchLeft ( char grid[LENGTH][LENGTH], string word, string temp, char sour
         temp += source;
         int tempLen = length(temp)+1;
         target = word[tempLen];
-        searchUp(grid, word, temp, source, target, r-1, c);
+        searchLeft(grid, word, temp, source, target, r, c-1);
     }
 
     return;
@@ -203,7 +211,7 @@ void searchRight ( char grid[LENGTH][LENGTH], string word, string temp, char sou
         temp += source;
         int tempLen = length(temp)+1;
         target = word[tempLen];
-        searchUp(grid, word, temp, source, target, r-1, c);
+        searchRight(grid, word, temp, source, target, r, c+1);
     }
     return;
 }
@@ -222,7 +230,7 @@ void searchUpLeft ( char grid[LENGTH][LENGTH], string word, string temp, char so
         temp += source;
         int tempLen = length(temp)+1;
         target = word[tempLen];
-        searchUp(grid, word, temp, source, target, r-1, c);
+        searchUpLeft(grid, word, temp, source, target, r-1, c-1);
     }
 
     return;
@@ -242,7 +250,7 @@ void searchUpRight ( char grid[LENGTH][LENGTH], string word, string temp, char s
         temp += source;
         int tempLen = length(temp)+1;
         target = word[tempLen];
-        searchUp(grid, word, temp, source, target, r-1, c);
+        searchUpRight(grid, word, temp, source, target, r-1, c+1);
     }
     return;
 }
@@ -261,7 +269,7 @@ void searchDownLeft ( char grid[LENGTH][LENGTH], string word, string temp, char 
         temp += source;
         int tempLen = length(temp)+1;
         target = word[tempLen];
-        searchUp(grid, word, temp, source, target, r-1, c);
+        searchDownLeft(grid, word, temp, source, target, r+1, c-1);
     }
 
     return;
@@ -281,7 +289,7 @@ void searchDownRight ( char grid[LENGTH][LENGTH], string word, string temp, char
         temp += source;
         int tempLen = length(temp)+1;
         target = word[tempLen];
-        searchUp(grid, word, temp, source, target, r-1, c);
+        searchDownRight(grid, word, temp, source, target, r+1, c+1);
     }
 
     return;
