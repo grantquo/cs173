@@ -18,7 +18,15 @@ void readGrid( char grid[LENGTH][LENGTH] );
 void printGrid ( char grid[LENGTH][LENGTH] );
 void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
 //bool isConnected( char grid[LENGTH][LENGTH], char source, char target, int r, int c);
-void printLocation (string word, int r, int c);
+void searchUp ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
+void searchDown ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
+void searchLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
+void searchRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
+void searchUpLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
+void searchUpRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
+void searchDownLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
+void searchDownRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
+
 
 // =======================================
 // main
@@ -81,40 +89,39 @@ void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source
 
     if (word == temp)
         return printLocation(word, r, c);
-    // string temp = "";
     if (source == target && word != temp)
         temp += source;
         for (int index = 0; index < word; index++){
             if (word[index] != temp[index])
                 target = word[index];
         }
-        // need to compare temp to word to find next word location for target
-        // word[] = target;
 
     if (r>0)
         // check up
-        findWord(grid, word, temp, source, target, r-1, c)
+        searchUp(grid, word, temp, source, target, r-1, c);
     if (r<LENGTH-1)
         // check down
-        findWord(grid, word, temp, source, target, r+1, c)
+        searchDown(grid, word, temp, source, target, r+1, c);
     if (c>0)
         // check left
-        findWord(grid, word, temp, source, target, r, c-1)
+        searchLeft(grid, word, temp, source, target, r, c-1);
     if (c<LENGTH-1)
         // check right
-        findWord(grid, word, temp, source, target, r, c+1)
+        searchRight(grid, word, temp, source, target, r, c+1);
     if (r>0 && c>0)
         // check up/left
-        findWord(grid, word, temp, source, target, r-1, c-1)
+        searchUpLeft(grid, word, temp, source, target, r-1, c-1);
     if (r>0 && c<LENGTH-1)
         // check up/right
-        findWord(grid, word, temp, source, target, r-1, c+1)
+        searchUpRight(grid, word, temp, source, target, r-1, c+1);
     if (r<LENGTH-1 && c>0)
         // check down/left
-        findWord(grid, word, temp, source, target, r+1, c-1)
+        searchDownLeft(grid, word, temp, source, target, r+1, c-1);
     if (r<LENGTH-1 && c<LENGTH-1)
         // check down/right
-        findWord(grid, word, temp, source, target, r+1, c+1)
+        searchDownRight(grid, word, temp, source, target, r+1, c+1);
+
+    temp = "";
     return;
 }
 // =======================================
@@ -123,4 +130,131 @@ void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source
 void printLocation( string word, int r, int c ){
     // cout << target " found at " << r << "," << c << endl;
     return;
+}
+
+void searchUp ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
+    assert(r>=0);
+    assert(c>=0);
+    assert(r<LENGTH);
+    assert(c<LENGTH);
+
+    if (word == temp)
+        return printLocation(word, r, c);
+    if (source == target && word != temp)
+        temp += source;
+        for (int index = 0; index < word; index++){
+            if (word[index] != temp[index])
+                target = word[index];
+        }
+
+}
+
+void searchDown ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
+    assert(r>=0);
+    assert(c>=0);
+    assert(r<LENGTH);
+    assert(c<LENGTH);
+
+    if (word == temp)
+        return printLocation(word, r, c);
+    if (source == target && word != temp)
+        temp += source;
+        for (int index = 0; index < word; index++){
+            if (word[index] != temp[index])
+                target = word[index];
+        }
+
+}
+
+void searchLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
+    assert(r>=0);
+    assert(c>=0);
+    assert(r<LENGTH);
+    assert(c<LENGTH);
+
+    if (word == temp)
+        return printLocation(word, r, c);
+    if (source == target && word != temp)
+        temp += source;
+        for (int index = 0; index < word; index++){
+            if (word[index] != temp[index])
+                target = word[index];
+        }
+
+}
+
+void searchRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
+    assert(r>=0);
+    assert(c>=0);
+    assert(r<LENGTH);
+    assert(c<LENGTH);
+
+    if (word == temp)
+        return printLocation(word, r, c);
+    if (source == target && word != temp)
+        temp += source;
+        for (int index = 0; index < word; index++){
+            if (word[index] != temp[index])
+                target = word[index];
+        }
+
+}
+
+void searchUpLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
+    assert(r>=0);
+    assert(c>=0);
+    assert(r<LENGTH);
+    assert(c<LENGTH);
+
+    if (word == temp)
+        return printLocation(word, r, c);
+    if (source == target && word != temp)
+        temp += source;
+        for (int index = 0; index < word; index++){
+            if (word[index] != temp[index])
+                target = word[index];
+        }
+
+}
+
+void searchUpRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
+    assert(r>=0);
+    assert(c>=0);
+    assert(r<LENGTH);
+    assert(c<LENGTH);
+
+    if (word == temp)
+        return printLocation(word, r, c);
+    if (source == target && word != temp)
+        temp += source;
+        for (int index = 0; index < word; index++){
+            if (word[index] != temp[index])
+                target = word[index];
+        }
+
+}
+
+void searchDownLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
+    assert(r>=0);
+    assert(c>=0);
+    assert(r<LENGTH);
+    assert(c<LENGTH);
+
+    if (word == temp)
+        return printLocation(word, r, c);
+    if (source == target && word != temp)
+        temp += source;
+        for (int index = 0; index < word; index++){
+            if (word[index] != temp[index])
+                target = word[index];
+        }
+
+}
+
+void searchDownRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
+    assert(r>=0);
+    assert(c>=0);
+    assert(r<LENGTH);
+    assert(c<LENGTH);
+
 }
