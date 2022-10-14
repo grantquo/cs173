@@ -125,35 +125,44 @@ void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source
 
     if (r>0){
         searchUp(grid, word, temp, source, target, r-1, c);
+        temp = "";
+        target = word[0];
 
     }
     if (r<LENGTH-1){
         searchDown(grid, word, temp, source, target, r+1, c);
-
+        temp = "";
+        target = word[0];
     }
     if (c>0){
         searchLeft(grid, word, temp, source, target, r, c-1);
-
+        temp = "";
+        target = word[0];
     }
     if (c<LENGTH-1){
         searchRight(grid, word, temp, source, target, r, c+1);
-
+        temp = "";
+        target = word[0];
     }
     if (r>0 && c>0){
         searchUpLeft(grid, word, temp, source, target, r-1, c-1);
-
+        temp = "";
+        target = word[0];
     }
     if (r>0 && c<LENGTH-1){
         searchUpRight(grid, word, temp, source, target, r-1, c+1);
-
+        temp = "";
+        target = word[0];
     }
     if (r<LENGTH-1 && c>0){
         searchDownLeft(grid, word, temp, source, target, r+1, c-1);
-
+        temp = "";
+        target = word[0];
     }
     if (r<LENGTH-1 && c<LENGTH-1){
         searchDownRight(grid, word, temp, source, target, r+1, c+1);
-
+        temp = "";
+        target = word[0];
     }
 
     // move to next line
@@ -162,6 +171,10 @@ void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source
 
     if (c<LENGTH-1)
         findWord(grid, word, temp, grid[r][c+1], target, r, c+1);
+    else if (r== 13 && c == 13){
+        cout << "Function didn't find the word." << endl;
+        return;
+    }
     else{
         cout << "Moving to nextline..." << endl;
         findWord(grid, word, temp, grid[r+1][0], target, r+1, 0);
