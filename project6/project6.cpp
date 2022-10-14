@@ -16,9 +16,9 @@ const int LENGTH = 14;
 
 void readGrid( char grid[LENGTH][LENGTH] );
 void printGrid ( char grid[LENGTH][LENGTH] );
-void findWord ( char grid[LENGTH][LENGTH], char word, string temp, char source, char target, int r, int c );
+void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
 //bool isConnected( char grid[LENGTH][LENGTH], char source, char target, int r, int c);
-void printLocation (char target, int r, int c);
+void printLocation (string word, int r, int c);
 
 // =======================================
 // main
@@ -39,7 +39,7 @@ int main(  void  ){
 // word search loop
     for (int i=0; i<numWords; i++){
 // getting individual word for searching
-        char word[100];
+        string word;
         cin >> word;
         cout << word << endl;
 // searching
@@ -72,21 +72,22 @@ void printGrid ( char grid[LENGTH][LENGTH] ){
 // =======================================
 // findWord
 // =======================================
-void findWord ( char grid[LENGTH][LENGTH], char word, string temp, char source, char target, int r, int c ){
+void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
     assert(r>=0);
     assert(c>=0);
     assert(r<LENGTH);
     assert(c<LENGTH);
 
 
-
     if (word == temp)
-        // need to change temp to c style string for comparison
         return printLocation(word, r, c);
     // string temp = "";
-    if (source == target)
+    if (source == target && word != temp)
         temp += source;
-        // need to change temp to c style string for comparison
+        for (int index = 0; index < word; index++){
+            if (word[index] != temp[index])
+                target = word[index];
+        }
         // need to compare temp to word to find next word location for target
         // word[] = target;
 
@@ -119,7 +120,7 @@ void findWord ( char grid[LENGTH][LENGTH], char word, string temp, char source, 
 // =======================================
 // printLocation
 // =======================================
-void printLocation( char target, int r, int c ){
+void printLocation( string word, int r, int c ){
     // cout << target " found at " << r << "," << c << endl;
     return;
 }
