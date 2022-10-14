@@ -97,28 +97,20 @@ void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source
         }
 
     if (r>0)
-        // check up
         searchUp(grid, word, temp, source, target, r-1, c);
     if (r<LENGTH-1)
-        // check down
         searchDown(grid, word, temp, source, target, r+1, c);
     if (c>0)
-        // check left
         searchLeft(grid, word, temp, source, target, r, c-1);
     if (c<LENGTH-1)
-        // check right
         searchRight(grid, word, temp, source, target, r, c+1);
     if (r>0 && c>0)
-        // check up/left
         searchUpLeft(grid, word, temp, source, target, r-1, c-1);
     if (r>0 && c<LENGTH-1)
-        // check up/right
         searchUpRight(grid, word, temp, source, target, r-1, c+1);
     if (r<LENGTH-1 && c>0)
-        // check down/left
         searchDownLeft(grid, word, temp, source, target, r+1, c-1);
     if (r<LENGTH-1 && c<LENGTH-1)
-        // check down/right
         searchDownRight(grid, word, temp, source, target, r+1, c+1);
 
     temp = "";
@@ -140,13 +132,17 @@ void searchUp ( char grid[LENGTH][LENGTH], string word, string temp, char source
 
     if (word == temp)
         return printLocation(word, r, c);
-    if (source == target && word != temp)
+    if (source == target && word != temp){
         temp += source;
         for (int index = 0; index < word; index++){
             if (word[index] != temp[index])
                 target = word[index];
         }
+    }
+    if (r>0)
+        searchUp(grid, word, temp, source, target, r-1, c);
 
+    return;
 }
 
 void searchDown ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
@@ -157,13 +153,18 @@ void searchDown ( char grid[LENGTH][LENGTH], string word, string temp, char sour
 
     if (word == temp)
         return printLocation(word, r, c);
-    if (source == target && word != temp)
+    if (source == target && word != temp){
         temp += source;
         for (int index = 0; index < word; index++){
             if (word[index] != temp[index])
                 target = word[index];
         }
+    }
 
+    if (r<LENGTH-1)
+        searchDown(grid, word, temp, source, target, r+1, c);
+
+    return;
 }
 
 void searchLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
@@ -174,13 +175,18 @@ void searchLeft ( char grid[LENGTH][LENGTH], string word, string temp, char sour
 
     if (word == temp)
         return printLocation(word, r, c);
-    if (source == target && word != temp)
+    if (source == target && word != temp){
         temp += source;
         for (int index = 0; index < word; index++){
             if (word[index] != temp[index])
                 target = word[index];
         }
+    }
 
+    if (c>0)
+        searchLeft(grid, word, temp, source, target, r, c-1);
+
+    return;
 }
 
 void searchRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
@@ -191,13 +197,17 @@ void searchRight ( char grid[LENGTH][LENGTH], string word, string temp, char sou
 
     if (word == temp)
         return printLocation(word, r, c);
-    if (source == target && word != temp)
+    if (source == target && word != temp){
         temp += source;
         for (int index = 0; index < word; index++){
             if (word[index] != temp[index])
                 target = word[index];
         }
+    }
 
+    if (c<LENGTH-1)
+        searchRight(grid, word, temp, source, target, r, c+1);
+    return;
 }
 
 void searchUpLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
@@ -208,13 +218,18 @@ void searchUpLeft ( char grid[LENGTH][LENGTH], string word, string temp, char so
 
     if (word == temp)
         return printLocation(word, r, c);
-    if (source == target && word != temp)
+    if (source == target && word != temp){
         temp += source;
         for (int index = 0; index < word; index++){
             if (word[index] != temp[index])
                 target = word[index];
         }
+    }
 
+    if (r>0 && c>0)
+        searchUpLeft(grid, word, temp, source, target, r-1, c-1);
+
+    return;
 }
 
 void searchUpRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
@@ -225,13 +240,17 @@ void searchUpRight ( char grid[LENGTH][LENGTH], string word, string temp, char s
 
     if (word == temp)
         return printLocation(word, r, c);
-    if (source == target && word != temp)
+    if (source == target && word != temp){
         temp += source;
         for (int index = 0; index < word; index++){
             if (word[index] != temp[index])
                 target = word[index];
         }
+    }
 
+    if (r>0 && c<LENGTH-1)
+        searchUpRight(grid, word, temp, source, target, r-1, c+1);
+    return;
 }
 
 void searchDownLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
@@ -242,13 +261,18 @@ void searchDownLeft ( char grid[LENGTH][LENGTH], string word, string temp, char 
 
     if (word == temp)
         return printLocation(word, r, c);
-    if (source == target && word != temp)
+    if (source == target && word != temp){
         temp += source;
         for (int index = 0; index < word; index++){
             if (word[index] != temp[index])
                 target = word[index];
         }
+    }
 
+    if (r<LENGTH-1 && c>0)
+        searchDownLeft(grid, word, temp, source, target, r+1, c-1);
+
+    return;
 }
 
 void searchDownRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
@@ -257,4 +281,18 @@ void searchDownRight ( char grid[LENGTH][LENGTH], string word, string temp, char
     assert(r<LENGTH);
     assert(c<LENGTH);
 
+    if (word == temp)
+        return printLocation(word, r, c);
+    if (source == target && word != temp){
+        temp += source;
+        for (int index = 0; index < word; index++){
+            if (word[index] != temp[index])
+                target = word[index];
+        }
+    }
+
+    if (r<LENGTH-1 && c<LENGTH-1)
+        searchDownRight(grid, word, temp, source, target, r+1, c+1);
+
+    return;
 }
