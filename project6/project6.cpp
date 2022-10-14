@@ -11,13 +11,13 @@
 
 using namespace std;
 
-// function declarations
 const int LENGTH = 14;
+
+// function declarations
 
 void readGrid( char grid[LENGTH][LENGTH] );
 void printGrid ( char grid[LENGTH][LENGTH] );
 void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
-//bool isConnected( char grid[LENGTH][LENGTH], char source, char target, int r, int c);
 void searchUp ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
 void searchDown ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
 void searchLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
@@ -26,7 +26,7 @@ void searchUpLeft ( char grid[LENGTH][LENGTH], string word, string temp, char so
 void searchUpRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
 void searchDownLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
 void searchDownRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
-
+void initialChecks ( char grid[LENGTH][LENGTH], string word, string temp, char source. char target, int r, c );
 
 // =======================================
 // main
@@ -78,17 +78,23 @@ void printGrid ( char grid[LENGTH][LENGTH] ){
     return;
 }
 // =======================================
+// initialChecks
+// =======================================
+void initialChecks ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
+    if (word == temp)
+        return printLocation(word, r, c);
+}
+// =======================================
 // findWord
 // =======================================
 void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
+
     assert(r>=0);
     assert(c>=0);
     assert(r<LENGTH);
     assert(c<LENGTH);
 
-
-    if (word == temp)
-        return printLocation(word, r, c);
+    initialChecks(grid, word, temp, source, target, r, c);
     if (source == target && word != temp)
         temp += source;
         for (int index = 0; index < word; index++){
@@ -123,15 +129,16 @@ void printLocation( string word, int r, int c ){
     // cout << target " found at " << r << "," << c << endl;
     return;
 }
+// =======================================
 
+// =======================================
 void searchUp ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
     assert(r>=0);
     assert(c>=0);
     assert(r<LENGTH);
     assert(c<LENGTH);
 
-    if (word == temp)
-        return printLocation(word, r, c);
+    initialChecks(grid, word, temp, source, target, r, c);
     if (source == target && word != temp){
         temp += source;
         for (int index = 0; index < word; index++){
@@ -144,15 +151,16 @@ void searchUp ( char grid[LENGTH][LENGTH], string word, string temp, char source
 
     return;
 }
+// =======================================
 
+// =======================================
 void searchDown ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
     assert(r>=0);
     assert(c>=0);
     assert(r<LENGTH);
     assert(c<LENGTH);
 
-    if (word == temp)
-        return printLocation(word, r, c);
+    initialChecks(grid, word, temp, source, target, r, c);
     if (source == target && word != temp){
         temp += source;
         for (int index = 0; index < word; index++){
@@ -166,15 +174,16 @@ void searchDown ( char grid[LENGTH][LENGTH], string word, string temp, char sour
 
     return;
 }
+// =======================================
 
+// =======================================
 void searchLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
     assert(r>=0);
     assert(c>=0);
     assert(r<LENGTH);
     assert(c<LENGTH);
 
-    if (word == temp)
-        return printLocation(word, r, c);
+    initialChecks(grid, word, temp, source, target, r, c);
     if (source == target && word != temp){
         temp += source;
         for (int index = 0; index < word; index++){
@@ -188,15 +197,16 @@ void searchLeft ( char grid[LENGTH][LENGTH], string word, string temp, char sour
 
     return;
 }
+// =======================================
 
+// =======================================
 void searchRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
     assert(r>=0);
     assert(c>=0);
     assert(r<LENGTH);
     assert(c<LENGTH);
 
-    if (word == temp)
-        return printLocation(word, r, c);
+    initialChecks(grid, word, temp, source, target, r, c);
     if (source == target && word != temp){
         temp += source;
         for (int index = 0; index < word; index++){
@@ -209,15 +219,16 @@ void searchRight ( char grid[LENGTH][LENGTH], string word, string temp, char sou
         searchRight(grid, word, temp, source, target, r, c+1);
     return;
 }
+// =======================================
 
+// =======================================
 void searchUpLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
     assert(r>=0);
     assert(c>=0);
     assert(r<LENGTH);
     assert(c<LENGTH);
 
-    if (word == temp)
-        return printLocation(word, r, c);
+    initialChecks(grid, word, temp, source, target, r, c);
     if (source == target && word != temp){
         temp += source;
         for (int index = 0; index < word; index++){
@@ -231,15 +242,16 @@ void searchUpLeft ( char grid[LENGTH][LENGTH], string word, string temp, char so
 
     return;
 }
+// =======================================
 
+// =======================================
 void searchUpRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
     assert(r>=0);
     assert(c>=0);
     assert(r<LENGTH);
     assert(c<LENGTH);
 
-    if (word == temp)
-        return printLocation(word, r, c);
+    initialChecks(grid, word, temp, source, target, r, c);
     if (source == target && word != temp){
         temp += source;
         for (int index = 0; index < word; index++){
@@ -252,15 +264,16 @@ void searchUpRight ( char grid[LENGTH][LENGTH], string word, string temp, char s
         searchUpRight(grid, word, temp, source, target, r-1, c+1);
     return;
 }
+// =======================================
 
+// =======================================
 void searchDownLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
     assert(r>=0);
     assert(c>=0);
     assert(r<LENGTH);
     assert(c<LENGTH);
 
-    if (word == temp)
-        return printLocation(word, r, c);
+    initialChecks(grid, word, temp, source, target, r, c);
     if (source == target && word != temp){
         temp += source;
         for (int index = 0; index < word; index++){
@@ -274,15 +287,16 @@ void searchDownLeft ( char grid[LENGTH][LENGTH], string word, string temp, char 
 
     return;
 }
+// =======================================
 
+// =======================================
 void searchDownRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
     assert(r>=0);
     assert(c>=0);
     assert(r<LENGTH);
     assert(c<LENGTH);
 
-    if (word == temp)
-        return printLocation(word, r, c);
+    initialChecks(grid, word, temp, source, target, r, c);
     if (source == target && word != temp){
         temp += source;
         for (int index = 0; index < word; index++){
