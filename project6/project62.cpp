@@ -23,16 +23,16 @@ string printLocation ( string word, int r, int c );
 
 void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
 
-void searchUp ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
-void searchDown ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
-void searchLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
-void searchRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
+string searchUp ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
+string searchDown ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
+string searchLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
+string searchRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
 
-void searchUpLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
-void searchUpRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
+string searchUpLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
+string searchUpRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
 
-void searchDownLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
-void searchDownRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
+string searchDownLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
+string searchDownRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
 
 bool breakerChecks ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
 void regChecks ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c );
@@ -159,6 +159,8 @@ void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source
     assert(r<=LENGTH-1);
     assert(c<=LENGTH-1);
 
+    bool breaker;
+
     cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << "findWord called..." << " @ " << r << " , " << c << endl << endl;
     cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl;
@@ -170,43 +172,36 @@ void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source
         temp = temp + grid[r][c];
         int tempLen = temp.length();
         target = word[tempLen];
+        breaker = false;
+        cout << "<<<<<<<<<<<<<<<<<<<<< Completed first letter!!" << endl;
+        cout << "Handling directions..." << endl;
     }
 
     cout << "Temp is: " << temp << " ///////// " << "Target is: " << target << endl << endl;
 
     // surrounding search
 
-    bool breaker = false;
-
-    breaker = breakerChecks(grid, word, temp, grid[r][c], target, r, c);
-    if (r>0 && breaker == false){
+    while (r>0 && breaker == false){
         searchUp(grid, word, temp, grid[r-1][c], target, r-1, c);
     }
-    breaker = breakerChecks(grid, word, temp, grid[r][c], target, r, c);
     if (r<LENGTH-1 && breaker == false){
         searchDown(grid, word, temp, grid[r+1][c], target, r+1, c);
     }
-    breaker = breakerChecks(grid, word, temp, grid[r][c], target, r, c);
     if (c>0 && breaker == false){
         searchLeft(grid, word, temp, grid[r][c-1], target, r, c-1);
     }
-    breaker = breakerChecks(grid, word, temp, grid[r][c], target, r, c);
     if (c<LENGTH-1 && breaker == false){
         searchRight(grid, word, temp, grid[r][c+1], target, r, c+1);
     }
-    breaker = breakerChecks(grid, word, temp, grid[r][c], target, r, c);
     if (r>0 && c>0 && breaker == false){
         searchUpLeft(grid, word, temp, grid[r-1][c-1], target, r-1, c-1);
     }
-    breaker = breakerChecks(grid, word, temp, grid[r][c], target, r, c);
     if (r>0 && c<LENGTH-1 && breaker == false){
         searchUpRight(grid, word, temp, grid[r-1][c+1], target, r-1, c+1);
     }
-    breaker = breakerChecks(grid, word, temp, grid[r][c], target, r, c);
     if (r<LENGTH-1 && c>0 && breaker == false){
         searchDownLeft(grid, word, temp, grid[r+1][c-1], target, r+1, c-1);
     }
-    breaker = breakerChecks(grid, word, temp, grid[r][c], target, r, c);
     if (r<LENGTH-1 && c<LENGTH-1 && breaker == false){
         searchDownRight(grid, word, temp, grid[r+1][c+1], target, r+1, c+1);
     }
@@ -240,7 +235,7 @@ void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source
 // RETURNS:
 //
 // =======================================
-void searchUp ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
+string searchUp ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
     assert(r>=0);
     assert(c>=0);
     assert(r<=LENGTH-1);
@@ -269,7 +264,7 @@ void searchUp ( char grid[LENGTH][LENGTH], string word, string temp, char source
 // RETURNS:
 //
 // =======================================
-void searchDown ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
+string searchDown ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
     assert(r>=0);
     assert(c>=0);
     assert(r<=LENGTH-1);
@@ -297,7 +292,7 @@ void searchDown ( char grid[LENGTH][LENGTH], string word, string temp, char sour
 // RETURNS:
 //
 // =======================================
-void searchLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
+string searchLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
     assert(r>=0);
     assert(c>=0);
     assert(r<=LENGTH-1);
@@ -324,7 +319,7 @@ void searchLeft ( char grid[LENGTH][LENGTH], string word, string temp, char sour
 // RETURNS:
 //
 // =======================================
-void searchRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
+string searchRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
     assert(r>=0);
     assert(c>=0);
     assert(r<=LENGTH-1);
@@ -351,7 +346,7 @@ void searchRight ( char grid[LENGTH][LENGTH], string word, string temp, char sou
 // RETURNS:
 //
 // =======================================
-void searchUpLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
+string searchUpLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
     assert(r>=0);
     assert(c>=0);
     assert(r<=LENGTH-1);
@@ -379,7 +374,7 @@ void searchUpLeft ( char grid[LENGTH][LENGTH], string word, string temp, char so
 // RETURNS:
 //
 // =======================================
-void searchUpRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
+string searchUpRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
     assert(r>=0);
     assert(c>=0);
     assert(r<=LENGTH-1);
@@ -407,7 +402,7 @@ void searchUpRight ( char grid[LENGTH][LENGTH], string word, string temp, char s
 // RETURNS:
 //
 // =======================================
-void searchDownLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
+string searchDownLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
     assert(r>=0);
     assert(c>=0);
     assert(r<=LENGTH-1);
@@ -435,7 +430,7 @@ void searchDownLeft ( char grid[LENGTH][LENGTH], string word, string temp, char 
 // RETURNS:
 //
 // =======================================
-void searchDownRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
+string searchDownRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c ){
     assert(r>=0);
     assert(c>=0);
     assert(r<=LENGTH-1);
