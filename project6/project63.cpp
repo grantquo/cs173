@@ -23,6 +23,7 @@ string printLocation    ( string word, int r, int c );
 bool mainSearch         ( char grid[LENGTH][LENGTH], char target, int r, int c );
 int boundsCheck         ( char grid[LENGTH][LENGTH], int r, int c );
 void recursor           ( char grid[LENGTH][LENGTH], string word, int r, int c );
+int loopDirection       ( char grid[LENGTH][LENGTH], string word, string temp, int r, int c );
 
 
 // =======================================
@@ -127,7 +128,7 @@ int boundsCheck         ( char grid[LENGTH][LENGTH], int r, int c ){
         return 1;
     else
     {
-        cout << "(Initial state = False) Conditionals did not work!" << endl;
+        cout << "Bound Conditionals did not work!" << endl;
         return 2;
     }
 }
@@ -149,9 +150,9 @@ void recursor           ( char grid[LENGTH][LENGTH], word, r, c ){
     assert(c<=LENGTH-1);
 
     // first letter find
-    bool state;
-    state = mainSearch(grid, word[0], r, c);
-    if (state == false)
+    bool isFound;
+    isFound = mainSearch(grid, word[0], r, c);
+    if (isFound == false)
     {
         int boundState = boundsCheck(grid, r, c);
 
@@ -160,62 +161,10 @@ void recursor           ( char grid[LENGTH][LENGTH], word, r, c ){
         if (boundState == 1)
             recursor(grid, word, r+1, 0);
     }
-    string temp = word[0];
-    int targetInd = 1;
-
-    // directionals
-
-    // up
-    while (r>0 && breakState != false)
-    {
-        state = mainSearch(grid, word[0], r, c);
-    }
-
-    // down
-    while (r<LENGTH-1 && breakState != false)
-    {
-        state = mainSearch(grid, word[0], r, c);
-    }
-
-    // left
-    while (c>0 && breakState != false)
-    {
-        state = mainSearch(grid, word[0], r, c);
-    }
-
-    // right
-    while (r<LENGTH-1 && breakState != false)
-    {
-        state = mainSearch(grid, word[0], r, c);
-    }
-
-    // upleft
-    while (r>0 && c>0 && breakState != false)
-    {
-        state = mainSearch(grid, word[0], r, c);
-    }
-
-    // upright
-    while (r>0 && c<LENGTH-1 && breakState != false)
-    {
-        state = mainSearch(grid, word[0], r, c);
-    }
-
-    // downleft
-    while (r<LENGTH-1 && c>0 && breakState != false)
-    {
-        state = mainSearch(grid, word[0], r, c);
-    }
-
-    // downright
-    while (r<LENGTH-1 && c<LENGTH-1 && breakState != false)
-    {
-        state = mainSearch(grid, word[0], r, c);
-    }
 
     // final check / output
 
-    if (temp = word)
+    if (temp == word && breakState == true)
     {
         // found word
         printLocation(word, r, c);
@@ -234,4 +183,175 @@ void recursor           ( char grid[LENGTH][LENGTH], word, r, c ){
     }
 
     return;
+}
+
+// =======================================
+// loopDirection
+//
+// PARAMS:
+//
+// RETURNS:
+//
+// =======================================
+int loopDirection       ( char grid[LENGTH][LENGTH], string word, string temp, int r, int c ){
+    // directionals
+    // might need r and c to be restated
+    // up
+    temp = word[0];
+    targetInd = 1;
+    breakState = true;
+    while (r>0 && breakState != false)
+    {
+        isFound = mainSearch(grid, word[targetInd], r-1, c);
+        if (isFound == true)
+        {
+            temp = temp+word[targetInd];
+            r = r-1;
+        }
+        else if (isFound == true && temp == word)
+        {
+            return 1;
+        }
+        else
+            breakState = false;
+    }
+    // down
+    temp = word[0];
+    targetInd = 1;
+    breakState = true;
+    while (r<LENGTH-1 && breakState != false)
+    {
+        isFound = mainSearch(grid, word[targetInd], r+1, c);
+        if (isFound == true)
+        {
+            temp = temp + word[targetInd];
+            r = r+1;
+        }
+        else if (isFound == true && temp == word)
+        {
+            return 1;
+        }
+        else
+            breakState = false;
+    }
+    // left
+    temp = word[0];
+    targetInd = 1;
+    breakState = true;
+    while (c>0 && breakState != false)
+    {
+        isFound = mainSearch(grid, word[targetInd], r, c-1);
+        if (isFound == true)
+        {
+            temp = temp + word[targetInd];
+            c = c-1;
+        }
+        else if (isFound == true && temp == word)
+        {
+            return 1;
+        }
+        else
+            breakState = false;
+    }
+    // right
+    temp = word[0];
+    targetInd = 1;
+    breakState = true;
+    while (r<LENGTH-1 && breakState != false)
+    {
+        isFound = mainSearch(grid, word[targetInd], r, c+1);
+        if (isFound == true)
+        {
+            temp = temp + word[targetInd];
+            c = c+1;
+        }
+        else if (isFound == true && temp == word)
+        {
+            return 1;
+        }
+        else
+            breakState = false;
+    }
+    // upleft
+    temp = word[0];
+    targetInd = 1;
+    breakState = true;
+    while (r>0 && c>0 && breakState != false)
+    {
+        isFound = mainSearch(grid, word[targetInd], r-1, c-1);
+        if (isFound == true)
+        {
+            temp = temp + word[targetInd];
+            r = r-1;
+            c = c-1;
+        }
+        else if (isFound == true && temp == word)
+        {
+            return 1;
+        }
+        else
+            breakState = false;
+    }
+    // upright
+    temp = word[0];
+    targetInd = 1;
+    breakState = true;
+    while (r>0 && c<LENGTH-1 && breakState != false)
+    {
+        isFound = mainSearch(grid, word[targetInd], r-1, c+1);
+        if (isFound == true)
+        {
+            temp = temp + word[targetInd];
+            r = r-1;
+            c = c+1
+        }
+        else if (isFound == true && temp == word)
+        {
+            return 1;
+        }
+        else
+            breakState = false;
+    }
+    // downleft
+    temp = word[0];
+    targetInd = 1;
+    breakState = true;
+    while (r<LENGTH-1 && c>0 && breakState != false)
+    {
+        isFound = mainSearch(grid, word[targetInd], r+1, c-1);
+        if (isFound == true)
+        {
+            temp = temp + word[targetInd];
+            r = r+1;
+            c = c-1;
+        }
+        else if (isFound == true && temp == word)
+        {
+            return 1;
+        }
+        else
+            breakState = false;
+    }
+
+    // downright
+    temp = word[0];
+    targetInd = 1;
+    breakState = true;
+    while (r<LENGTH-1 && c<LENGTH-1 && breakState != false)
+    {
+        isFound = mainSearch(grid, word[targetInd], r+1, c+1);
+        if (isFound == true)
+        {
+            temp = temp + word[targetInd];
+            r = r+1;
+            c = c+1;
+        }
+        else if (isFound == true && temp == word)
+        {
+            return 1;
+        }
+        else
+            breakState = false;
+    }
+
 }
