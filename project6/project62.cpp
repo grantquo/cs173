@@ -180,33 +180,73 @@ void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source
     cout << "Temp is: " << temp << " ///////// " << "Target is: " << target << endl << endl;
 
     // surrounding search
+    string tempComparator = "";
 
     while (r>0 && breaker == false){
-        searchUp(grid, word, temp, grid[r-1][c], target, r-1, c);
+        tempComparator = temp;
+        temp = searchUp(grid, word, temp, grid[r-1][c], target, r+1, c);
+        if (tempComparator == temp)
+            break;
+        else if (temp == word)
+            breaker = true;
     }
-    if (r<LENGTH-1 && breaker == false){
-        searchDown(grid, word, temp, grid[r+1][c], target, r+1, c);
+    while (r<LENGTH-1 && breaker == false){
+        tempComparator = temp;
+        temp = searchDown(grid, word, temp, grid[r+1][c], target, r+1, c);
+        if (tempComparator == temp)
+            break;
+        else if (temp == word)
+            breaker = true;
     }
-    if (c>0 && breaker == false){
-        searchLeft(grid, word, temp, grid[r][c-1], target, r, c-1);
+    while (c>0 && breaker == false){
+        tempComparator = temp;
+        temp = searchLeft(grid, word, temp, grid[r][c-1], target, r, c-1);
+        if (tempComparator == temp)
+            break;
+        else if (temp == word)
+            breaker = true;
     }
-    if (c<LENGTH-1 && breaker == false){
-        searchRight(grid, word, temp, grid[r][c+1], target, r, c+1);
+    while (c<LENGTH-1 && breaker == false){
+        tempComparator = temp;
+        temp = searchRight(grid, word, temp, grid[r][c+1], target, r, c+1);
+        if (tempComparator == temp)
+            break;
+        else if (temp == word)
+            breaker = true;
     }
-    if (r>0 && c>0 && breaker == false){
-        searchUpLeft(grid, word, temp, grid[r-1][c-1], target, r-1, c-1);
+    while (r>0 && c>0 && breaker == false){
+        tempComparator = temp;
+        temp = searchUpLeft(grid, word, temp, grid[r-1][c-1], target, r-1, c-1);
+        if (tempComparator == temp)
+            break;
+        else if (temp == word)
+            breaker = true;
     }
-    if (r>0 && c<LENGTH-1 && breaker == false){
-        searchUpRight(grid, word, temp, grid[r-1][c+1], target, r-1, c+1);
+    while (r>0 && c<LENGTH-1 && breaker == false){
+        tempComparator = temp;
+        temp = searchUpRight(grid, word, temp, grid[r-1][c+1], target, r-1, c+1);
+        if (tempComparator == temp)
+            break;
+        else if (temp == word)
+            breaker = true;
     }
-    if (r<LENGTH-1 && c>0 && breaker == false){
-        searchDownLeft(grid, word, temp, grid[r+1][c-1], target, r+1, c-1);
+    while (r<LENGTH-1 && c>0 && breaker == false){
+        tempComparator = temp;
+        temp = searchDownLeft(grid, word, temp, grid[r+1][c-1], target, r+1, c-1);
+        if (tempComparator == temp)
+            break;
+        else if (temp == word)
+            breaker = true;
     }
-    if (r<LENGTH-1 && c<LENGTH-1 && breaker == false){
-        searchDownRight(grid, word, temp, grid[r+1][c+1], target, r+1, c+1);
+    while (r<LENGTH-1 && c<LENGTH-1 && breaker == false){
+        tempComparator = temp;
+        temp = searchDownRight(grid, word, temp, grid[r+1][c+1], target, r+1, c+1);
+        if (tempComparator == temp)
+            break;
+        else if (temp == word)
+            breaker = true;
     }
 
-    breaker = breakerChecks(grid, word, temp, grid[r][c], target, r, c);
     // move to next line
 
     temp = "";
