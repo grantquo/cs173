@@ -23,7 +23,7 @@ string printLocation    ( string word, int r, int c );
 bool mainSearch         ( char grid[LENGTH][LENGTH], char target, int r, int c );
 int boundsCheck         ( char grid[LENGTH][LENGTH], int r, int c );
 void recursor           ( char grid[LENGTH][LENGTH], string word, int r, int c );
-int loopDirection       ( char grid[LENGTH][LENGTH], string word, string temp, int r, int c );
+bool loopDirection       ( char grid[LENGTH][LENGTH], string word, int r, int c );
 
 
 // =======================================
@@ -108,29 +108,40 @@ string printLocation    ( string word, int r, int c ){
 //
 // =======================================
 bool mainSearch         ( char grid[LENGTH][LENGTH], char target, int r, int c ){
-    char source = grid[r][c];
-    if (source == target)
-    {
+    if (grid[r][c] == target)
         return true;
-    }
-    else (source== target)
-    {
+    else if (grid[r][c] != target)
         return false;
-    }
+    return false;
 }
 // =======================================
-
+// boundsCheck
+//
+// PARAMS:
+//
+// RETURNS:
+//
 // =======================================
 int boundsCheck         ( char grid[LENGTH][LENGTH], int r, int c ){
+    assert(r>=0);
+    assert(c>=0);
+    assert(r<=LENGTH-1);
+    assert(c<=LENGTH-1);
+
     if (c<LENGTH-1)
         return 0;
     else if (c==LENGTH-1 && r<LENGTH-1)
         return 1;
-    else
+    else if (r==13 && c==13 )
     {
-        cout << "Bound Conditionals did not work!" << endl;
         return 2;
     }
+    else
+    {
+        cout << "No Bound Conditionals Passed!" << endl;
+        return 3;
+    }
+
 }
 // =======================================
 // recursor
@@ -140,7 +151,7 @@ int boundsCheck         ( char grid[LENGTH][LENGTH], int r, int c ){
 // RETURNS:
 //
 // =======================================
-void recursor           ( char grid[LENGTH][LENGTH], word, r, c ){
+void recursor           ( char grid[LENGTH][LENGTH], string word, int r, int c ){
 
     // assertions
 
@@ -149,37 +160,53 @@ void recursor           ( char grid[LENGTH][LENGTH], word, r, c ){
     assert(r<=LENGTH-1);
     assert(c<=LENGTH-1);
 
+    cout << "Recursive call completed." << endl;
     // first letter find
     bool isFound;
+    int boundState = -1;
+    cout << "Beginning first letter call." << endl;
+    cout << word[0] << " being compared to " << grid[r][c] << endl;
     isFound = mainSearch(grid, word[0], r, c);
+    cout << "First letter check result: " << isFound << endl;
     if (isFound == false)
     {
-        int boundState = boundsCheck(grid, r, c);
-
+        boundState = boundsCheck(grid, r, c);
+        cout << "Checking bounds." << endl;
         if (boundState == 0)
             recursor(grid, word, r, c+1);
-        if (boundState == 1)
+        else if (boundState == 1)
             recursor(grid, word, r+1, 0);
+        else if (boundState == 2)
+            return;
+        else if (boundState == 3)
+            return;
     }
+    else if (isFound == true)
+        cout << "Found " << word[0] << " as first letter." << endl;
+        isFound = loopDirection(grid, word, r, c);
 
     // final check / output
-
-    if (temp == word && breakState == true)
+    boundState = -1;
+    if (isFound == true)
     {
         // found word
         printLocation(word, r, c);
         return;
     }
-
     else
     {
         // move on (when first letter = word[0])
+        cout << "Could not find word in area." << endl;
+        cout << "Checking bounds." << endl;
         int boundState = boundsCheck(grid, r, c);
-
         if (boundState == 0)
             recursor(grid, word, r, c+1);
-        if (boundState == 1)
+        else if (boundState == 1)
             recursor(grid, word, r+1, 0);
+        else if (boundState == 2)
+            return;
+        else if (boundState == 3)
+            return;
     }
 
     return;
@@ -193,13 +220,23 @@ void recursor           ( char grid[LENGTH][LENGTH], word, r, c ){
 // RETURNS:
 //
 // =======================================
-int loopDirection       ( char grid[LENGTH][LENGTH], string word, string temp, int r, int c ){
+bool loopDirection       ( char grid[LENGTH][LENGTH], string word, int r, int c ){
+
+    assert(r>=0);
+    assert(c>=0);
+    assert(r<=LENGTH-1);
+    assert(c<=LENGTH-1);
+
+    int originR = r;
+    int originC = c;
     // directionals
     // might need r and c to be restated
     // up
-    temp = word[0];
-    targetInd = 1;
-    breakState = true;
+    bool isFound;
+    string temp = "";
+    temp = temp + word[0];
+    int targetInd = 1;
+    bool breakState = true;
     while (r>0 && breakState != false)
     {
         isFound = mainSearch(grid, word[targetInd], r-1, c);
@@ -210,13 +247,16 @@ int loopDirection       ( char grid[LENGTH][LENGTH], string word, string temp, i
         }
         else if (isFound == true && temp == word)
         {
-            return 1;
+            return true;
         }
         else
             breakState = false;
     }
+    r = originR;
+    c = originC;
     // down
-    temp = word[0];
+    temp = "";
+    temp = temp + word[0];
     targetInd = 1;
     breakState = true;
     while (r<LENGTH-1 && breakState != false)
@@ -229,13 +269,16 @@ int loopDirection       ( char grid[LENGTH][LENGTH], string word, string temp, i
         }
         else if (isFound == true && temp == word)
         {
-            return 1;
+            return true;
         }
         else
             breakState = false;
     }
+    r = originR;
+    c = originC;
     // left
-    temp = word[0];
+    temp = "";
+    temp = temp + word[0];
     targetInd = 1;
     breakState = true;
     while (c>0 && breakState != false)
@@ -248,13 +291,16 @@ int loopDirection       ( char grid[LENGTH][LENGTH], string word, string temp, i
         }
         else if (isFound == true && temp == word)
         {
-            return 1;
+            return true;
         }
         else
             breakState = false;
     }
+    r = originR;
+    c = originC;
     // right
-    temp = word[0];
+    temp = "";
+    temp = temp + word[0];
     targetInd = 1;
     breakState = true;
     while (r<LENGTH-1 && breakState != false)
@@ -267,13 +313,16 @@ int loopDirection       ( char grid[LENGTH][LENGTH], string word, string temp, i
         }
         else if (isFound == true && temp == word)
         {
-            return 1;
+            return true;
         }
         else
             breakState = false;
     }
+    r = originR;
+    c = originC;
     // upleft
-    temp = word[0];
+    temp = "";
+    temp = temp + word[0];
     targetInd = 1;
     breakState = true;
     while (r>0 && c>0 && breakState != false)
@@ -287,13 +336,16 @@ int loopDirection       ( char grid[LENGTH][LENGTH], string word, string temp, i
         }
         else if (isFound == true && temp == word)
         {
-            return 1;
+            return true;
         }
         else
             breakState = false;
     }
+    r = originR;
+    c = originC;
     // upright
-    temp = word[0];
+    temp = "";
+    temp = temp + word[0];
     targetInd = 1;
     breakState = true;
     while (r>0 && c<LENGTH-1 && breakState != false)
@@ -303,17 +355,20 @@ int loopDirection       ( char grid[LENGTH][LENGTH], string word, string temp, i
         {
             temp = temp + word[targetInd];
             r = r-1;
-            c = c+1
+            c = c+1;
         }
         else if (isFound == true && temp == word)
         {
-            return 1;
+            return true;
         }
         else
             breakState = false;
     }
+    r = originR;
+    c = originC;
     // downleft
-    temp = word[0];
+    temp = "";
+    temp = temp + word[0];
     targetInd = 1;
     breakState = true;
     while (r<LENGTH-1 && c>0 && breakState != false)
@@ -327,14 +382,16 @@ int loopDirection       ( char grid[LENGTH][LENGTH], string word, string temp, i
         }
         else if (isFound == true && temp == word)
         {
-            return 1;
+            return true;
         }
         else
             breakState = false;
     }
-
+    r = originR;
+    c = originC;
     // downright
-    temp = word[0];
+    temp = "";
+    temp = temp + word[0];
     targetInd = 1;
     breakState = true;
     while (r<LENGTH-1 && c<LENGTH-1 && breakState != false)
@@ -348,10 +405,11 @@ int loopDirection       ( char grid[LENGTH][LENGTH], string word, string temp, i
         }
         else if (isFound == true && temp == word)
         {
-            return 1;
+            return true;
         }
         else
             breakState = false;
     }
+    return false;
 
 }
