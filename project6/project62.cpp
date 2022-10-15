@@ -125,9 +125,7 @@ string breakerChecks(string word, string temp, int breaker){
 //
 // =======================================
 string printLocation( string word, int r, int c ){
-    cout << " !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
     cout << word << " found at " << r << "," << c << "!" << endl;
-    cout << " !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
     return "found";
 }
 
@@ -150,7 +148,6 @@ void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source
 
     int breaker = 2;
 
-    cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << "findWord called..." << " @ " << r << " , " << c << endl;
     // cout << "You are searching for: " << word << "///" << endl;
     // breakerChecks(grid, word, temp, grid[r][c], target, r, c);
@@ -161,7 +158,7 @@ void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source
         int tempLen = temp.length();
         target = word[tempLen];
         breaker = 0;
-        cout << "<<<<<<<<<<<<<<<<<<<<< Completed first letter!!" << endl;
+        cout << "Completed first letter!!" << endl;
         cout << "Handling directions..." << endl;
     }
 
@@ -172,8 +169,6 @@ void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source
 
     // UP
     while (r>0 && breaker == 0){
-        cout << "(WHILE LOOP) TEMP ==== " << temp << endl;
-        cout << "(WHILE LOOP) TARGET ===== " << target << endl;
         tempComparator = temp;
         temp = searchUp(word, temp, grid[r-1][c], target, r-1, c);
         if (tempComparator == temp)
@@ -192,8 +187,6 @@ void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source
 
     // DOWN
     while (r<LENGTH-1 && breaker == 0){
-        cout << "(WHILE LOOP) TEMP ==== " << temp << endl;
-        cout << "(WHILE LOOP) TARGET ===== " << target << endl;
         tempComparator = temp;
         temp = searchDown(word, temp, grid[r+1][c], target, r+1, c);
         if (tempComparator == temp)
@@ -212,8 +205,6 @@ void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source
 
     // LEFT
     while (c>0 && breaker == 0){
-        cout << "(WHILE LOOP) TEMP ==== " << temp << endl;
-        cout << "(WHILE LOOP) TARGET ===== " << target << endl;
         tempComparator = temp;
         temp = searchLeft(word, temp, grid[r][c-1], target, r, c-1);
         if (tempComparator == temp)
@@ -232,8 +223,6 @@ void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source
 
     // RIGHT
     while (c<LENGTH-1 && breaker == 0){
-        cout << "(WHILE LOOP) TEMP ==== " << temp << endl;
-        cout << "(WHILE LOOP) TARGET ===== " << target << endl;
         tempComparator = temp;
         temp = searchRight(word, temp, grid[r][c+1], target, r, c+1);
         if (tempComparator == temp)
@@ -252,8 +241,6 @@ void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source
 
     // UP LEFT
     while (r>0 && c>0 && breaker == 0){
-        cout << "(WHILE LOOP) TEMP ==== " << temp << endl;
-        cout << "(WHILE LOOP) TARGET ===== " << target << endl;
         tempComparator = temp;
         temp = searchUpLeft(word, temp, grid[r-1][c-1], target, r-1, c-1);
         if (tempComparator == temp)
@@ -274,8 +261,6 @@ void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source
 
     // UP RIGHT
     while (r>0 && c<LENGTH-1 && breaker == 0){
-        cout << "(WHILE LOOP) TEMP ==== " << temp << endl;
-        cout << "(WHILE LOOP) TARGET ===== " << target << endl;
         tempComparator = temp;
         temp = searchUpRight(word, temp, grid[r-1][c+1], target, r-1, c+1);
         if (tempComparator == temp)
@@ -296,8 +281,6 @@ void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source
 
     // DOWN LEFT
     while (r<LENGTH-1 && c>0 && breaker == 0){
-        cout << "(WHILE LOOP) TEMP ==== " << temp << endl;
-        cout << "(WHILE LOOP) TARGET ===== " << target << endl;
         tempComparator = temp;
         temp = searchDownLeft(word, temp, grid[r+1][c-1], target, r+1, c-1);
         if (tempComparator == temp)
@@ -318,8 +301,6 @@ void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source
 
     // DOWN RIGHT
     while (r<LENGTH-1 && c<LENGTH-1 && breaker == 0){
-        cout << "(WHILE LOOP) TEMP ==== " << temp << endl;
-        cout << "(WHILE LOOP) TARGET ===== " << target << endl;
         tempComparator = temp;
         temp = searchDownRight(word, temp, grid[r+1][c+1], target, r+1, c+1);
         if (tempComparator == temp)
@@ -359,15 +340,13 @@ void findWord ( char grid[LENGTH][LENGTH], string word, string temp, char source
         findWord(grid, word, temp, grid[r+1][0], target, r+1, 0);
     }
 
-
-
     // do not leave bounds
     else if (r== 13 && c == 13){
         cout << "Function didn't find the word." << endl;
         return;
     }
 
-    cout << " %%%%%%%%%%%%%%%%%%%%%%%% Failure movement if conditions failed to move marker." << endl;
+    cout << "Failure movement if conditions failed to move marker." << endl;
 
     return;
 }
@@ -387,7 +366,7 @@ string searchUp ( string word, string temp, char source, char target, int r, int
 
     if (source == target){
         temp = temp + source;
-        cout << "%%%%%%%%%%%%%% Completed comparison! Adding character to temp!" << endl;
+        cout << "Completed comparison! Adding character to temp!" << endl;
     }
     return temp;
 
@@ -408,7 +387,7 @@ string searchDown ( string word, string temp, char source, char target, int r, i
 
     if (source == target){
         temp = temp + source;
-        cout << "%%%%%%%%%%%%%% Completed comparison! Adding character to temp!" << endl;
+        cout << "Completed comparison! Adding character to temp!" << endl;
     }
     return temp;
 
@@ -430,7 +409,7 @@ string searchLeft ( string word, string temp, char source, char target, int r, i
 
     if (source == target){
         temp = temp + source;
-        cout << "%%%%%%%%%%%%%% Completed comparison! Adding character to temp!" << endl;
+        cout << "Completed comparison! Adding character to temp!" << endl;
     }
     return temp;
 
@@ -451,7 +430,7 @@ string searchRight ( string word, string temp, char source, char target, int r, 
 
     if (source == target){
         temp = temp + source;
-        cout << "%%%%%%%%%%%%%% Completed comparison! Adding character to temp!" << endl;
+        cout << "Completed comparison! Adding character to temp!" << endl;
     }
     return temp;
 
@@ -472,7 +451,7 @@ string searchUpLeft ( string word, string temp, char source, char target, int r,
 
     if (source == target){
         temp = temp + source;
-        cout << "%%%%%%%%%%%%%% Completed comparison! Adding character to temp!" << endl;
+        cout << "Completed comparison! Adding character to temp!" << endl;
     }
     return temp;
 
@@ -494,7 +473,7 @@ string searchUpRight ( string word, string temp, char source, char target, int r
 
     if (source == target){
         temp = temp + source;
-        cout << "%%%%%%%%%%%%%% Completed comparison! Adding character to temp!" << endl;
+        cout << "Completed comparison! Adding character to temp!" << endl;
     }
     return temp;
 
@@ -516,7 +495,7 @@ string searchDownLeft ( string word, string temp, char source, char target, int 
 
     if (source == target){
         temp = temp + source;
-        cout << "%%%%%%%%%%%%%% Completed comparison! Adding character to temp!" << endl;
+        cout << "Completed comparison! Adding character to temp!" << endl;
     }
     return temp;
 
@@ -540,7 +519,7 @@ string searchDownRight ( string word, string temp, char source, char target, int
 
     if (source == target){
         temp = temp + source;
-        cout << "%%%%%%%%%%%%%% Completed comparison! Adding character to temp!" << endl;
+        cout << "Completed comparison! Adding character to temp!" << endl;
     }
     return temp;
 
