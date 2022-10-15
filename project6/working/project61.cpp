@@ -14,25 +14,26 @@
 using namespace std;
 
 const int LENGTH = 14;
+bool foundState = false;
 
 // function declarations
 
-void readGrid( char grid[LENGTH][LENGTH] );
-void printGrid ( char grid[LENGTH][LENGTH] );
+void readGrid       ( char grid[LENGTH][LENGTH] );
+void printGrid      ( char grid[LENGTH][LENGTH] );
+//bool isFound        ( string word, int origin[2], string direction );
+void findWord       ( char grid[LENGTH][LENGTH], string word, char source, char target, int r, int c );
 
-void findWord ( char grid[LENGTH][LENGTH], string word, char source, char target, int r, int c);
+void searchUp        ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2] );
+void searchDown      ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2] );
 
-int searchUp ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2] );
-int searchDown ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2] );
+void searchLeft      ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2] );
+void searchRight     ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2] );
 
-int searchLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2] );
-int searchRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2] );
+void searchUpLeft    ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2] );
+void searchUpRight   ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2] );
 
-int searchUpLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2] );
-int searchUpRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2] );
-
-int searchDownLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2] );
-int searchDownRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2] );
+void searchDownLeft  ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2] );
+void searchDownRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2] );
 
 // =======================================
 // main
@@ -70,7 +71,7 @@ int main(  void  ){
 // RETURNS:
 //      nothing, but uses stdin to read in the grid
 // =======================================
-void readGrid( char grid[LENGTH][LENGTH] ){
+void readGrid       ( char grid[LENGTH][LENGTH] ){
     for (int i=0; i < LENGTH; i++)
         for (int j=0; j < LENGTH; j++)
             cin >> grid[i][j];
@@ -84,7 +85,7 @@ void readGrid( char grid[LENGTH][LENGTH] ){
 // RETURNS:
 //      nothing, but uses stdout to output the grid
 // =======================================
-void printGrid ( char grid[LENGTH][LENGTH] ){
+void printGrid      ( char grid[LENGTH][LENGTH] ){
     for (int i=0; i < LENGTH; i++){
         for (int j=0; j < LENGTH; j++){
             cout << grid[i][j] << " ";
@@ -93,6 +94,15 @@ void printGrid ( char grid[LENGTH][LENGTH] ){
     }
     return;
 }
+
+// bool isFound        ( string word, int origin[2], string direction, bool state ){
+//     if (state == true){
+//         cout << word << " found at " << origin[0] << "," << origin[1] << direction <<  endl;
+//         return true;
+//     }
+//     return false;
+//
+// }
 // =======================================
 // findWord
 //
@@ -101,7 +111,7 @@ void printGrid ( char grid[LENGTH][LENGTH] ){
 // RETURNS:
 //
 // =======================================
-void findWord ( char grid[LENGTH][LENGTH], string word, char source, char target, int r, int c){
+void findWord       ( char grid[LENGTH][LENGTH], string word, char source, char target, int r, int c){
 
     assert(r>=0);
     assert(c>=0);
@@ -124,42 +134,51 @@ void findWord ( char grid[LENGTH][LENGTH], string word, char source, char target
     }
 
     int origin[2] = {r, c};
-    int dirState;
+    foundState = false;
     //cout << "Temp is: " << temp << " ///////// " << "Target is: " << target << endl << endl;
 
     // surrounding search
     if (temp != ""){
-        if (r>0){
-            dirState = searchUp(grid, word, temp, grid[r-1][c], target, r-1, c, origin);
+
+        if (r>0 && foundState == false){
+            searchUp(grid, word, temp, grid[r-1][c], target, r-1, c, origin);
         }
-        if (r<LENGTH-1){
-            dirState = searchDown(grid, word, temp, grid[r+1][c], target, r+1, c, origin);
+
+        if (r<LENGTH-1 && foundState == false){
+            searchDown(grid, word, temp, grid[r+1][c], target, r+1, c, origin);
         }
-        if (c>0 ){
-            dirState = searchLeft(grid, word, temp, grid[r][c-1], target, r, c-1, origin);
+
+        if (c>0 && foundState == false){
+            searchLeft(grid, word, temp, grid[r][c-1], target, r, c-1, origin);
         }
-        if (c<LENGTH-1 ){
-            dirState = searchRight(grid, word, temp, grid[r][c+1], target, r, c+1, origin);
+
+        if (c<LENGTH-1 && foundState == false){
+            searchRight(grid, word, temp, grid[r][c+1], target, r, c+1, origin);
         }
-        if (r>0 && c>0 ){
-            dirState = searchUpLeft(grid, word, temp, grid[r-1][c-1], target, r-1, c-1, origin);
+
+        if (r>0 && c>0 && foundState == false){
+            searchUpLeft(grid, word, temp, grid[r-1][c-1], target, r-1, c-1, origin);
         }
-        if (r>0 && c<LENGTH-1 ){
-            dirState = searchUpRight(grid, word, temp, grid[r-1][c+1], target, r-1, c+1, origin);
+
+        if (r>0 && c<LENGTH-1 && foundState == false){
+            searchUpRight(grid, word, temp, grid[r-1][c+1], target, r-1, c+1, origin);
         }
-        if (r<LENGTH-1 && c>0 ){
-            dirState = searchDownLeft(grid, word, temp, grid[r+1][c-1], target, r+1, c-1, origin);
+
+        if (r<LENGTH-1 && c>0 && foundState == false){
+            searchDownLeft(grid, word, temp, grid[r+1][c-1], target, r+1, c-1, origin);
         }
-        if (r<LENGTH-1 && c<LENGTH-1){
-            dirState = searchDownRight(grid, word, temp, grid[r+1][c+1], target, r+1, c+1, origin);
+        if (r<LENGTH-1 && c<LENGTH-1 && foundState == false){
+            searchDownRight(grid, word, temp, grid[r+1][c+1], target, r+1, c+1, origin);
         }
     }
     // move to next line
+    if (foundState == true)
+        return;
 
     if (c<LENGTH-1){
         target = word[0];
         findWord(grid, word, grid[r][c+1], target, r, c+1);}
-    else if (r== 13 && c == 13 ){
+    else if (r== 13 && c == 13){
         cout << "The word " << word << " could not be found." << endl;
         return;
     }
@@ -178,7 +197,7 @@ void findWord ( char grid[LENGTH][LENGTH], string word, char source, char target
 // RETURNS:
 //
 // =======================================
-int searchUp ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2] ){
+void searchUp        ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2] ){
     assert(r>=0);
     assert(c>=0);
     assert(r<=LENGTH-1);
@@ -193,8 +212,9 @@ int searchUp ( char grid[LENGTH][LENGTH], string word, string temp, char source,
         y = c;
         // cout << endl << endl << "@@@@@@@@@@@@@@@@" << endl;
         cout << word << " found at " << origin[0] << "," << origin[1] << " going up." <<  endl;
+        foundState = true;
         // cout << endl << endl << "@@@@@@@@@@@@@@@@" << endl;
-        return 0;
+        return;
     }
     else if (r>0 && source == target && temp != word){
         temp = temp + grid[r][c];
@@ -202,7 +222,7 @@ int searchUp ( char grid[LENGTH][LENGTH], string word, string temp, char source,
         target = word[tempLen];
         searchUp(grid, word, temp, grid[r-1][c], target, r-1, c, origin);
     }
-    return -1;
+    return;
 }
 // =======================================
 // searchDown
@@ -212,7 +232,7 @@ int searchUp ( char grid[LENGTH][LENGTH], string word, string temp, char source,
 // RETURNS:
 //
 // =======================================
-int searchDown ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2] ){
+void searchDown      ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2] ){
     assert(r>=0);
     assert(c>=0);
     assert(r<=LENGTH-1);
@@ -227,8 +247,9 @@ int searchDown ( char grid[LENGTH][LENGTH], string word, string temp, char sourc
         y = c;
         // cout << endl << endl << "@@@@@@@@@@@@@@@@" << endl;
         cout << word << " found at " << origin[0] << "," << origin[1] << " going down." <<  endl;
+        foundState = true;
         // cout << endl << endl << "@@@@@@@@@@@@@@@@" << endl;
-        return 0;
+        return;
     }
     else if (r<LENGTH-1 && source == target && temp != word){
         temp = temp + grid[r][c];
@@ -236,7 +257,7 @@ int searchDown ( char grid[LENGTH][LENGTH], string word, string temp, char sourc
         target = word[tempLen];
         searchDown(grid, word, temp, grid[r+1][c], target, r+1, c, origin);
     }
-    return -1;
+    return;
 }
 // =======================================
 // searchLeft
@@ -246,7 +267,7 @@ int searchDown ( char grid[LENGTH][LENGTH], string word, string temp, char sourc
 // RETURNS:
 //
 // =======================================
-int searchLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2] ){
+void searchLeft      ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2] ){
     assert(r>=0);
     assert(c>=0);
     assert(r<=LENGTH-1);
@@ -262,9 +283,10 @@ int searchLeft ( char grid[LENGTH][LENGTH], string word, string temp, char sourc
         y = c + word.length();
         // cout << endl << "@@@@@@@@@@@@@@@@" << endl << endl;
         cout << word << " found at " << origin[0] << "," << origin[1] << " going left." <<  endl;
+        foundState = true;
         // cout << endl << endl << "@@@@@@@@@@@@@@@@" << endl;
 
-        return 0;
+        return;
     }
     else if (c>0 && source == target && temp != word){
         temp = temp + grid[r][c];
@@ -272,7 +294,7 @@ int searchLeft ( char grid[LENGTH][LENGTH], string word, string temp, char sourc
         target = word[tempLen];
         searchLeft(grid, word, temp, grid[r][c-1], target, r, c-1, origin);
     }
-    return -1;
+    return;
 }
 // =======================================
 // searchRight
@@ -282,7 +304,7 @@ int searchLeft ( char grid[LENGTH][LENGTH], string word, string temp, char sourc
 // RETURNS:
 //
 // =======================================
-int searchRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2]){
+void searchRight     ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2]){
     assert(r>=0);
     assert(c>=0);
     assert(r<=LENGTH-1);
@@ -297,9 +319,10 @@ int searchRight ( char grid[LENGTH][LENGTH], string word, string temp, char sour
         y = c - word.length();
         // cout << endl << endl << "@@@@@@@@@@@@@@@@" << endl;
         cout << word << " found at " << origin[0] << "," << origin[1] << " going right." <<  endl;
+        foundState = true;
         // cout << endl << endl << "@@@@@@@@@@@@@@@@" << endl;
 
-        return 0;
+        return;
     }
     else if (c<LENGTH-1 && source == target && temp != word){
         temp = temp + grid[r][c];
@@ -307,7 +330,7 @@ int searchRight ( char grid[LENGTH][LENGTH], string word, string temp, char sour
         target = word[tempLen];
         searchRight(grid, word, temp, grid[r][c+1], target, r, c+1, origin);
     }
-    return -1;
+    return;
 }
 // =======================================
 // searchUpLeft
@@ -317,7 +340,7 @@ int searchRight ( char grid[LENGTH][LENGTH], string word, string temp, char sour
 // RETURNS:
 //
 // =======================================
-int searchUpLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2]){
+void searchUpLeft    ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2]){
     assert(r>=0);
     assert(c>=0);
     assert(r<=LENGTH-1);
@@ -332,9 +355,10 @@ int searchUpLeft ( char grid[LENGTH][LENGTH], string word, string temp, char sou
         y = c - word.length();
         // cout << endl << endl << "@@@@@@@@@@@@@@@@" << endl;
         cout << word << " found at " << origin[0] << "," << origin[1] << " going up left." <<  endl;
+        foundState = true;
         // cout << endl << endl << "@@@@@@@@@@@@@@@@" << endl;
 
-        return 0;
+        return;
     }
     else if (r>0 && c>0 && source == target && temp != word){
         temp = temp + grid[r][c];
@@ -342,7 +366,7 @@ int searchUpLeft ( char grid[LENGTH][LENGTH], string word, string temp, char sou
         target = word[tempLen];
         searchUpLeft(grid, word, temp, grid[r-1][c-1], target, r-1, c-1, origin);
     }
-    return -1;
+    return;
 }
 // =======================================
 // searchUpRight
@@ -352,7 +376,7 @@ int searchUpLeft ( char grid[LENGTH][LENGTH], string word, string temp, char sou
 // RETURNS:
 //
 // =======================================
-int searchUpRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2]){
+void searchUpRight   ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2]){
     assert(r>=0);
     assert(c>=0);
     assert(r<=LENGTH-1);
@@ -368,9 +392,10 @@ int searchUpRight ( char grid[LENGTH][LENGTH], string word, string temp, char so
         y = c - word.length();
         // cout << endl << endl << "@@@@@@@@@@@@@@@@" << endl;
         cout << word << " found at " << origin[0] << "," << origin[1] << " going up right." <<  endl;
+        foundState = true;
         // cout << endl << endl << "@@@@@@@@@@@@@@@@" << endl;
 
-        return 0;
+        return;
     }
     else if (r>0 && c<LENGTH-1 && source == target && temp != word){
         temp = temp + grid[r][c];
@@ -378,7 +403,7 @@ int searchUpRight ( char grid[LENGTH][LENGTH], string word, string temp, char so
         target = word[tempLen];
         searchUpRight(grid, word, temp, grid[r-1][c+1], target, r-1, c+1, origin);
     }
-    return -1;
+    return;
 }
 
 
@@ -390,7 +415,7 @@ int searchUpRight ( char grid[LENGTH][LENGTH], string word, string temp, char so
 // RETURNS:
 //
 // =======================================
-int searchDownLeft ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2]){
+void searchDownLeft  ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2]){
     assert(r>=0);
     assert(c>=0);
     assert(r<=LENGTH-1);
@@ -405,9 +430,10 @@ int searchDownLeft ( char grid[LENGTH][LENGTH], string word, string temp, char s
         y = c + word.length();
         // cout << endl << endl << "@@@@@@@@@@@@@@@@" << endl;
         cout << word << " found at " << origin[0] << "," << origin[1] << " going down left." <<  endl;
+        foundState = true;
         // cout << endl << endl << "@@@@@@@@@@@@@@@@" << endl;
 
-        return 0;
+        return;
     }
     else if (r<LENGTH-1 && c>0 && source == target && temp != word){
         temp = temp + grid[r][c];
@@ -415,7 +441,7 @@ int searchDownLeft ( char grid[LENGTH][LENGTH], string word, string temp, char s
         target = word[tempLen];
         searchDownLeft(grid, word, temp, grid[r+1][c-1], target, r+1, c-1, origin);
     }
-    return -1;
+    return;
 }
 
 
@@ -427,7 +453,7 @@ int searchDownLeft ( char grid[LENGTH][LENGTH], string word, string temp, char s
 // RETURNS:
 //
 // =======================================
-int searchDownRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2]){
+void searchDownRight ( char grid[LENGTH][LENGTH], string word, string temp, char source, char target, int r, int c, int origin[2]){
     assert(r>=0);
     assert(c>=0);
     assert(r<=LENGTH-1);
@@ -442,8 +468,9 @@ int searchDownRight ( char grid[LENGTH][LENGTH], string word, string temp, char 
         y = c - word.length();
         // cout << endl << endl << "@@@@@@@@@@@@@@@@" << endl;
         cout << word << " found at " << origin[0] << "," << origin[1] << " going down right." <<  endl << endl ;
+        foundState = true;
         // cout << endl << endl << "@@@@@@@@@@@@@@@@" << endl;
-        return 0;
+        return;
     }
     else if (r<LENGTH-1 && c<LENGTH-1 && source == target && temp != word){
         temp = temp + grid[r][c];
@@ -451,5 +478,5 @@ int searchDownRight ( char grid[LENGTH][LENGTH], string word, string temp, char 
         target = word[tempLen];
         searchDownRight(grid, word, temp, grid[r+1][c+1], target, r+1, c+1, origin);
     }
-    return -1;
+    return;
 }
