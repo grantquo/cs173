@@ -5,13 +5,15 @@
 // coordinates of the first letter as the answer.
 // =======================================
 
+// inclusions
+
 #include <iostream>
-#include <iomanip>
 #include <cassert>
-#include <fstream>
 #include <string>
 
 using namespace std;
+
+// globals
 
 const int LENGTH = 14;
 bool foundState = false;
@@ -20,7 +22,7 @@ bool foundState = false;
 
 void readGrid       ( char grid[LENGTH][LENGTH] );
 void printGrid      ( char grid[LENGTH][LENGTH] );
-//bool isFound        ( string word, int origin[2], string direction );
+
 void findWord       ( char grid[LENGTH][LENGTH], string word, char target, int r, int c );
 
 void searchUp        ( char grid[LENGTH][LENGTH], string word, string temp, char target, int r, int c, int origin[2] );
@@ -37,6 +39,12 @@ void searchDownRight ( char grid[LENGTH][LENGTH], string word, string temp, char
 
 // =======================================
 // main
+//
+// Conducts the program and calls the main search function. The main function
+// takes a grid inputted by stdin and calls the read and print functions, then
+// grabbs the number of words in the puzzle. It takes this number called
+// numWords and iterates whatever is equal to it. Each loop calls the search
+// function, and the search function handles the terminal outputs.
 // =======================================
 int main(  void  ){
 
@@ -96,11 +104,22 @@ void printGrid      ( char grid[LENGTH][LENGTH] ){
 }
 // =======================================
 // findWord
-//
+// findWord is the main search function. This function takes in a starting
+// pair of coordinates called by main, along with the first letter of the word
+// it is searching for. If it finds the first letter (assigned to target), it
+// will call directional functions to check the surrounding characters and find
+// the rest of the word. If they don't find anything, the function moves through
+// the puzzle repeating the process until it reaches the end, or finds the word.
 // PARAMS:
-//
+//      grid[LENGTH][LENGTH] - word puzzle with its maximum length bounds
+//      word - string parameter that holds the word we are searching for
+//      target - single character meant to hold a character in word we are
+//      searching for in the grid.
+//      r - integer for the row coordinates
+//      c - integer for the column coordinates
 // RETURNS:
-//
+//      Nothing, but outputs a "not found" string for if a word isn't found in
+//      the puzzle.
 // =======================================
 void findWord       ( char grid[LENGTH][LENGTH], string word, char target, int r, int c){
 
@@ -173,13 +192,39 @@ void findWord       ( char grid[LENGTH][LENGTH], string word, char target, int r
     }
     return;
 }
+
+// =======================================
+// Recursive Directional Functions
+//
+// These functions are recursive functions that take a starting coordinate pair,
+// (r,c) and move through the grid in their defined direction. As the functions
+// find letters that are in the order of the word we are searching for, it adds
+// the characters to a spare string that is constantly compared to word.
+// If the two match, then the original coordinate pair the function was called
+// with is outputted with the word, displaying an answer key to where the word
+// is in the grid.
+// If the search function finds any character in its path that doesn't match
+// the letter target is set to, it stops everything through return.
+//
+// All of the functions are the same except for the direction they go in
+// relation to the grid.
+
+// PARAMS:
+//      grid[LENGTH][LENGTH] - word puzzle with its maximum length bounds
+//      word - string parameter that holds the word we are searching for
+//      temp - string that tracks the progress of the characters found
+//      target - single character meant to hold a character in word we are
+//      searching for in the grid.
+//      r - integer for the row coordinates
+//      c - integer for the column coordinates
+// RETURNS:
+//      Nothing, but if the function finds the word through its searching
+//      process, outputs the word, its coordinates of the first letter, and
+//      the direction it is going from those coordinates.
+// =======================================
+
 // =======================================
 // searchUp
-//
-// PARAMS:
-//
-// RETURNS:
-//
 // =======================================
 void searchUp        ( char grid[LENGTH][LENGTH], string word, string temp,  char target, int r, int c, int origin[2] ){
     assert(r>=0);
@@ -208,13 +253,9 @@ void searchUp        ( char grid[LENGTH][LENGTH], string word, string temp,  cha
     }
     return;
 }
+
 // =======================================
 // searchDown
-//
-// PARAMS:
-//
-// RETURNS:
-//
 // =======================================
 void searchDown      ( char grid[LENGTH][LENGTH], string word, string temp,  char target, int r, int c, int origin[2] ){
     assert(r>=0);
@@ -243,13 +284,9 @@ void searchDown      ( char grid[LENGTH][LENGTH], string word, string temp,  cha
     }
     return;
 }
+
 // =======================================
 // searchLeft
-//
-// PARAMS:
-//
-// RETURNS:
-//
 // =======================================
 void searchLeft      ( char grid[LENGTH][LENGTH], string word, string temp,  char target, int r, int c, int origin[2] ){
     assert(r>=0);
@@ -279,13 +316,9 @@ void searchLeft      ( char grid[LENGTH][LENGTH], string word, string temp,  cha
     }
     return;
 }
+
 // =======================================
 // searchRight
-//
-// PARAMS:
-//
-// RETURNS:
-//
 // =======================================
 void searchRight     ( char grid[LENGTH][LENGTH], string word, string temp,  char target, int r, int c, int origin[2]){
     assert(r>=0);
@@ -314,13 +347,9 @@ void searchRight     ( char grid[LENGTH][LENGTH], string word, string temp,  cha
     }
     return;
 }
+
 // =======================================
 // searchUpLeft
-//
-// PARAMS:
-//
-// RETURNS:
-//
 // =======================================
 void searchUpLeft    ( char grid[LENGTH][LENGTH], string word, string temp,  char target, int r, int c, int origin[2]){
     assert(r>=0);
@@ -349,13 +378,9 @@ void searchUpLeft    ( char grid[LENGTH][LENGTH], string word, string temp,  cha
     }
     return;
 }
+
 // =======================================
 // searchUpRight
-//
-// PARAMS:
-//
-// RETURNS:
-//
 // =======================================
 void searchUpRight   ( char grid[LENGTH][LENGTH], string word, string temp,  char target, int r, int c, int origin[2]){
     assert(r>=0);
@@ -385,14 +410,8 @@ void searchUpRight   ( char grid[LENGTH][LENGTH], string word, string temp,  cha
     return;
 }
 
-
 // =======================================
 // searchDownLeft
-//
-// PARAMS:
-//
-// RETURNS:
-//
 // =======================================
 void searchDownLeft  ( char grid[LENGTH][LENGTH], string word, string temp,  char target, int r, int c, int origin[2]){
     assert(r>=0);
@@ -422,14 +441,8 @@ void searchDownLeft  ( char grid[LENGTH][LENGTH], string word, string temp,  cha
     return;
 }
 
-
 // =======================================
 // searchDownRight
-//
-// PARAMS:
-//
-// RETURNS:
-//
 // =======================================
 void searchDownRight ( char grid[LENGTH][LENGTH], string word, string temp,  char target, int r, int c, int origin[2]){
     assert(r>=0);
