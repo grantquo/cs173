@@ -20,7 +20,7 @@
 //		Nothing, but sets the values needed for to_string to
 //		0 for both the real and imaginary number.
 //==========================================================
-		Complex::Complex ( void )
+				Complex::Complex ( void )
 {
 	real = 0;
 	imag = 0;
@@ -38,16 +38,16 @@
 //		Nothing, but sets the right a and b value to the a and b
 //		that will be in the complex number "a+bi".
 //==========================================================
-		Complex::Complex ( float a, float b)
+				Complex::Complex ( float a, float b)
 {
 	real = a;
 	imag = b;
 }
 
 //==========================================================
-
+// default referential
 //==========================================================
-		Complex::Complex ( const Complex &c )
+				Complex::Complex ( const Complex &c )
 {
 	real = c.real;
 	imag = c.imag;
@@ -62,7 +62,7 @@
 // 		a and b will be with fixed decimal length up to
 // 		two places.
 //==========================================================
-string 	Complex::to_string ( void ) const
+string 			Complex::to_string ( void ) const
 {
 	stringstream stream;
 	stream << fixed << setprecision(3) << real;
@@ -75,9 +75,9 @@ string 	Complex::to_string ( void ) const
 }
 
 //==========================================================
-
+// basic add
 //==========================================================
-Complex		Complex::add ( const Complex c ) const
+Complex			Complex::add ( const Complex c ) const
 {
  	float addend;
 	addend = c.real + real;
@@ -86,14 +86,69 @@ Complex		Complex::add ( const Complex c ) const
 //==========================================================
 
 //==========================================================
-Complex		Complex::add ( float a ) const
+// Complex		Complex::add ( float a ) const
+// {
+// 	Complex processed = Complex(a, 0);
+// 	float addend;
+// 	addend = processed.real + real;
+// 	return Complex(addend, imag);
+// }
+
+//==========================================================
+
+//==========================================================
+Complex 		Complex::add ( int a ) const
 {
 	float addend;
 	addend = a + real;
 	return Complex(addend, imag);
 }
 
+//==========================================================
 
+//==========================================================
+// float 		Complex::abs ( void ) const
+// {
+//
+// }
+
+//==========================================================
+// setReal
+//==========================================================
+// void 			Complex::setReal ( float a )
+// {
+// 	Complex(a, imag);
+// 	return;
+// }
+// //==========================================================
+// getReal
+// //==========================================================
+// void 			Complex::getReal ( void ) const
+// {
+// 	return real;
+// }
+//
+// //==========================================================
+// setImag
+// //==========================================================
+// void 			Complex::setImag ( float a )
+// {
+// 	Complex(real, a);
+// 	return;
+// }
+//
+// //==========================================================
+// getImag
+// //==========================================================
+// void 			Complex::getImag ( void ) const
+// {
+// 	Complex(real, a);
+// 	return;
+// }
+
+//==========================================================
+// makeCopy
+//==========================================================
 // void		makeCopy	( const Complex c )
 // {
 //

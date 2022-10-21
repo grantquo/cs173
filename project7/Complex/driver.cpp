@@ -28,11 +28,11 @@ int main ( void )
 
 	c4 = c2.add(c3);
 	cout << "c4 = c2+c3 = " << c4.to_string() << endl;
-	c4 = c2.add(4.5);
-	cout << "c4 = c2+4.5 = " << c4.to_string() << endl;
-	// c4 = c2.add(4);
-	// cout << "c4 = c2+4 = " << c4.to_string() << endl;
-	//
+	// c4 = c2.add(4.5);
+	// cout << "c4 = c2+4.5 = " << c4.to_string() << endl;
+	c4 = c2.add(4);
+	cout << "c4 = c2+4 = " << c4.to_string() << endl;
+
 	// Complex c7(3,-4);
 	// float f = c7.abs();
 	// cout << "abs(c7) = " << fixed << setprecision(3) << f << endl;
