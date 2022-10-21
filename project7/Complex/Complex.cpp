@@ -23,6 +23,7 @@
 		Complex::Complex ( void )
 {
 	real = 0;
+	imag = 0;
 }
 
 //==========================================================
@@ -44,6 +45,14 @@
 }
 
 //==========================================================
+
+//==========================================================
+		Complex::Complex ( const Complex &c )
+{
+	real = c.real;
+	imag = c.imag;
+}
+//==========================================================
 // to_string
 // PARAMS:
 // 		none
@@ -53,7 +62,6 @@
 // 		a and b will be with fixed decimal length up to
 // 		two places.
 //==========================================================
-
 string 	Complex::to_string ( void ) const
 {
 	stringstream stream;
@@ -65,3 +73,28 @@ string 	Complex::to_string ( void ) const
 
 	return stream.str();
 }
+
+//==========================================================
+
+//==========================================================
+Complex		Complex::add ( const Complex c ) const
+{
+ 	float addend;
+	addend = c.real + real;
+	return Complex(addend, imag);
+}
+//==========================================================
+
+//==========================================================
+Complex		Complex::add ( float a ) const
+{
+	float addend;
+	addend = a + real;
+	return Complex(addend, imag);
+}
+
+
+// void		makeCopy	( const Complex c )
+// {
+//
+// }
