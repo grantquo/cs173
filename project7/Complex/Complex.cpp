@@ -11,6 +11,21 @@
 #include <math.h>
 
 //==========================================================
+// default
+// Initializes a complex number as the real number being 0 if
+// nothing is passed.
+// PARAMS:
+//		none
+// RETURNS:
+//		none
+//==========================================================
+
+		Complex::Complex ( void )
+{
+	real = 0;
+}
+
+//==========================================================
 // to_string
 // PARAMS:
 // 		none

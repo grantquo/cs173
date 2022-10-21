@@ -17,19 +17,19 @@ using namespace std;
 class Complex
 {
 public:
-//				Complex		( void );
-//				Complex 	( float a, float b );
-//				Complex     ( const Complex &c );
+				Complex		( void );
+				Complex 	( float a, float b );
+				Complex     ( const Complex &c );
 	string		to_string	( void ) const;
-//	Complex		add			( const Complex c ) const;
-//	Complex		add			( float a ) const;
-//	Complex		add			( int a ) const;
-//	float		abs			( void ) const;
-//	void		setReal		( float a );
-//	float		getReal		( void ) const;
-//	void		setImag		( float b );
-//	float		getImag		( void ) const;
-//	void		makeCopy	( const Complex c );
+	Complex		add			( const Complex c ) const;
+	Complex		add			( float a ) const;
+	Complex		add			( int a ) const;
+	float		abs			( void ) const;
+	void		setReal		( float a );
+	float		getReal		( void ) const;
+	void		setImag		( float b );
+	float		getImag		( void ) const;
+	void		makeCopy	( const Complex c );
 
 private:
 	float	real;		// real part
