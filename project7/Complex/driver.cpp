@@ -17,12 +17,12 @@ using namespace std;
 int main ( void )
 {
 	Complex c1;
-	// Complex c2(3,0);
+	Complex c2(3,0);
 	// Complex c3(c2);
 	// Complex c4(-4.5,-3.1235);
-	
+
 	cout << "c1 = " << c1.to_string() << endl;
-	// cout << "c2 = " << c2.to_string() << endl;
+	cout << "c2 = " << c2.to_string() << endl;
 	// cout << "c3 = " << c3.to_string() << endl;
 	// cout << "c4 = " << c4.to_string() << endl;
 	//

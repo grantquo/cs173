@@ -11,18 +11,36 @@
 #include <math.h>
 
 //==========================================================
-// default
+// default constructor
 // Initializes a complex number as the real number being 0 if
 // nothing is passed.
 // PARAMS:
 //		none
 // RETURNS:
-//		none
+//		Nothing, but sets the values needed for to_string to
+//		0 for both the real and imaginary number.
 //==========================================================
-
 		Complex::Complex ( void )
 {
 	real = 0;
+}
+
+//==========================================================
+// default constructor (with params)
+// Initializes a complex number when two float numbers are passed,
+// as opposed to nothing being passed.
+// PARAMS:
+//		float a: Number representing the real number
+//		float b: Number representing the real number that will be
+//		multiplied by i
+// RETURNS:
+//		Nothing, but sets the right a and b value to the a and b
+//		that will be in the complex number "a+bi".
+//==========================================================
+		Complex::Complex ( float a, float b)
+{
+	real = a;
+	imag = b;
 }
 
 //==========================================================
