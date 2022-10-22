@@ -28,8 +28,8 @@ int main ( void )
 
 	c4 = c2.add(c3);
 	cout << "c4 = c2+c3 = " << c4.to_string() << endl;
-	// c4 = c2.add(4.5);
-	// cout << "c4 = c2+4.5 = " << c4.to_string() << endl;
+	c4 = c2.add(4.5);
+	cout << "c4 = c2+4.5 = " << c4.to_string() << endl;
 	c4 = c2.add(4);
 	cout << "c4 = c2+4 = " << c4.to_string() << endl;
 
