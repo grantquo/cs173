@@ -33,18 +33,18 @@ int main ( void )
 	c4 = c2.add(4);
 	cout << "c4 = c2+4 = " << c4.to_string() << endl;
 
-	// Complex c7(3,-4);
-	// float f = c7.abs();
-	// cout << "abs(c7) = " << fixed << setprecision(3) << f << endl;
-	//
-	// Complex c5;
-	// c5.setReal(3);
-	// c5.setImag(2);
-	// cout << "c5 = " << c5.getReal() << "+" <<c5.getImag() << "i\n";
-	//
-	// Complex c6;
-	// c6.makeCopy(c4);
-	// cout << "c6 = " << c6.to_string() << endl;
+	Complex c7(3,-4);
+	float f = c7.abs();
+	cout << "abs(c7) = " << fixed << setprecision(3) << f << endl;
+
+	Complex c5;
+	c5.setReal(3);
+	c5.setImag(2);
+	cout << "c5 = " << c5.getReal() << "+" <<c5.getImag() << "i\n";
+
+	Complex c6;
+	c6.makeCopy(c4);
+	cout << "c6 = " << c6.to_string() << endl;
 
 	return 0;
 }
