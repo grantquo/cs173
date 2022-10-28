@@ -38,7 +38,7 @@
 //		Nothing, but sets the right a and b value to the a and b
 //		that will be in the complex number "a+bi".
 //==========================================================
-				Complex::Complex ( float a, float b)
+				Complex::Complex ( float a, float b )
 {
 	real = a;
 	imag = b;
@@ -59,6 +59,23 @@
 {
 	real = c.real;
 	imag = c.imag;
+}
+
+//==========================================================
+// ~Complex
+//==========================================================
+				Complex::~Complex ( void )
+{
+}
+
+//==========================================================
+// operator=
+//==========================================================
+Complex 		Complex::operator= ( const Complex &c )
+{
+	real = c.real;
+	imag = c.imag;
+	return Complex(real, imag);
 }
 
 //==========================================================
@@ -130,7 +147,8 @@ Complex			Complex::operator* ( float f ) const
 /*
 Complex 		Complex::operator/ ( const Complex &c ) const
 {
-
+	float dividend1, dividend2;
+	dividend1 =
 }
 */
 Complex 		Complex::operator/ ( float f ) const
@@ -161,12 +179,23 @@ float 		Complex::abs ( void ) const
 //==========================================================
 // operator~
 //==========================================================
-
+Complex 		Complex::operator~ ( void ) const
+{
+	float newimag;
+	newimag = imag*-1;
+	return Complex(real, newimag);
+}
 
 //==========================================================
 // operator-
 //==========================================================
-
+Complex 		Complex::operator- ( void ) const
+{
+	float newreal, newimag;
+	newreal = real*-1;
+	newimag = imag*-1;
+	return Complex(newreal, newimag);
+}
 
 //==========================================================
 // operator^
