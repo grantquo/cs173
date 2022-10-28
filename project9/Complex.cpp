@@ -375,7 +375,10 @@ bool			Complex::operator!= ( const Complex &c ) const
 //==========================================================
 bool 			Complex::operator< ( const Complex &c ) const
 {
-	if (Complex(real,imag) < Complex(c.real,c.imag))
+	Complex c1 = Complex(real, imag), c2 = Complex(c.real, c.imag);
+	float abc1 = c1.abs();
+	float abc2 = c2.abs();
+	if (abc1 < abc2)
 		return true;
 	return false;
 }
@@ -387,7 +390,10 @@ bool 			Complex::operator< ( const Complex &c ) const
 //==========================================================
 bool 			Complex::operator<= ( const Complex &c ) const
 {
-	if (Complex(real,imag) <= Complex(c.real,c.imag))
+	Complex c1 = Complex(real, imag), c2 = Complex(c.real, c.imag);
+	float abc1 = c1.abs();
+	float abc2 = c2.abs();
+	if (abc1 <= abc2)
 		return true;
 	return false;
 }
@@ -399,7 +405,10 @@ bool 			Complex::operator<= ( const Complex &c ) const
 //==========================================================
 bool 			Complex::operator> ( const Complex &c ) const
 {
-	if (Complex(real,imag) > Complex(c.real,c.imag))
+	Complex c1 = Complex(real, imag), c2 = Complex(c.real, c.imag);
+	float abc1 = c1.abs();
+	float abc2 = c2.abs();
+	if (abc1 > abc2)
 		return true;
 	return false;
 }
@@ -411,7 +420,28 @@ bool 			Complex::operator> ( const Complex &c ) const
 //==========================================================
 bool 			Complex::operator>= ( const Complex &c ) const
 {
-	if (Complex(real,imag) >= Complex(c.real,c.imag))
+	Complex c1 = Complex(real, imag), c2 = Complex(c.real, c.imag);
+	float abc1 = c1.abs();
+	float abc2 = c2.abs();
+	if (abc1 >= abc2)
 		return true;
 	return false;
 }
+
+//==========================================================
+// ostream & operator<<
+//==========================================================
+/*
+friend			Complex::ostream & operator<< ( ostream &os, const Complex c )
+{
+
+}
+
+//==========================================================
+// istream & operator>>
+//==========================================================
+friend 			Complex::istream & operator>> ( istream &is, const Complex c )
+{
+
+}
+*/
