@@ -55,19 +55,21 @@ int main ( void )
 	cout << "c4 = " << c2.to_string() << " * " << 4.5 << " = " << c4.to_string() << endl;
 	c4 = c2 * 4;
 	cout << "c4 = " << c2.to_string() << " * " << 4 << " = " << c4.to_string() << endl;
-/*
+
 	cout << "\nDivision: \n";
 	c2.setReal(2);
 	c2.setImag(3);
 	c3.setReal(4);
 	c3.setImag(-5);
+/*
 	c4 = c2 / c3;
 	cout << "c4 = " << c2 << " / " << c3 << " = " << c4 << endl;
+*/
 	c4 = c2 / 4.5;
-	cout << "c4 = " << c2 << " / " << 4.5 << " = " << c4 << endl;
+	cout << "c4 = " << c2.to_string() << " / " << 4.5 << " = " << c4.to_string() << endl;
 	c4 = c2 / 4;
-	cout << "c4 = " << c2 << " / " << 4 << " = " << c4 << endl;
-
+	cout << "c4 = " << c2.to_string() << " / " << 4 << " = " << c4.to_string() << endl;
+/*
 	cout << "\noperators: \n";
 	Complex c7(3,-4);
 	float f = c7.abs();
@@ -100,13 +102,14 @@ int main ( void )
 	c6 = c4 = c1;
 	cout << "c6 = c4 = c1 = " << c6 << endl;
 	cout << "c4 = " << c4 << endl;
-
+*/
 	c1 = Complex(2,3);
 	c2 = Complex(2,4);
 	cout << "\nComparisons\n";
-	cout << "c1 = " << c1 << endl;
-	cout << "c2 = " << c2 << endl;
-	cout << "c1 == c1 " << (c1==c1) << endl;
+	cout << "c1 = " << c1.to_string() << endl;
+	cout << "c2 = " << c2.to_string() << endl;
+	cout << "c1 == c1 " << (c1.to_string()==c1.to_string()) << endl;
+/*
 	cout << "c1 != c1 " << (c1!=c1) << endl;
 	cout << "c1 == c2 " << (c1==c2) << endl;
 	cout << "c1 != c2 " << (c1!=c2) << endl;
@@ -118,7 +121,7 @@ int main ( void )
 	cout << "c1 <= c1 " << (c1<=c1) << endl;
 	cout << "c1 >  c1 " << (c1> c1) << endl;
 	cout << "c1 >= c1 " << (c1>=c1) << endl;
-*/
+
 /*
 	cout << "\ntesting cin \n";
 	do

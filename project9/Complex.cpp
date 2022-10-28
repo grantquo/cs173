@@ -60,29 +60,6 @@
 	real = c.real;
 	imag = c.imag;
 }
-//==========================================================
-
-//==========================================================
-// to_string
-// PARAMS:
-// 		none
-// RETURNS:
-// 		a string containing "a+bi" where a and b are
-// 		the real and complex parts of the number.  Both
-// 		a and b will be with fixed decimal length up to
-// 		two places.
-//==========================================================
-string 			Complex::to_string ( void ) const
-{
-	stringstream stream;
-	stream << fixed << setprecision(3) << real;
-	if ( imag >= 0 )
-		stream << "+" << fixed << setprecision(3) << imag << "i";
-	else
-		stream << "-" << fixed << setprecision(3) << fabs(imag) << "i";
-
-	return stream.str();
-}
 
 //==========================================================
 // operator+
@@ -111,6 +88,7 @@ Complex			Complex::operator+ ( float f ) const
 	addend = f + real;
 	return Complex(addend, imag);
 }
+
 //==========================================================
 // operator-
 //==========================================================
@@ -127,6 +105,7 @@ Complex			Complex::operator- ( float f ) const
 	subend = real - f;
 	return Complex(subend, imag);
 }
+
 //==========================================================
 // operator*
 //==========================================================
@@ -145,25 +124,22 @@ Complex			Complex::operator* ( float f ) const
 	return Complex(factor1, factor2);
 }
 
+//==========================================================
+// operator/
+//==========================================================
+/*
+Complex 		Complex::operator/ ( const Complex &c ) const
+{
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
+*/
+Complex 		Complex::operator/ ( float f ) const
+{
+	float dividend1, dividend2;
+	dividend1 = real / f;
+	dividend2 = imag / f;
+	return Complex(dividend1, dividend2);
+}
 
 //==========================================================
 // abs
@@ -181,6 +157,21 @@ float 		Complex::abs ( void ) const
 	float ans = sqrt((pow(real, 2))+(pow(imag, 2)));
 	return ans;
 }
+
+//==========================================================
+// operator~
+//==========================================================
+
+
+//==========================================================
+// operator-
+//==========================================================
+
+
+//==========================================================
+// operator^
+//==========================================================
+
 
 // ==========================================================
 // setReal
@@ -241,4 +232,37 @@ void 			Complex::setImag ( float b )
 float 			Complex::getImag ( void ) const
 {
 	return imag;
+}
+
+//==========================================================
+// to_string
+// PARAMS:
+// 		none
+// RETURNS:
+// 		a string containing "a+bi" where a and b are
+// 		the real and complex parts of the number.  Both
+// 		a and b will be with fixed decimal length up to
+// 		two places.
+//==========================================================
+string 			Complex::to_string ( void ) const
+{
+	stringstream stream;
+	stream << fixed << setprecision(3) << real;
+	if ( imag >= 0 )
+		stream << "+" << fixed << setprecision(3) << imag << "i";
+	else
+		stream << "-" << fixed << setprecision(3) << fabs(imag) << "i";
+
+	return stream.str();
+}
+
+//==========================================================
+// operator==
+//==========================================================
+
+bool			Complex::operator== ( const Complex &c) const
+{
+	if (real==c.real && imag==c.imag)
+		return true;
+	return false;
 }
