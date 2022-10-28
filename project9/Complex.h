@@ -29,9 +29,7 @@ public:
 	Complex		operator-	( float f ) const;
 	Complex		operator*	( const Complex &c ) const;
 	Complex		operator*	( float f ) const;
-/*
 	Complex		operator/	( const Complex &c ) const;
-*/
 	Complex		operator/	( float f ) const;
 
 	float		abs			( void ) const;

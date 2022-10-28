@@ -108,6 +108,9 @@ Complex			Complex::operator+ ( float f ) const
 
 //==========================================================
 // operator-
+// This adds subtraction by floats or Complex numbers. The
+// two functions find the answer to the subtraction equation
+// based on the 
 //==========================================================
 Complex			Complex::operator- ( const Complex &c ) const
 {
@@ -125,6 +128,9 @@ Complex			Complex::operator- ( float f ) const
 
 //==========================================================
 // operator*
+// Two functions that give multiplication functionality
+// to Complex numbers. This allow for multiplication by
+// either another Complex number or by a float.
 //==========================================================
 Complex			Complex::operator* ( const Complex &c ) const
 {
@@ -143,14 +149,20 @@ Complex			Complex::operator* ( float f ) const
 
 //==========================================================
 // operator/
+// Two functions that allow for Complex number division.
+// This operator can allow for division by either another
+// Complex number, or a float.
 //==========================================================
-/*
 Complex 		Complex::operator/ ( const Complex &c ) const
 {
-	float dividend1, dividend2;
-	dividend1 =
+	float newreal, newimag, denom;
+	newreal = (real*c.real*(-1)) + (imag*c.imag);
+	newimag = (real*c.imag*(-1)) + (imag*c.real*(-1));
+	denom = (c.real*c.real*(-1)) + (c.imag*c.imag);
+	newreal = newreal/denom;
+	newimag = newimag/denom;
+	return Complex(newreal, newimag);
 }
-*/
 Complex 		Complex::operator/ ( float f ) const
 {
 	float dividend1, dividend2;
@@ -178,6 +190,9 @@ float 		Complex::abs ( void ) const
 
 //==========================================================
 // operator~
+// Sets an operator defined by ~ before a Complex number to
+// the conjugate, and calculates the conjugate of the
+// number.
 //==========================================================
 Complex 		Complex::operator~ ( void ) const
 {
@@ -188,6 +203,8 @@ Complex 		Complex::operator~ ( void ) const
 
 //==========================================================
 // operator-
+// Sets the - operator when placed before a Complex number
+// to take the reciprocal of that Complex number.
 //==========================================================
 Complex 		Complex::operator- ( void ) const
 {
@@ -199,6 +216,8 @@ Complex 		Complex::operator- ( void ) const
 
 //==========================================================
 // operator^
+// Sets the ^ operator to take the exponent of a complex
+// number. Then calculates the complex number result.
 //==========================================================
 Complex 		Complex::operator^ ( int k ) const
 {
@@ -206,6 +225,10 @@ Complex 		Complex::operator^ ( int k ) const
 		return Complex(1,0);
 	else if (k == 1)
 		return Complex(real, imag);
+	else if (k < 0)
+	{
+
+	}
 	float expreal, expimag;
 	expreal = pow(real, k) - pow(imag, k);
 	expimag = 2*real*imag;
