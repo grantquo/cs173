@@ -164,12 +164,10 @@ Complex			Complex::operator* ( float f ) const
 //==========================================================
 Complex 		Complex::operator/ ( const Complex &c ) const
 {
-	float newreal, newimag, denom;
-	newreal = (real*c.real*(-1)) + (imag*c.imag);
-	newimag = (real*c.imag*(-1)) + (imag*c.real*(-1));
-	denom = (c.real*c.real*(-1)) + (c.imag*c.imag);
-	newreal = newreal/denom;
-	newimag = newimag/denom;
+	float numreal = (real*c.real) + (imag*c.imag);
+	float numimag = (real*c.imag) - (imag*c.real);
+	float denom = pow(c.real, 2) + pow(c.imag, 2);
+	float newreal = numreal/denom, newimag = numimag/denom;
 	return Complex(newreal, newimag);
 }
 Complex 		Complex::operator/ ( float f ) const
