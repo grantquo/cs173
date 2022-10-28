@@ -127,8 +127,23 @@ Complex			Complex::operator- ( float f ) const
 	subend = real - f;
 	return Complex(subend, imag);
 }
-
-
+//==========================================================
+// operator*
+//==========================================================
+Complex			Complex::operator* ( const Complex &c ) const
+{
+	float factor1, factor2;
+	factor1 = real*c.real+imag*c.imag*-1;
+	factor2 = real*c.imag+imag*c.real;
+	return Complex(factor1, factor2);
+}
+Complex			Complex::operator* ( float f ) const
+{
+	float factor1, factor2;
+	factor1 = f * real;
+	factor2 = f * imag;
+	return Complex(factor1, factor2);
+}
 
 
 
