@@ -431,17 +431,36 @@ bool 			Complex::operator>= ( const Complex &c ) const
 //==========================================================
 // ostream & operator<<
 //==========================================================
-/*
-friend			Complex::ostream & operator<< ( ostream &os, const Complex c )
+				ostream & operator<< ( ostream &os, const Complex c )
 {
 
+	if (c.real == 0 && c.imag > 0)
+	{
+		os << 0 << "+" << c.imag << "i";
+		return os;
+	}
+	else if ((c.real > 0 || c.real < 0) && c.imag < 0)
+	{
+		os << setprecision(3) << c.real << c.imag << "i";
+		return os;
+	}
+	else if (c.real == 0 && c.imag < 0)
+	{
+		os << c.imag << "i";
+		return os;
+	}
+	else if (c.imag == 0)
+	{
+		os << fixed << setprecision(3) << c.real;
+		return os;
+	}
+	os << fixed << setprecision(3) << c.real << "+" << c.imag << "i";
+	return os;
 }
-
 //==========================================================
 // istream & operator>>
 //==========================================================
-friend 			Complex::istream & operator>> ( istream &is, const Complex c )
+ 				istream & operator>> ( istream &is, const Complex c )
 {
 
 }
-*/
