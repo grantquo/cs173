@@ -41,8 +41,9 @@ public:
 /*
 	Complex		operator~	( void ) const;
 	Complex		operator-	( void ) const;
-	Complex 	operator^	( int k ) const;
 */
+	Complex 	operator^	( int k ) const;
+
 	void		setReal		( float a );
 	float		getReal		( void ) const;
 	void		setImag		( float b );

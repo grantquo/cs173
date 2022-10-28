@@ -77,21 +77,21 @@ int main ( void )
 	cout << "~c of " << c7 << " = " << ~c7 << endl;
 	cout << "-c of " << c7 << " = " << -c7 << endl;
 	cout << "-c of " << c1 << " = " << -c1 << endl;
-
+*/
 	cout << "\nExponentiation: \n";
 	c2.setReal(2);
 	c2.setImag(3);
 	c4 = c2^0;
-	cout << "c4 = " << c2 << "^" << 0 << " = " << c4 << endl;
+	cout << "c4 = " << c2.to_string() << "^" << 0 << " = " << c4.to_string() << endl;
 	c4 = c2^1;
-	cout << "c4 = " << c2 << "^" << 1 << " = " << c4 << endl;
+	cout << "c4 = " << c2.to_string() << "^" << 1 << " = " << c4.to_string() << endl;
 	c4 = c2^2;
-	cout << "c4 = " << c2 << "^" << 2 << " = " << c4 << endl;
+	cout << "c4 = " << c2.to_string() << "^" << 2 << " = " << c4.to_string() << endl;
 	c4 = c2^-1;
-	cout << "c4 = " << c2 << "^" << -1 << " = " << c4 << endl;
+	cout << "c4 = " << c2.to_string() << "^" << -1 << " = " << c4.to_string() << endl;
 	c4 = c2^-2;
-	cout << "c4 = " << c2 << "^" << -2 << " = " << c4 << endl;
-*/
+	cout << "c4 = " << c2.to_string() << "^" << -2 << " = " << c4.to_string() << endl;
+
 	cout << "\nSetter and Getter: \n";
 	c5.setReal(3);
 	c5.setImag(2);

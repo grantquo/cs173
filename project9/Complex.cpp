@@ -171,7 +171,17 @@ float 		Complex::abs ( void ) const
 //==========================================================
 // operator^
 //==========================================================
-
+Complex 		Complex::operator^ ( int k ) const
+{
+	if (k == 0)
+		return Complex(1,0);
+	else if (k == 1)
+		return Complex(real, imag);
+	float expreal, expimag;
+	expreal = pow(real, k) - pow(imag, k);
+	expimag = 2*real*imag;
+	return Complex(expreal, expimag);
+}
 
 // ==========================================================
 // setReal
