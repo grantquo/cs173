@@ -100,9 +100,10 @@ string 			Complex::to_string ( void ) const
 //==========================================================
 Complex			Complex::operator+ ( const Complex &c ) const
 {
- 	float addend;
-	addend = c.real + real;
-	return Complex(addend, imag);
+ 	float addend1, addend2;
+	addend1 = c.real + real;
+	addend2 = c.imag + imag;
+	return Complex(addend1, addend2);
 }
 Complex			Complex::operator+ ( float f ) const
 {
@@ -110,6 +111,44 @@ Complex			Complex::operator+ ( float f ) const
 	addend = f + real;
 	return Complex(addend, imag);
 }
+//==========================================================
+// operator-
+//==========================================================
+Complex			Complex::operator- ( const Complex &c ) const
+{
+	float subend1, subend2;
+	subend1 = real - c.real;
+	subend2 = imag - c.imag;
+	return Complex(subend1, subend2);
+}
+Complex			Complex::operator- ( float f ) const
+{
+	float subend;
+	subend = real - f;
+	return Complex(subend, imag);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //==========================================================
 // abs
@@ -168,9 +207,9 @@ float 			Complex::getReal ( void ) const
 // RETURNS:
 // 		Nothing,, but changes a variable within a complex number,
 //==========================================================
-void 			Complex::setImag ( float a )
+void 			Complex::setImag ( float b )
 {
-	imag = a;
+	imag = b;
 	return;
 }
 

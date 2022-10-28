@@ -35,15 +35,15 @@ int main ( void )
 	cout << "c4 = " << c2.to_string() << " + " << 4.5 << " = " << c4.to_string() << endl;
 	c4 = c2 + 4;
 	cout << "c4 = " << c2.to_string() << " + " << 4 << " = " << c4.to_string() << endl;
-/*
+
 	cout << "\nSubtraction: \n";
 	c4 = c2 - c3;
-	cout << "c4 = " << c2 << " - " << c3 << " = " << c4 << endl;
+	cout << "c4 = " << c2.to_string() << " - " << c3.to_string() << " = " << c4.to_string() << endl;
 	c4 = c2 - 4.5;
-	cout << "c4 = " << c2 << " - " << 4.5 << " = " << c4 << endl;
+	cout << "c4 = " << c2.to_string() << " - " << 4.5 << " = " << c4.to_string() << endl;
 	c4 = c2 - 4;
-	cout << "c4 = " << c2 << " - " << 4 << " = " << c4 << endl;
-
+	cout << "c4 = " << c2.to_string() << " - " << 4 << " = " << c4.to_string() << endl;
+/*
 	cout << "\nMultiplication: \n";
 	c2.setReal(2);
 	c2.setImag(3);
