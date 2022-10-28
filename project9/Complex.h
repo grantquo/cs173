@@ -54,10 +54,10 @@ public:
 
 	bool		operator<	( const Complex &c ) const;
 	bool		operator<=	( const Complex &c ) const;
-/*
+
 	bool		operator>	( const Complex &c ) const;
 	bool		operator>=	( const Complex &c ) const;
-
+/*
 	friend ostream & operator<< ( ostream &os, const Complex c );
 	friend istream & operator>> ( istream &is, Complex &c );
 */

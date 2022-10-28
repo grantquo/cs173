@@ -282,7 +282,7 @@ bool			Complex::operator!= ( const Complex &c ) const
 //==========================================================
 bool 			Complex::operator< ( const Complex &c ) const
 {
-	if (Complex(real,imag) < Complex(c.real,imag))
+	if (Complex(real,imag) < Complex(c.real,c.imag))
 		return true;
 	return false;
 }
@@ -292,7 +292,27 @@ bool 			Complex::operator< ( const Complex &c ) const
 //==========================================================
 bool 			Complex::operator<= ( const Complex &c ) const
 {
-	if (Complex(real, imag) <= Complex(c.real,imag))
+	if (Complex(real,imag) <= Complex(c.real,c.imag))
+		return true;
+	return false;
+}
+
+//==========================================================
+// operator>
+//==========================================================
+bool 			Complex::operator> ( const Complex &c ) const
+{
+	if (Complex(real,imag) > Complex(c.real,c.imag))
+		return true;
+	return false;
+}
+
+//==========================================================
+// operator>=
+//==========================================================
+bool 			Complex::operator>= ( const Complex &c ) const
+{
+	if (Complex(real,imag) >= Complex(c.real,c.imag))
 		return true;
 	return false;
 }
