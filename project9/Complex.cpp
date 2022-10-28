@@ -237,9 +237,24 @@ Complex 		Complex::operator^ ( int k ) const
 		return Complex(1,0);
 	else if (k == 1)
 		return Complex(real, imag);
-	else if (k < 0)
+	else if (k == -1)
 	{
-
+		float conjugreal = real, conjugimag = imag*-1;
+		float denom = pow(real, 2)+pow(imag, 2);
+		float expreal = conjugreal/denom, expimag = conjugimag/denom;
+		return Complex(expreal,expimag);
+	}
+	else if (k < -1)
+	{
+		float denomreal, denomimag;
+		denomreal = pow(real, k*-1) - pow(imag, k*-1);
+		denomimag = 2*real*imag;
+		float numreal, numimag;
+		numreal = denomreal;
+		numimag = denomimag*-1;
+		float denom = denomreal*denomreal + denomimag*denomimag;
+		float expreal = numreal/denom, expimag = numimag/denom;
+		return Complex(expreal, expimag);
 	}
 	float expreal, expimag;
 	expreal = pow(real, k) - pow(imag, k);
