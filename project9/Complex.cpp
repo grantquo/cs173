@@ -260,9 +260,19 @@ string 			Complex::to_string ( void ) const
 // operator==
 //==========================================================
 
-bool			Complex::operator== ( const Complex &c) const
+bool			Complex::operator== ( const Complex &c ) const
 {
 	if (real==c.real && imag==c.imag)
+		return true;
+	return false;
+}
+
+//==========================================================
+// operator!=
+//==========================================================
+bool			Complex::operator!= ( const Complex &c ) const
+{
+	if (real!=c.real || imag!=c.imag)
 		return true;
 	return false;
 }

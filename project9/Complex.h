@@ -48,10 +48,10 @@ public:
 	void		setImag		( float b );
 	float		getImag		( void ) const;
 	string		to_string	( void ) const;
-	
+
 	bool		operator==	( const Complex &c ) const;
-/*
 	bool		operator!=	( const Complex &c ) const;
+/*
 	bool		operator<	( const Complex &c ) const;
 	bool		operator<=	( const Complex &c ) const;
 	bool		operator>	( const Complex &c ) const;
