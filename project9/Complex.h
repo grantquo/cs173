@@ -51,9 +51,10 @@ public:
 
 	bool		operator==	( const Complex &c ) const;
 	bool		operator!=	( const Complex &c ) const;
-/*
+
 	bool		operator<	( const Complex &c ) const;
 	bool		operator<=	( const Complex &c ) const;
+/*
 	bool		operator>	( const Complex &c ) const;
 	bool		operator>=	( const Complex &c ) const;
 
