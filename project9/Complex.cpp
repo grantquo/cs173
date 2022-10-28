@@ -59,24 +59,8 @@
 {
 	real = c.real;
 	imag = c.imag;
-}//==========================================================
-// makeCopy
-// Takes the real and imag variables that make up the function
-// it's called with in the parameters, and copies this to the
-// target function.
-// PARAMS:
-// 		const Complex c: This is the Complex number that's
-//		real and imag variables are copied.
-// RETURNS:
-// 		Nothing, but changes variables for the complex number
-//		called with this function.
-//==========================================================
-void			Complex::makeCopy ( const Complex c )
-{
-	real = c.real;
-	imag = c.imag;
-	return;
 }
+//==========================================================
 
 //==========================================================
 // to_string
@@ -114,16 +98,16 @@ string 			Complex::to_string ( void ) const
 //		A complex number that is the result of the addition
 //		equations.
 //==========================================================
-Complex			Complex::operator+ ( const Complex c ) const
+Complex			Complex::operator+ ( const Complex &c ) const
 {
  	float addend;
 	addend = c.real + real;
 	return Complex(addend, imag);
 }
-Complex			Complex::operator+ ( float a ) const
+Complex			Complex::operator+ ( float f ) const
 {
 	float addend;
-	addend = a + real;
+	addend = f + real;
 	return Complex(addend, imag);
 }
 
