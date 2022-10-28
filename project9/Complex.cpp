@@ -63,6 +63,9 @@
 
 //==========================================================
 // ~Complex
+// Destructor function for the Complex number class that clears
+// data within the class for storage space.
+// PARAMS:
 //==========================================================
 				Complex::~Complex ( void )
 {
@@ -70,6 +73,10 @@
 
 //==========================================================
 // operator=
+// This is an assignment function that allows for Complex
+// numbers to be reassigned to another Complex number, instead
+// of creating an entirely new one.
+// PARAMS:
 //==========================================================
 Complex 		Complex::operator= ( const Complex &c )
 {
@@ -108,9 +115,9 @@ Complex			Complex::operator+ ( float f ) const
 
 //==========================================================
 // operator-
-// This adds subtraction by floats or Complex numbers. The
-// two functions find the answer to the subtraction equation
-// based on the 
+// This adds subtraction functions to Complex numbers, allowing
+// subtraction either by other Complex numbers or by floats.
+// PARAMS:
 //==========================================================
 Complex			Complex::operator- ( const Complex &c ) const
 {
@@ -131,6 +138,7 @@ Complex			Complex::operator- ( float f ) const
 // Two functions that give multiplication functionality
 // to Complex numbers. This allow for multiplication by
 // either another Complex number or by a float.
+// PARAMS:
 //==========================================================
 Complex			Complex::operator* ( const Complex &c ) const
 {
@@ -152,6 +160,7 @@ Complex			Complex::operator* ( float f ) const
 // Two functions that allow for Complex number division.
 // This operator can allow for division by either another
 // Complex number, or a float.
+// PARAMS:
 //==========================================================
 Complex 		Complex::operator/ ( const Complex &c ) const
 {
@@ -193,6 +202,7 @@ float 		Complex::abs ( void ) const
 // Sets an operator defined by ~ before a Complex number to
 // the conjugate, and calculates the conjugate of the
 // number.
+// PARAMS:
 //==========================================================
 Complex 		Complex::operator~ ( void ) const
 {
@@ -205,6 +215,7 @@ Complex 		Complex::operator~ ( void ) const
 // operator-
 // Sets the - operator when placed before a Complex number
 // to take the reciprocal of that Complex number.
+// PARAMS:
 //==========================================================
 Complex 		Complex::operator- ( void ) const
 {
@@ -218,6 +229,7 @@ Complex 		Complex::operator- ( void ) const
 // operator^
 // Sets the ^ operator to take the exponent of a complex
 // number. Then calculates the complex number result.
+// PARAMS:
 //==========================================================
 Complex 		Complex::operator^ ( int k ) const
 {
@@ -320,6 +332,8 @@ string 			Complex::to_string ( void ) const
 
 //==========================================================
 // operator==
+// Boolean function for == comparisons between complex numbers.
+// PARAMS:
 //==========================================================
 
 bool			Complex::operator== ( const Complex &c ) const
@@ -331,6 +345,8 @@ bool			Complex::operator== ( const Complex &c ) const
 
 //==========================================================
 // operator!=
+// Boolean function for != comparisons between complex numbers.
+// PARAMS:
 //==========================================================
 bool			Complex::operator!= ( const Complex &c ) const
 {
@@ -341,6 +357,8 @@ bool			Complex::operator!= ( const Complex &c ) const
 
 //==========================================================
 // operator<
+// Boolean function for < comparisons between complex numbers.
+// PARAMS:
 //==========================================================
 bool 			Complex::operator< ( const Complex &c ) const
 {
@@ -351,6 +369,8 @@ bool 			Complex::operator< ( const Complex &c ) const
 
 //==========================================================
 // operator<=
+// Boolean function for <= comparisons between complex numbers.
+// PARAMS:
 //==========================================================
 bool 			Complex::operator<= ( const Complex &c ) const
 {
@@ -361,6 +381,8 @@ bool 			Complex::operator<= ( const Complex &c ) const
 
 //==========================================================
 // operator>
+// Boolean function for > comparisons between complex numbers.
+// PARAMS:
 //==========================================================
 bool 			Complex::operator> ( const Complex &c ) const
 {
@@ -371,6 +393,8 @@ bool 			Complex::operator> ( const Complex &c ) const
 
 //==========================================================
 // operator>=
+// Boolean function for >= comparisons between complex numbers.
+// PARAMS:
 //==========================================================
 bool 			Complex::operator>= ( const Complex &c ) const
 {
