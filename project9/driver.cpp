@@ -109,12 +109,14 @@ int main ( void )
 	cout << "c1 = " << c1.to_string() << endl;
 	cout << "c2 = " << c2.to_string() << endl;
 	cout << "c1 == c1 " << (c1.to_string()==c1.to_string()) << endl;
+
+	cout << "c1 != c1 " << (c1.to_string()!=c1.to_string()) << endl;
+	cout << "c1 == c2 " << (c1.to_string()==c2.to_string()) << endl;
+	cout << "c1 != c2 " << (c1.to_string()!=c2.to_string()) << endl;
+
+	cout << "c1 <  c2 " << (c1.to_string()< c2.to_string()) << endl;
+	cout << "c1 <= c2 " << (c1.to_string()<=c2.to_string()) << endl;
 /*
-	cout << "c1 != c1 " << (c1!=c1) << endl;
-	cout << "c1 == c2 " << (c1==c2) << endl;
-	cout << "c1 != c2 " << (c1!=c2) << endl;
-	cout << "c1 <  c2 " << (c1< c2) << endl;
-	cout << "c1 <= c2 " << (c1<=c2) << endl;
 	cout << "c1 >  c2 " << (c1> c2) << endl;
 	cout << "c1 >= c2 " << (c1>=c2) << endl;
 	cout << "c1 <  c1 " << (c1< c1) << endl;
