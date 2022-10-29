@@ -475,21 +475,57 @@ bool 			Complex::operator>= ( const Complex &c ) const
 	string fullInput;
 	string temp;
 	float inputReal, inputImag;
-	char sign;
-	bool realNegative = false;
+
+
 	is >> fullInput;
+	int fullInputLen = fullInput.length();
 	if (fullInput.find("i") == string::npos)
 	{
 		inputReal = stof(fullInput);
 		c.real = inputReal;
 		c.imag = 0;
-		return is
+		return is;
 	}
-	// is there exists an imag
-	for (int j=0, j < fullInput.length(), j++)
+	// is there exists an imag, loop through everything but i's pos
+	for (int j=0; j < fullInputLen-1; j++)
 	{
-
+		if (fullInput[j] == '-' || fullInput[j] == '+')
+		{
+			// have either read real's sign or read all of real
+			if (j!=0)
+			{
+				// real has no sign and imag does
+				string realsubstr = fullInput.substr(0,j);
+				inputReal =  stof(realsubstr);
+				c.real = inputReal;
+				string imagsubstr = fullInput.substr(j, fullInputLen-1);
+				inputImag = stof(imagsubstr);
+				c.imag = inputImag;
+				return is;
+			}
+			else
+			{
+				for (int x=0; x < fullInputLen-1; x++)
+				{
+					if ((fullInput[x] == '+' || fullInput[x] == '-') && x != 0)
+					{
+						// real and imag have a sign preceding
+						string realsubstr = fullInput.substr(0, x);
+						inputReal = stof(realsubstr);
+						c.real = inputReal;
+						string imagsubstr = fullInput.substr(x, fullInputLen-1);
+						inputImag = stof(imagsubstr);
+						c.imag = inputImag;
+						return is;
+					}
+				}
+				// have no real and only imag
+				inputImag = stof(fullInput);
+				c.real = 0;
+				c.imag = inputImag;
+				return is;
+			}
+		}
 	}
-
 	return is;
 }
