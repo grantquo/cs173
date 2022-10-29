@@ -474,27 +474,20 @@ bool 			Complex::operator>= ( const Complex &c ) const
 {
 	string fullInput;
 	string temp;
+	float inputReal, inputImag;
 	char sign;
 	bool realNegative = false;
 	is >> fullInput;
-
+	if (fullInput.find("i") == string::npos)
+	{
+		inputReal = stof(fullInput);
+		c.real = inputReal;
+		c.imag = 0;
+		return is
+	}
+	// is there exists an imag
 	for (int j=0, j < fullInput.length(), j++)
 	{
-		if (fullInput.find("i") == false)
-		{
-			// all is real
-			if (fullInput[0] == "-")
-			{
-				realNegative = true;
-				// all is real and real is negative
-			}
-		}
-		// there is a imags
-		else if (fullInput[j] == "-" && j != 0)
-		{
-			// if imag is negative
-		}
-
 
 	}
 
