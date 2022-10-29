@@ -66,6 +66,10 @@
 // Destructor function for the Complex number class that clears
 // data within the class for storage space.
 // PARAMS:
+// 		none
+// RETURNS:
+//		Nothing, but clears all previous data or storage taken
+// 		by the Complex class.
 //==========================================================
 				Complex::~Complex ( void )
 {
@@ -77,6 +81,10 @@
 // numbers to be reassigned to another Complex number, instead
 // of creating an entirely new one.
 // PARAMS:
+//		const Complex &c : A complex number inputted through
+//		reference.
+// RETURNS:
+//		Returns a new Complex number that is assigned a new real
 //==========================================================
 Complex 		Complex::operator= ( const Complex &c )
 {
@@ -430,6 +438,7 @@ bool 			Complex::operator>= ( const Complex &c ) const
 
 //==========================================================
 // ostream & operator<<
+// PARAMS:
 //==========================================================
 				ostream & operator<< ( ostream &os, const Complex c )
 {
@@ -459,8 +468,35 @@ bool 			Complex::operator>= ( const Complex &c ) const
 }
 //==========================================================
 // istream & operator>>
+// PARAMS:
 //==========================================================
- 				istream & operator>> ( istream &is, const Complex c )
+ 				istream & operator>> ( istream &is, Complex &c )
 {
+	string fullInput;
+	string temp;
+	char sign;
+	bool realNegative = false;
+	is >> fullInput;
 
+	for (int j=0, j < fullInput.length(), j++)
+	{
+		if (fullInput.find("i") == false)
+		{
+			// all is real
+			if (fullInput[0] == "-")
+			{
+				realNegative = true;
+				// all is real and real is negative
+			}
+		}
+		// there is a imags
+		else if (fullInput[j] == "-" && j != 0)
+		{
+			// if imag is negative
+		}
+
+
+	}
+
+	return is;
 }

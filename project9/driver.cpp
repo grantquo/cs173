@@ -119,7 +119,7 @@ int main ( void )
 	cout << "c1 >  c1 " << (c1> c1) << endl;
 	cout << "c1 >= c1 " << (c1>=c1) << endl;
 
-	/*
+
 	cout << "\ntesting cin \n";
 	do
 	{
@@ -127,7 +127,6 @@ int main ( void )
 		cin >> c4;
 		cout << "Entered " << c4 << endl;
 	} while ( c4.abs() != 0 );
-	*/
 
 	return 0;
 }
