@@ -194,10 +194,10 @@ void        List<T>::insert ( const T &item, int index )
         reallocate();
     }
     // if list isn't full
-    for (int ind = index; ind<size; ind++)
-        list[ind+1] = list[ind];
+    for (int ind = index+1; ind<size-1; ind++)
+        list[ind] = list[ind+1];
     list[index] = item;
-    size += 1;
+    size = size + 1;
 
 }
 
@@ -309,14 +309,13 @@ void        List<T>::reallocate ( void )
 {
     // default constructor
     int newCapacity = capacity*2;
-    T temp[newCapacity] = {};
+    T *temp = new T[newCapacity];
     // copy constructor
     for (int ind = 0; ind < capacity; ind++)
-        list[ind] = temp[ind];
+        temp[ind] = list[ind];
+    capacity = newCapacity;
     // destructor
     delete [] list;
     list = temp;
-    // assignment
-    capacity = newCapacity;
-
+    delete [] temp;
 }
