@@ -70,9 +70,11 @@ template <class T>
             List<T>::List ( const List<T> &mylist )
 {
     // default constructor
-    list = new T[mylist.capacity];
     size = mylist.size;
     capacity = mylist.capacity;
+    list = new T[capacity];
+    cout << size << endl;
+    cout << capacity << endl;
     // copy constructor
     for (int ind = 0; ind < capacity; ind++)
         list[ind] = mylist[ind];
@@ -165,7 +167,7 @@ void        List<T>::append ( const T &item )
 template <class T>
 T &         List<T>::operator[] ( int index )
 {
-    return *list[index];
+    return list[index];
 }
 
 //==========================================================
