@@ -43,8 +43,7 @@
 
 //==========================================================
 // List initialize
-// These two functions create a list based off either a blank
-// or list name input.
+// This functions creates an initializes new list.
 // PARAMS:
 //
 // RETURNS:
@@ -58,14 +57,25 @@ template <class T>
     size = 0;
 }
 
-
+//==========================================================
+// List copy
+// This function takes an existing list and copies it to
+// another list.
+// PARAMS:
+//
+// RETURNS:
+//
+//==========================================================
 template <class T>
             List<T>::List ( const List<T> &mylist )
 {
-    list = new T[DEFAULT_LIST_CAPACITY];
-    mylist = list;
-    capacity = DEFAULT_LIST_CAPACITY;
-    size = 0;
+    // default constructor
+    list = new T[mylist.capacity];
+    size = mylist.size;
+    capacity = mylist.capacity;
+    // copy constructor
+    for (int ind = 0; ind < capacity; ind++)
+        list[ind] = mylist[ind];
 }
 
 //==========================================================
@@ -115,9 +125,9 @@ template <class T>
 string      List<T>::to_string ( void ) const
 {
     stringstream stream;
-    stream << *list << endl;
-
-    return stream.str();
+    for ( int i = 1; i <= size; i++ )
+		stream << list[i] << " ";
+	return stream.str();
 }
 
 //==========================================================
