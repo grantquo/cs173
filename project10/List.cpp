@@ -54,7 +54,7 @@
 template <class T>
             List<class T>::List ( void )
 {
-    *list = new T[DEFAULT_LIST_CAPACITY];
+    list = new T[DEFAULT_LIST_CAPACITY];
     capacity = DEFAULT_LIST_CAPACITY;
     size = 0;
 }
@@ -97,7 +97,7 @@ template <class T>
 List<T>     List<class T>::operator= ( const List<T> &mylist )
 {
     delete [] list;
-    *list = mylist;
+    list = mylist;
     return *list;
 }
 
@@ -120,7 +120,7 @@ void        List<class T>::append ( const T &item )
     }
     // if list isn't full
     size += 1;
-    *list[size] = item;
+    list[size] = item;
 }
 
 //==========================================================
@@ -239,7 +239,7 @@ void        List<class T>::clear ( void )
 {
     delete [] list;
     size = 0;
-    *list = new T[capacity];
+    list = new T[capacity];
 }
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -268,10 +268,10 @@ void        List<class T>::reallocate ( void )
     T temp[newCapacity] = {};
     // copy constructor
     for (int ind = 0; ind < capacity; ind++)
-        *list[ind] = temp[ind];
+        list[ind] = temp[ind];
     // destructor
     delete [] list;
-    *list = temp;
+    list = temp;
     // assignment
     capacity = newCapacity;
 
