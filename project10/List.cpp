@@ -41,7 +41,7 @@ template <class T>
 template <class T>
             List<class T>::~List ( void )
 {
-    delete list;
+    delete [] list;
     capacity = 0;
     size = 0;
 }
@@ -53,7 +53,7 @@ template <class T>
 template <class T>
 List<T>     List<class T>::operator= ( const List<T> &mylist )
 {
-    delete list;
+    delete [] list;
     *list = mylist;
     return *list;
 }
@@ -71,7 +71,7 @@ void        List<class T>::append ( const T &item )
         reallocate();
     }
     // if list isn't full
-
+    int availIndex = capacity - size;
 
 }
 
@@ -82,7 +82,7 @@ void        List<class T>::append ( const T &item )
 template <class T>
 T &         List<class T>::operator[] ( int index )
 {
-    return list*[index];
+    return *list[index];
 }
 
 //==========================================================
@@ -109,9 +109,8 @@ void        List<class T>::insert ( const T &item, int index )
 template <class T>
 void        List<class T>::remove ( int index )
 {
-    delete list[index];
+    delete [] list;
     size = size - 1;
-    // possibly wrong ^
 }
 
 //==========================================================
@@ -121,7 +120,7 @@ void        List<class T>::remove ( int index )
 template <class T>
 List<T>     List<class T>::operator+ ( const List<T> &mylist ) const
 {
-
+    // idfk
 }
 
 //==========================================================
@@ -151,9 +150,9 @@ bool        List<class T>::isEmpty ( void ) const
 template <class T>
 void        List<class T>::clear ( void )
 {
-    delete list;
+    delete [] list;
     size = 0;
-    *list =
+    *list = new T[capacity];
 }
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -164,9 +163,18 @@ void        List<class T>::clear ( void )
 
 //==========================================================
 // reallocate
-// private method fo reallocating lists if full
+// private method for reallocating lists if full
 //==========================================================
 void        List<class T>::reallocate ( void )
 {
+    // default constructor
+    int newCapacity *= 2;
+    T temp[newCapacity] = {};
+    // copy constructor
+    for (int ind = 0; ind < capacity; ind++)
+        *list[ind] = temp[ind];
+    // destructor
+    delete [] list;
+    *list = temp;
 
 }
