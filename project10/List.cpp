@@ -77,7 +77,11 @@ template <class T>
     cout << capacity << endl;
     // copy constructor
     for (int ind = 0; ind < capacity; ind++)
-        list[ind] = mylist[ind];
+    {
+        T value = mylist[ind];
+        list[ind] == value;
+    }
+
 }
 
 //==========================================================
@@ -190,9 +194,10 @@ void        List<T>::insert ( const T &item, int index )
         reallocate();
     }
     // if list isn't full
-    for (int i = index; i<size; i++)
-        list[i+1] = list[i];
+    for (int ind = index; ind<size; ind++)
+        list[ind+1] = list[ind];
     list[index] = item;
+    size += 1;
 
 }
 
@@ -209,7 +214,10 @@ void        List<T>::insert ( const T &item, int index )
 template <class T>
 void        List<T>::remove ( int index )
 {
-    delete [] list;
+    for (int ind = index; ind < size; ind++)
+    {
+        list[ind] = list[ind+1];
+    }
     size = size - 1;
 }
 
