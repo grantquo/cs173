@@ -10,6 +10,32 @@
 #include <iomanip>
 #include <string>
 
+/*
+>>>>> Things left to do:
+
+- TESTING TESTING TESTING TESTING
+
+- Build the adding two lists together function
+
+- Build list from mylist function
+
+- Docstrings
+
+>>>>> Possible problems:
+
+- If statement pointers need to either have/dont have * in them
+
+- To build the list, you either need/dont need * in the init statement
+
+- Delete statements might need/dont need *
+
+- Assignments might need/dont need * in their statements
+
+- Reallocate is actually trash even when it makes sense
+
+- You don't need to return the pointer as * but instead just "list"
+
+*/
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 //
 // PUBLIC METHODS
@@ -65,14 +91,14 @@ List<T>     List<class T>::operator= ( const List<T> &mylist )
 template <class T>
 void        List<class T>::append ( const T &item )
 {
-    if (isEmpty(*list) == true)
+    if (size == capacity)
     {
         // if list is full
         reallocate();
     }
     // if list isn't full
-    int availIndex = capacity - size;
-
+    size += 1;
+    *list[size] = item;
 }
 
 //==========================================================
@@ -92,13 +118,12 @@ T &         List<class T>::operator[] ( int index )
 template <class T>
 void        List<class T>::insert ( const T &item, int index )
 {
-    if (isEmpty(*list) == true)
+    if (size == capacity)
     {
         // if list is full
         reallocate();
     }
     // if list isn't full
-
 
 }
 
@@ -140,7 +165,7 @@ int         List<class T>::length ( void ) const
 template <class T>
 bool        List<class T>::isEmpty ( void ) const
 {
-    return (capacity == size);
+    return (capacity != size);
 }
 
 //==========================================================
@@ -157,7 +182,7 @@ void        List<class T>::clear ( void )
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 //
-// PUBLIC METHODS
+// PRIVATE METHODS
 //
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -176,5 +201,7 @@ void        List<class T>::reallocate ( void )
     // destructor
     delete [] list;
     *list = temp;
+    // assignment
+    capacity = newCapacity;
 
 }
