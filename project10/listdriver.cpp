@@ -12,12 +12,12 @@ int main ( void )
 {
 	List<int> 	list1;
 	cout << "list1 = " << list1 << endl;
-/*
+
 	for ( int i = 1; i <= 10; i++ )
 		list1.append(i);
 
 	cout << "list1 = " << list1.to_string() << endl;
-
+/*
 	List<int> list2(list1);
 	cout << "list2 = " << list2.to_string() << endl;
 

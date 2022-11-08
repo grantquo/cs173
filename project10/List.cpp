@@ -58,13 +58,16 @@ template <class T>
     size = 0;
 }
 
-/*
+
 template <class T>
             List<T>::List ( const List<T> &mylist )
 {
-
+    list = new T[DEFAULT_LIST_CAPACITY];
+    mylist = list;
+    capacity = DEFAULT_LIST_CAPACITY;
+    size = 0;
 }
-*/
+
 //==========================================================
 // destructor
 // This function clears all data from the list pointer and
@@ -98,6 +101,23 @@ List<T>     List<T>::operator= ( const List<T> &mylist )
     delete [] list;
     list = mylist;
     return *list;
+}
+//==========================================================
+// to_string
+// This function allows for lists to be outputted through
+// strings using cout, diaplying all of their values.
+// PARAMS:
+//
+// RETURNS:
+//
+//==========================================================
+template <class T>
+string      List<T>::to_string ( void ) const
+{
+    stringstream stream;
+    stream << *list << endl;
+
+    return stream.str();
 }
 
 //==========================================================
@@ -272,10 +292,10 @@ void        List<T>::reallocate ( void )
     T temp[newCapacity] = {};
     // copy constructor
     for (int ind = 0; ind < capacity; ind++)
-        *list[ind] = temp[ind];
+        list[ind] = temp[ind];
     // destructor
     delete [] list;
-    list = *temp;
+    list = temp;
     // assignment
     capacity = newCapacity;
 
