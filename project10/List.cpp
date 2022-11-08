@@ -44,7 +44,12 @@
 
 //==========================================================
 // List initialize
-// create list
+// These two functions create a list based off either a blank
+// or list name input.
+// PARAMS:
+//
+// RETURNS:
+//
 //==========================================================
 template <class T>
             List<class T>::List ( void )
@@ -63,6 +68,12 @@ template <class T>
 
 //==========================================================
 // destructor
+// This function clears all data from the list pointer and
+// size/capacity integers associated with it.
+// PARAMS:
+//
+// RETURNS:
+//
 //==========================================================
 template <class T>
             List<class T>::~List ( void )
@@ -74,7 +85,13 @@ template <class T>
 
 //==========================================================
 // operator=
-// assignment op
+// This gives functionality for the assignment operator "=",
+// allowing for dynamics lists to be reassigned to other
+// dynamic lists, while the deallocated data is deleted.
+// PARAMS:
+//
+// RETURNS:
+//
 //==========================================================
 template <class T>
 List<T>     List<class T>::operator= ( const List<T> &mylist )
@@ -86,7 +103,12 @@ List<T>     List<class T>::operator= ( const List<T> &mylist )
 
 //==========================================================
 // append
-// add shit at end of list
+// This gives the dynamics lists the ability for "append", an
+// operation where an item is added to the end of the list.
+// PARAMS:
+//
+// RETURNS:
+//
 //==========================================================
 template <class T>
 void        List<class T>::append ( const T &item )
@@ -103,7 +125,13 @@ void        List<class T>::append ( const T &item )
 
 //==========================================================
 // operator[]
-// index access
+// This lets dynamic lists take specific value calls, where
+// by calling an index number, the dynamic list returns the
+// value at that index.
+// PARAMS:
+//
+// RETURNS:
+//
 //==========================================================
 template <class T>
 T &         List<class T>::operator[] ( int index )
@@ -113,7 +141,14 @@ T &         List<class T>::operator[] ( int index )
 
 //==========================================================
 // insert
-// new value at specific pos
+// This adds an item at a specific index of a dynamic list.
+// After an insert, every prev value on the specified index
+// and above are moved up an index level, allowing room for
+// the item.
+// PARAMS:
+//
+// RETURNS:
+//
 //==========================================================
 template <class T>
 void        List<class T>::insert ( const T &item, int index )
@@ -129,7 +164,13 @@ void        List<class T>::insert ( const T &item, int index )
 
 //==========================================================
 // remove
-// delete value
+// Remove allows for dynamic lists to have a value deleted
+// from them at a specified index number. The total capacity
+// of the list after a remove is unaffected.
+// PARAMS:
+//
+// RETURNS:
+//
 //==========================================================
 template <class T>
 void        List<class T>::remove ( int index )
@@ -140,7 +181,13 @@ void        List<class T>::remove ( int index )
 
 //==========================================================
 // operator+
-// adds two lists together
+// Gives dynamic lists the ability to be combined with other
+// dynamic lists through operator "+". The second list getting
+// added will be attached to the end of the first one.
+// PARAMS:
+//
+// RETURNS:
+//
 //==========================================================
 template <class T>
 List<T>     List<class T>::operator+ ( const List<T> &mylist ) const
@@ -150,7 +197,12 @@ List<T>     List<class T>::operator+ ( const List<T> &mylist ) const
 
 //==========================================================
 // length
-// gets length of list
+// Simple function that returns the number of values stored
+// in the dynamic list.
+// PARAMS:
+//
+// RETURNS:
+//
 //==========================================================
 template <class T>
 int         List<class T>::length ( void ) const
@@ -160,7 +212,12 @@ int         List<class T>::length ( void ) const
 
 //==========================================================
 // isEmpty
-// boolean of empty check
+// Boolean function that returns either true or false for if
+// the dynamic list is empty.
+// PARAMS:
+//
+// RETURNS:
+//
 //==========================================================
 template <class T>
 bool        List<class T>::isEmpty ( void ) const
@@ -170,7 +227,12 @@ bool        List<class T>::isEmpty ( void ) const
 
 //==========================================================
 // clear
-// removes all items from list
+// Clear deletes all of the values of a list, while retaining
+// the dynamic list's capacity.
+// PARAMS:
+//
+// RETURNS:
+//
 //==========================================================
 template <class T>
 void        List<class T>::clear ( void )
@@ -188,7 +250,16 @@ void        List<class T>::clear ( void )
 
 //==========================================================
 // reallocate
-// private method for reallocating lists if full
+// This function is called whenever a dynamic list is full
+// and needs to make space for more items. It first creates
+// a new dynamic list with double the amount of capacity,
+// then copies every value from the first into the second.
+// The old, smaller list is then deleted for memory and
+// capacity is adjusted for the new one.
+// PARAMS:
+//
+// RETURNS:
+//
 //==========================================================
 void        List<class T>::reallocate ( void )
 {
