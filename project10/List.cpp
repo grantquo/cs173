@@ -23,7 +23,7 @@
 template <class T>
             List<class T>::List ( void )
 {
-    *list[DEFAULT_LIST_CAPACITY] = {};
+    *list = new T[DEFAULT_LIST_CAPACITY];
     capacity = DEFAULT_LIST_CAPACITY;
     size = 0;
 }
@@ -41,7 +41,7 @@ template <class T>
 template <class T>
             List<class T>::~List ( void )
 {
-    *list[DEFAULT_LIST_CAPACITY] = {};
+    delete list;
     capacity = 0;
     size = 0;
 }
@@ -53,6 +53,7 @@ template <class T>
 template <class T>
 List<T>     List<class T>::operator= ( const List<T> &mylist )
 {
+    delete list;
     *list = mylist;
     return *list;
 }
@@ -108,7 +109,7 @@ void        List<class T>::insert ( const T &item, int index )
 template <class T>
 void        List<class T>::remove ( int index )
 {
-    delete *list[index];
+    delete list[index];
     size = size - 1;
     // possibly wrong ^
 }
@@ -150,7 +151,9 @@ bool        List<class T>::isEmpty ( void ) const
 template <class T>
 void        List<class T>::clear ( void )
 {
-
+    delete list;
+    size = 0;
+    *list =
 }
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
