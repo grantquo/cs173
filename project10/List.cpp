@@ -6,7 +6,6 @@
 // list array class.
 //==========================================================
 
-#include "List.h"
 #include <iomanip>
 #include <string>
 
@@ -52,20 +51,20 @@
 //
 //==========================================================
 template <class T>
-            List<class T>::List ( void )
+            List<T>::List ( void )
 {
     list = new T[DEFAULT_LIST_CAPACITY];
     capacity = DEFAULT_LIST_CAPACITY;
     size = 0;
 }
 
-
+/*
 template <class T>
-            List<class T>::List ( const List<T> &mylist )
+            List<T>::List ( const List<T> &mylist )
 {
 
 }
-
+*/
 //==========================================================
 // destructor
 // This function clears all data from the list pointer and
@@ -76,7 +75,7 @@ template <class T>
 //
 //==========================================================
 template <class T>
-            List<class T>::~List ( void )
+            List<T>::~List ( void )
 {
     delete [] list;
     capacity = 0;
@@ -94,7 +93,7 @@ template <class T>
 //
 //==========================================================
 template <class T>
-List<T>     List<class T>::operator= ( const List<T> &mylist )
+List<T>     List<T>::operator= ( const List<T> &mylist )
 {
     delete [] list;
     list = mylist;
@@ -111,7 +110,7 @@ List<T>     List<class T>::operator= ( const List<T> &mylist )
 //
 //==========================================================
 template <class T>
-void        List<class T>::append ( const T &item )
+void        List<T>::append ( const T &item )
 {
     if (size == capacity)
     {
@@ -134,7 +133,7 @@ void        List<class T>::append ( const T &item )
 //
 //==========================================================
 template <class T>
-T &         List<class T>::operator[] ( int index )
+T &         List<T>::operator[] ( int index )
 {
     return *list[index];
 }
@@ -151,7 +150,7 @@ T &         List<class T>::operator[] ( int index )
 //
 //==========================================================
 template <class T>
-void        List<class T>::insert ( const T &item, int index )
+void        List<T>::insert ( const T &item, int index )
 {
     if (size == capacity)
     {
@@ -159,6 +158,9 @@ void        List<class T>::insert ( const T &item, int index )
         reallocate();
     }
     // if list isn't full
+    for (int i = index; i<size; i++)
+        list[i+1] = list[i];
+    list[index] = item;
 
 }
 
@@ -173,7 +175,7 @@ void        List<class T>::insert ( const T &item, int index )
 //
 //==========================================================
 template <class T>
-void        List<class T>::remove ( int index )
+void        List<T>::remove ( int index )
 {
     delete [] list;
     size = size - 1;
@@ -189,12 +191,13 @@ void        List<class T>::remove ( int index )
 // RETURNS:
 //
 //==========================================================
+/*
 template <class T>
-List<T>     List<class T>::operator+ ( const List<T> &mylist ) const
+List<T>     List<T>::operator+ ( const List<T> &mylist ) const
 {
     // idfk
 }
-
+*/
 //==========================================================
 // length
 // Simple function that returns the number of values stored
@@ -205,7 +208,7 @@ List<T>     List<class T>::operator+ ( const List<T> &mylist ) const
 //
 //==========================================================
 template <class T>
-int         List<class T>::length ( void ) const
+int         List<T>::length ( void ) const
 {
     return size;
 }
@@ -220,7 +223,7 @@ int         List<class T>::length ( void ) const
 //
 //==========================================================
 template <class T>
-bool        List<class T>::isEmpty ( void ) const
+bool        List<T>::isEmpty ( void ) const
 {
     return (capacity != size);
 }
@@ -235,9 +238,9 @@ bool        List<class T>::isEmpty ( void ) const
 //
 //==========================================================
 template <class T>
-void        List<class T>::clear ( void )
+void        List<T>::clear ( void )
 {
-    delete [] list;
+    delete [] *list;
     size = 0;
     list = new T[capacity];
 }
@@ -261,17 +264,18 @@ void        List<class T>::clear ( void )
 // RETURNS:
 //
 //==========================================================
-void        List<class T>::reallocate ( void )
+template <class T>
+void        List<T>::reallocate ( void )
 {
     // default constructor
-    int newCapacity *= 2;
+    int newCapacity = capacity*2;
     T temp[newCapacity] = {};
     // copy constructor
     for (int ind = 0; ind < capacity; ind++)
-        list[ind] = temp[ind];
+        *list[ind] = temp[ind];
     // destructor
     delete [] list;
-    list = temp;
+    list = *temp;
     // assignment
     capacity = newCapacity;
 
