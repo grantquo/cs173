@@ -38,12 +38,17 @@ void        List<T>::append ( const T &item )
     qtr->item = item;
     qtr->next = NULL;
 
-    Node *ptr;
-    ptr = head;
+    if ( head == NULL )         //special case of empty list
+        head = qtr;
+    else
+    {
+        Node *ptr;
+        ptr = head;
 
-    while ( ptr->next != NULL )
-        ptr = ptr->next;
-    ptr->next = qtr;
+        while ( ptr->next != NULL )
+            ptr = ptr->next;
+        ptr->next = qtr;
+    }
 }
 /*
 1. delcare qtr

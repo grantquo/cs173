@@ -367,8 +367,9 @@ void        List<T>::reallocate ( void )
     for (int i=0; i<newCapacity; i++)
         cout << "in temp: " << temp[i] << " in index: " << i << endl;
 
-    list.~List();
-    
+    delete [] list;
+    list = NULL;
+
     list=temp;
     for (int j=0; j<capacity; j++)
     {
