@@ -352,15 +352,15 @@ void        List<T>::reallocate ( void )
 {
     // default constructor
     int newCapacity = capacity*2;
-    T temp[newCapacity];
+    temp = new T[newCapacity];
     T item;
-    for (int sev=0; sev<size-1; sev++)
+    for (int i=0; i<size; i++)
     {
-        if (list[sev] != 0)
+        if (list[i] != 0)
         {
-            item = list[sev];
-            cout << "item: " << item << " in index: " << sev << endl;
-            temp[sev] = item;
+            item = list[i];
+            cout << "item: " << item << " in index: " << i << endl;
+            temp[i] = item;
         }
     }
 
@@ -369,7 +369,7 @@ void        List<T>::reallocate ( void )
 
     delete [] list;
     list = NULL;
-
+    capacity = newCapacity;
     list=temp;
     for (int j=0; j<capacity; j++)
     {
