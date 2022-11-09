@@ -364,21 +364,26 @@ void        List<T>::reallocate ( void )
         if (list[i] != 0)
         {
             item = list[i];
-            // cout << "item: " << item << " in index: " << i << endl;
+            cout << "in temp item: " << item << " in index: " << i << endl;
             temp[i] = item;
         }
     }
-
-    // for (int i=0; i<newCapacity; i++)
-        // cout << "in temp: " << temp[i] << " in index: " << i << endl;
+    cout << "Temp Built!" << endl;
 
     delete [] list;
-    list = NULL;
     capacity = newCapacity;
-    list=temp;
+    list = NULL;
+    list = new T[capacity];
+
+    // temp reassign had error
+
+    for (int i=0; i<size; i++)
+        list[i] = temp[i];
+
     delete [] temp;
     temp = NULL;
-    cout << " @@@@ " << "Reallocation Completed!" << " @@@@ " << endl;
+    cout << " @@@@ " << "Reallocating...." << " @@@@ " << endl;
+
     for (int j=0; j<capacity; j++)
     {
         item = list[j];
