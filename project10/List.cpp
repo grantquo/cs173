@@ -73,14 +73,9 @@ template <class T>
     size = mylist.size;
     capacity = mylist.capacity;
     list = new T[capacity];
-    cout << size << endl;
-    cout << capacity << endl;
     // copy constructor
-    for (int ind = 0; ind < capacity; ind++)
-    {
-        T value = mylist[ind];
-        list[ind] == value;
-    }
+    for (int i=0; i<capacity; i++)
+        list[i] = mylist.list[i];
 
 }
 
@@ -115,8 +110,14 @@ template <class T>
 List<T>     List<T>::operator= ( const List<T> &mylist )
 {
     delete [] list;
-    list = mylist;
-    return *list;
+    capacity = mylist.capacity;
+    list = new T[capacity];
+    temp = new T[capacity];
+    for (int i=0; i<capacity; i++)
+    {
+        list[i] = temp[i];
+    }
+    return list;
 }
 //==========================================================
 // to_string
@@ -154,7 +155,7 @@ void        List<T>::append ( const T &item )
         reallocate();
     }
     // if list isn't full
-    list[size+1] = item;
+    list[size] = item;
     size = size + 1;
 
 }
@@ -205,9 +206,9 @@ void        List<T>::insert ( const T &item, int index )
         {
             curItem = list[i];
             temp[i] = curItem;
-            cout << " ======= item: " << curItem << " added to index: " << i << endl;
+            // cout << " ======= item: " << curItem << " added to index: " << i << endl;
         }
-        cout << "NEW ITEM BEING ADDED !!!" << endl; //item at index being added
+        // cout << "NEW ITEM BEING ADDED !!!" << endl; //item at index being added
         temp[index] = item;
         T curItem;
 
@@ -215,24 +216,22 @@ void        List<T>::insert ( const T &item, int index )
         {
             curItem = list[i];
             temp[i] = curItem;
-            cout << " $$$$$$$ item: " << curItem << " being added to index: " << i << endl;
+            // cout << " $$$$$$$ item: " << curItem << " being added to index: " << i << endl;
         }
     }
 
     else if (index == 0)        // if insertion is at the beginning
     {
         temp[0] = item;
-        for (int i=1; i<size; i++)
+        for (int i=1; i<size-1; i++)
         {
                 curItem = list[i];
                 temp[i] = curItem;
-                cout << " $$$$$$$ item: " << curItem << " being added to index: " << i << endl;
+                // cout << " $$$$$$$ item: " << curItem << " being added to index: " << i << endl;
         }
     }
 
     delete [] list;
-
-
 
     cout << "After " << item << " was added at " << index << " , this is list: " << endl;
 
@@ -241,7 +240,6 @@ void        List<T>::insert ( const T &item, int index )
         list[i] = temp[i];
         cout << "Item: " << list[i] << " Index: " << i << endl;
     }
-
 
     size = size + 1;
     delete [] temp;
@@ -254,18 +252,22 @@ void        List<T>::insert ( const T &item, int index )
 // of the list after a remove is unaffected.
 // PARAMS:
 //
-// RETURNS:
+// RETURNS:    size = size-1;
+
 //
 //==========================================================
 template <class T>
 void        List<T>::remove ( int index )
 {
 
-    for (int ind = index; ind < size; ind++)
+    cout << "New list after removal: " << endl;
+
+    for (int ind = index-1; ind < size; ind++)
     {
         list[ind] = list[ind+1];
+        cout << "--- Item: " << list[ind] << " at Index: " << ind << endl;
     }
-    size = size - 1;
+    size = size-1;
 }
 
 //==========================================================
@@ -365,11 +367,11 @@ void        List<T>::reallocate ( void )
         if (list[i] != 0)
         {
             item = list[i];
-            cout << "in temp item: " << item << " in index: " << i << endl;
+            // cout << "in temp item: " << item << " in index: " << i << endl;
             temp[i] = item;
         }
     }
-    cout << "Temp Built!" << endl;
+    // cout << "Temp Built!" << endl;
 
     delete [] list;
     capacity = newCapacity;
@@ -380,11 +382,11 @@ void        List<T>::reallocate ( void )
 
     delete [] temp;
     cout << " @@@@ " << "Reallocated!" << " @@@@ " << endl;
-    cout << "THIS IS IN LIST: " << endl;
+    // cout << "THIS IS IN LIST: " << endl;
 
     for (int j=0; j<capacity; j++)
     {
         item = list[j];
-        cout << "Item: " << item << " at index: " << j << endl;
+        // cout << "Item: " << item << " at index: " << j << endl;
     }
 }
