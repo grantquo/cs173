@@ -25,7 +25,7 @@ int main ( void )
 	cout << "\nlist1.insert(50,10);\nlist1.insert(0,0)\n";
 	cout << "list1.remove(1);\n";
 	//list2[2] = 100;
-	list1.insert(50,10);
+	list1.insert(50,1);
 	//list1.insert(0,0);
 	//list1.remove(1);
 	//cout << "list2 = " << list2.to_string() << endl;
