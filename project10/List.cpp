@@ -131,7 +131,7 @@ template <class T>
 string      List<T>::to_string ( void ) const
 {
     stringstream stream;
-    for ( int i = 1; i <= size; i++ )
+    for ( int i = 0; i < size; i++ )
 		stream << list[i] << " ";
 	return stream.str();
 }
@@ -199,10 +199,6 @@ void        List<T>::insert ( const T &item, int index )
     temp = new T[capacity];
     T curItem;
 
-    cout << "This is in list so far: " << endl;
-    for (int ind=0; ind < capacity; ind++)
-        cout << list[ind] << endl;
-
     if (index > 0)          // if insertion isnt at beginning
     {
         for (int i=0; i<=index-1; i++)
@@ -223,8 +219,6 @@ void        List<T>::insert ( const T &item, int index )
         }
     }
 
-
-
     else if (index == 0)        // if insertion is at the beginning
     {
         temp[0] = item;
@@ -232,19 +226,25 @@ void        List<T>::insert ( const T &item, int index )
         {
                 curItem = list[i];
                 temp[i] = curItem;
-                cout << "+++++++ item: " << curItem << " being added to index: " << i << endl;
+                cout << " $$$$$$$ item: " << curItem << " being added to index: " << i << endl;
         }
     }
 
-    cout << "this is temp: " << endl;
-    for (int qwery = 0; qwery<capacity; qwery++)
-        cout << temp[qwery] << endl;
-
     delete [] list;
-    list = temp;
+
+
+
+    cout << "After " << item << " was added at " << index << " , this is list: " << endl;
+
+    for (int i=0; i<capacity; i++)
+    {
+        list[i] = temp[i];
+        cout << "Item: " << list[i] << " Index: " << i << endl;
+    }
+
+
     size = size + 1;
     delete [] temp;
-    temp = NULL;
 }
 
 //==========================================================
@@ -260,6 +260,7 @@ void        List<T>::insert ( const T &item, int index )
 template <class T>
 void        List<T>::remove ( int index )
 {
+
     for (int ind = index; ind < size; ind++)
     {
         list[ind] = list[ind+1];
@@ -372,22 +373,18 @@ void        List<T>::reallocate ( void )
 
     delete [] list;
     capacity = newCapacity;
-    list = NULL;
     list = new T[capacity];
 
-    // temp reassign had error
-
-    for (int i=0; i<size; i++)
+    for (int i=0; i<size; i++)      // temp and list merge
         list[i] = temp[i];
 
     delete [] temp;
-    temp = NULL;
-    cout << " @@@@ " << "Reallocating...." << " @@@@ " << endl;
+    cout << " @@@@ " << "Reallocated!" << " @@@@ " << endl;
+    cout << "THIS IS IN LIST: " << endl;
 
     for (int j=0; j<capacity; j++)
     {
         item = list[j];
-        cout << "in list item: " << item << " at index: " << j << endl;
+        cout << "Item: " << item << " at index: " << j << endl;
     }
-
 }
