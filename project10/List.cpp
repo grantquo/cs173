@@ -114,9 +114,8 @@ template <class T>
 template <class T>
 List<T>     List<T>::operator= ( const List<T> &mylist )
 {
-    delete [] list;
     list = mylist;
-    return *list;
+    return list;
 }
 //==========================================================
 // to_string
@@ -154,8 +153,9 @@ void        List<T>::append ( const T &item )
         reallocate();
     }
     // if list isn't full
-    size += 1;
     list[size] = item;
+    size = size + 1;
+
 }
 
 //==========================================================
@@ -194,11 +194,37 @@ void        List<T>::insert ( const T &item, int index )
         reallocate();
     }
     // if list isn't full
-    for (int ind = index+1; ind<size-1; ind++)
-        list[ind] = list[ind+1];
-    list[index] = item;
+    T temp[capacity] = {};
+    T curItem;
+    if (index > 0)
+    {
+        for (int i=0; i<index-1; i++)
+        {
+            curItem = list[i];
+            temp[i] = curItem;
+            cout << "item: " << curItem << " being added to index: " << i << endl;
+        }
+        temp[index] = item;
+        for (int i=index+1; i<size+1; i++)
+        {
+            curItem = list[i];
+            temp[i] = curItem;
+            cout << "item: " << curItem << " being added to index: " << i << endl;
+        }
+    }
+    else
+    {
+        temp[0] = item;
+        for (int i=1; i<size; i++)
+        {
+                curItem = list[i];
+                temp[i] = curItem;
+                cout << "item: " << curItem << " being added to index: " << i << endl;
+        }
+    }
+    delete [] list;
+    list = temp;
     size = size + 1;
-
 }
 
 //==========================================================
@@ -308,14 +334,35 @@ template <class T>
 void        List<T>::reallocate ( void )
 {
     // default constructor
-    int newCapacity = capacity*2;
-    T *temp = new T[newCapacity];
-    // copy constructor
-    for (int ind = 0; ind < capacity; ind++)
-        temp[ind] = list[ind];
-    capacity = newCapacity;
-    // destructor
+
+    T temp[capacity*2] = {};
+    T item;
+    for (int i=0; i<size; i++)
+    {
+        item = list[i];
+        cout << "item: " << i << " has been added as " << item << endl;
+        temp[i] = item;
+    }
     delete [] list;
     list = temp;
-    delete [] temp;
+    capacity = capacity*2;
+    for (int j=0; j<capacity; j++)
+    {
+        item = list[j];
+        cout << "in list item: " << item << " at index: " << j << endl;
+    }
+
+
+    // int newCapacity = capacity*2;
+    // T *temp = new T[newCapacity];
+    //
+    // for (int ind = 0; ind < size; ind++)
+    //     temp[ind] = list[ind];
+    // capacity = newCapacity;
+    //
+    // delete [] list;
+    // list = NULL;
+    // list = temp;
+    // delete [] temp;
+    // temp = NULL;
 }
