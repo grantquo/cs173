@@ -13,9 +13,16 @@ int main ( void )
 	List<int> 	list1;
 	cout << "list1 = " << list1 << endl;
 
-	for ( int i = 1; i <= 10; i++ )
-		list1.append(i);
+	for (int i=0; i<DEFAULT_LIST_CAPACITY; i++)
+	{
+		cout << "Initialize list has at " << i << " : " << list1[i] << endl;
+	}
 
+	for ( int i = 1; i <= 10; i++ )
+	{
+		cout << i << " is being added to " << i << endl;
+		list1.append(i);
+	}
 	cout << "list1 = " << list1.to_string() << endl;
 /*
 	List<int> list2(list1);
@@ -25,11 +32,11 @@ int main ( void )
 	cout << "\nlist1.insert(50,10);\nlist1.insert(0,0)\n";
 	cout << "list1.remove(1);\n";
 	//list2[2] = 100;
-	list1.insert(50,1);
+	// list1.insert(50,1);
 	//list1.insert(0,0);
 	//list1.remove(1);
 	//cout << "list2 = " << list2.to_string() << endl;
-	cout << "list1 = " << list1.to_string() << endl;
+	// cout << "list1 = " << list1.to_string() << endl;
 /*
 	cout << "\nlist3 new empty\n";
 	List<int> list3;

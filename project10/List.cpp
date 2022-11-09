@@ -154,7 +154,7 @@ void        List<T>::append ( const T &item )
         reallocate();
     }
     // if list isn't full
-    list[size] = item;
+    list[size+1] = item;
     size = size + 1;
 
 }
@@ -172,7 +172,7 @@ void        List<T>::append ( const T &item )
 template <class T>
 T &         List<T>::operator[] ( int index )
 {
-    return *list[index];
+    return list[index];
 }
 
 //==========================================================
@@ -195,52 +195,56 @@ void        List<T>::insert ( const T &item, int index )
         reallocate();
     }
     // if list isn't full
-    T temp[capacity] = {};
+
+    temp = new T[capacity];
     T curItem;
 
-    // for (int ind=0; ind < capacity; ind++)
-    //     cout << list[ind] << " at index: " << ind << endl;
+    cout << "This is in list so far: " << endl;
+    for (int ind=0; ind < capacity; ind++)
+        cout << list[ind] << endl;
 
-    // if (index > 0)
-    // {
-    //     for (int i=0; i<=index-1; i++)
-    //     {
-    //         curItem = list[i];
-    //         temp[i] = curItem;
-    //         cout << " ======= item: " << curItem << " being added to index: " << i << endl;
-    //     }
-    //     temp[index] = item;
-    //
-    //     cout << "this is temp: " << endl;
-    //     for (int qwery = 0; qwery<capacity; qwery++)
-    //         cout << temp[qwery] << endl;
-    //
-    //     T curItem;
-    //
-    //     for (int i=index+1; i<size+1; i++)
-    //     {
-    //         curItem = list[i];
-    //         temp[i] = curItem;
-    //         cout << " $$$$$$$ item: " << curItem << " being added to index: " << i << endl;
-    //     }
-    // }
-    // else if (index == 0)
-    // {
-    //     temp[0] = item;
-    //     for (int i=1; i<size; i++)
-    //     {
-    //             curItem = list[i];
-    //             temp[i] = curItem;
-    //             cout << "+++++++ item: " << curItem << " being added to index: " << i << endl;
-    //     }
-    // }
-    // cout << "this is temp: " << endl;
-    // for (int qwery = 0; qwery<capacity; qwery++)
-    //     cout << temp[qwery] << endl;
-    //
-    // delete [] list;
-    // list = temp;
-    // size = size + 1;
+    if (index > 0)          // if insertion isnt at beginning
+    {
+        for (int i=0; i<=index-1; i++)
+        {
+            curItem = list[i];
+            temp[i] = curItem;
+            cout << " ======= item: " << curItem << " added to index: " << i << endl;
+        }
+        cout << "NEW ITEM BEING ADDED !!!" << endl; //item at index being added
+        temp[index] = item;
+        T curItem;
+
+        for (int i=index+1; i<size; i++)    //all items to right of index being added
+        {
+            curItem = list[i];
+            temp[i] = curItem;
+            cout << " $$$$$$$ item: " << curItem << " being added to index: " << i << endl;
+        }
+    }
+
+
+
+    else if (index == 0)        // if insertion is at the beginning
+    {
+        temp[0] = item;
+        for (int i=1; i<size; i++)
+        {
+                curItem = list[i];
+                temp[i] = curItem;
+                cout << "+++++++ item: " << curItem << " being added to index: " << i << endl;
+        }
+    }
+
+    cout << "this is temp: " << endl;
+    for (int qwery = 0; qwery<capacity; qwery++)
+        cout << temp[qwery] << endl;
+
+    delete [] list;
+    list = temp;
+    size = size + 1;
+    delete [] temp;
+    temp = NULL;
 }
 
 //==========================================================
@@ -268,7 +272,8 @@ void        List<T>::remove ( int index )
 // Gives dynamic lists the ability to be combined with other
 // dynamic lists through operator "+". The second list getting
 // added will be attached to the end of the first one.
-// PARAMS:
+// PARAMS:	list1.insert(50,1);
+
 //
 // RETURNS:
 //
@@ -359,18 +364,21 @@ void        List<T>::reallocate ( void )
         if (list[i] != 0)
         {
             item = list[i];
-            cout << "item: " << item << " in index: " << i << endl;
+            // cout << "item: " << item << " in index: " << i << endl;
             temp[i] = item;
         }
     }
 
-    for (int i=0; i<newCapacity; i++)
-        cout << "in temp: " << temp[i] << " in index: " << i << endl;
+    // for (int i=0; i<newCapacity; i++)
+        // cout << "in temp: " << temp[i] << " in index: " << i << endl;
 
     delete [] list;
     list = NULL;
     capacity = newCapacity;
     list=temp;
+    delete [] temp;
+    temp = NULL;
+    cout << " @@@@ " << "Reallocation Completed!" << " @@@@ " << endl;
     for (int j=0; j<capacity; j++)
     {
         item = list[j];
