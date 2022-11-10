@@ -109,16 +109,31 @@ template <class T>
 template <class T>
 List<T>     List<T>::operator= ( const List<T> &mylist )
 {
-    delete [] list;
-    list = NULL;
     capacity = mylist.capacity;
-    list = new T[capacity];
+    size = mylist.size;
+    T staticNew[capacity];
+
     for (int i=0; i<capacity; i++)
-    {
-        list[i] = mylist.list[i];
-    }
+        staticNew[i] = mylist.list[i];
+
+    delete [] list;
+    list = new T[capacity];
+
+    for (int i=0; i<capacity; i++)
+        list[i] = staticNew[i];
 
     return list;
+    //
+    // delete [] list;
+    // list = NULL;
+    // capacity = mylist.capacity;
+    // list = new T[capacity];
+    // for (int i=0; i<capacity; i++)
+    // {
+    //     list[i] = mylist.list[i];
+    // }
+    //
+    // return list;
 }
 //==========================================================
 // to_string
@@ -132,7 +147,9 @@ List<T>     List<T>::operator= ( const List<T> &mylist )
 template <class T>
 string      List<T>::to_string ( void ) const
 {
-    stringstream stream;
+    stringstream stream;    // int mylistCapacity = mylist.capacity;
+    // int mylistSize = mylist.size;
+
     for ( int i = 0; i < size; i++ )
 		stream << list[i] << " ";
 	return stream.str();
@@ -284,27 +301,28 @@ void        List<T>::remove ( int index )
 template <class T>
 List<T>     List<T>::operator+ ( const List<T> &mylist ) const
 {
-    int mylistCapacity = mylist.capacity;
-    int mylistSize = mylist.size;
-    temp = new T[mylistCapacity];
+
+    int newCapacity = capacity + mylist.capacity;
+    int newSize = size + mylist.size;
+    T staticNew[newCapacity];
 
     for (int i=0; i<size; i++)
-        temp[i] = list[i];
+        staticNew[i] = list[i];
 
-    for (int i=0; i<mylistSize; i++)
-        temp[size+i] = mylist.list[i];
 
-    capacity = capacity + mylistCapacity;
-    size = size + mylistSize;
+    for (int i=0; i<mylist.size; i++)
+        staticNew[size+i] = mylist.list[i];
 
     delete [] list;
-    list = new T[capacity];
 
-    for (int i=0; i<capacity; i++)
-        list[i] = temp[i];
+    // capacity = newCapacity;
+    // size = newSize;
+    // list = new T[capacity];
+    //
+    // for (int i=0; i<capacity; i++)
+    //     list[i] = staticNew[i];
 
-    delete [] temp;
-    return list;
+    return staticNew;
 }
 
 //==========================================================
@@ -334,7 +352,7 @@ int         List<T>::length ( void ) const
 template <class T>
 bool        List<T>::isEmpty ( void ) const
 {
-    return (capacity != size);
+    return (size == 0);
 }
 
 //==========================================================
@@ -368,7 +386,11 @@ void        List<T>::clear ( void )
 // and needs to make space for more items. It first creates
 // a new dynamic list with double the amount of capacity,
 // then copies every value from the first into the second.
-// The old, smaller list is then deleted for memory and
+// The old, smaller li    // for (int j=0; j<capacity; j++)
+    // {
+    //     item = list[j];
+    //     cout << "Item: " << item << " at index: " << j << endl;
+    // }st is then deleted for memory and
 // capacity is adjusted for the new one.
 // PARAMS:
 //
@@ -404,9 +426,9 @@ void        List<T>::reallocate ( void )
     cout << " @@@@ " << "Reallocated!" << " @@@@ " << endl;
     // cout << "THIS IS IN LIST: " << endl;
 
-    for (int j=0; j<capacity; j++)
-    {
-        item = list[j];
-        // cout << "Item: " << item << " at index: " << j << endl;
-    }
+    // for (int j=0; j<capacity; j++)
+    // {
+    //     item = list[j];
+    //     cout << "Item: " << item << " at index: " << j << endl;
+    // }
 }
