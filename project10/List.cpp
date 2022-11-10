@@ -110,13 +110,14 @@ template <class T>
 List<T>     List<T>::operator= ( const List<T> &mylist )
 {
     delete [] list;
+    list = NULL;
     capacity = mylist.capacity;
     list = new T[capacity];
-    temp = new T[capacity];
     for (int i=0; i<capacity; i++)
     {
-        list[i] = temp[i];
+        list[i] = mylist.list[i];
     }
+
     return list;
 }
 //==========================================================
@@ -204,8 +205,7 @@ void        List<T>::insert ( const T &item, int index )
     {
         for (int i=0; i<=index-1; i++)
         {
-            curItem = list[i];
-            temp[i] = curItem;
+            temp[i] = list[i];
             // cout << " ======= item: " << curItem << " added to index: " << i << endl;
         }
         // cout << "NEW ITEM BEING ADDED !!!" << endl; //item at index being added
@@ -214,8 +214,7 @@ void        List<T>::insert ( const T &item, int index )
 
         for (int i=index+1; i<size; i++)    //all items to right of index being added
         {
-            curItem = list[i];
-            temp[i] = curItem;
+            temp[i] = list[i];
             // cout << " $$$$$$$ item: " << curItem << " being added to index: " << i << endl;
         }
     }
@@ -223,13 +222,13 @@ void        List<T>::insert ( const T &item, int index )
     else if (index == 0)        // if insertion is at the beginning
     {
         temp[0] = item;
-        for (int i=1; i<size-1; i++)
+        for (int i=1; i<size; i++)
         {
-                curItem = list[i];
-                temp[i] = curItem;
+                temp[i] = list[i];
                 // cout << " $$$$$$$ item: " << curItem << " being added to index: " << i << endl;
         }
     }
+
 
     delete [] list;
 
@@ -240,8 +239,9 @@ void        List<T>::insert ( const T &item, int index )
         list[i] = temp[i];
         cout << "Item: " << list[i] << " Index: " << i << endl;
     }
-
-    size = size + 1;
+    if (index == size){
+            size += 1;
+    }
     delete [] temp;
 }
 
@@ -262,7 +262,7 @@ void        List<T>::remove ( int index )
 
     cout << "New list after removal: " << endl;
 
-    for (int ind = index-1; ind < size; ind++)
+    for (int ind = index+1; ind < size; ind++)
     {
         list[ind] = list[ind+1];
         cout << "--- Item: " << list[ind] << " at Index: " << ind << endl;
@@ -281,13 +281,32 @@ void        List<T>::remove ( int index )
 // RETURNS:
 //
 //==========================================================
-/*
 template <class T>
 List<T>     List<T>::operator+ ( const List<T> &mylist ) const
 {
-    // idfk
+    int mylistCapacity = mylist.capacity;
+    int mylistSize = mylist.size;
+    temp = new T[mylistCapacity];
+
+    for (int i=0; i<size; i++)
+        temp[i] = list[i];
+
+    for (int i=0; i<mylistSize; i++)
+        temp[size+i] = mylist.list[i];
+
+    capacity = capacity + mylistCapacity;
+    size = size + mylistSize;
+
+    delete [] list;
+    list = new T[capacity];
+
+    for (int i=0; i<capacity; i++)
+        list[i] = temp[i];
+
+    delete [] temp;
+    return list;
 }
-*/
+
 //==========================================================
 // length
 // Simple function that returns the number of values stored
@@ -341,6 +360,7 @@ void        List<T>::clear ( void )
 // PRIVATE METHODS
 //
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	//cout << "list2 = " << list2.to_string() << endl;
 
 //==========================================================
 // reallocate
