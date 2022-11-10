@@ -179,7 +179,7 @@ void        List<T>::insert ( const T &item, int index )
         reallocate();
     }
     // if list isn't full
-    cout << " ############ WE ARE INSERTING " << item << " in index: " << index << "\n" << endl;
+    // cout << " ############ WE ARE INSERTING " << item << " in index: " << index << "\n" << endl;
     // cout << "BEFORE LOOP::: INDEX = " << index << " <> SIZE = " << size << "\n" << endl;
     // cout << size << " should be GREATER THAN " << index << " TO BEGIN LOOP! " << endl;
 
@@ -230,7 +230,7 @@ List<T>     List<T>::operator+ ( const List<T> &mylist ) const
 {
     List<T> newlist(mylist);
     for (int i=0; i<size; i++)
-        newlist.append(list[i]);
+        newlist.insert(list[i], i);
 
     return newlist;
 }
@@ -313,7 +313,7 @@ void        List<T>::reallocate ( void )
     delete [] list;
     capacity = newCapacity;
     list = temp;
-    cout << " @@@ Reallocated ! " << endl;
-    cout << " @@@ Size: " << size << endl;
-    cout << " @@@ Capacity: " << capacity << "\n" << endl;
+    // cout << " @@@ Reallocated ! " << endl;
+    // cout << " @@@ Size: " << size << endl;
+    // cout << " @@@ Capacity: " << capacity << "\n" << endl;
 }
