@@ -9,32 +9,6 @@
 #include <iomanip>
 #include <string>
 
-/*
->>>>> Things left to do:
-
-- TESTING TESTING TESTING TESTING
-
-- Build the adding two lists together function
-
-- Build list from mylist function
-
-- Docstrings
-
->>>>> Possible problems:
-
-- If statement pointers need to either have/dont have * in them
-
-- To build the list, you either need/dont need * in the init statement
-
-- Delete statements might need/dont need *
-
-- Assignments might need/dont need * in their statements
-
-- Reallocate is actually trash even when it makes sense
-
-- You don't need to return the pointer as * but instead just "list"
-
-*/
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 //
 // PUBLIC METHODS
@@ -97,7 +71,7 @@ template <class T>
 }
 
 //==========================================================
-// operator=
+// operator=newlist
 // This gives functionality for the assignment operator "=",
 // allowing for dynamics lists to be reassigned to other
 // dynamic lists, while the deallocated data is deleted.
@@ -109,32 +83,21 @@ template <class T>
 template <class T>
 List<T>     List<T>::operator= ( const List<T> &mylist )
 {
-    capacity = mylist.capacity;
     size = mylist.size;
-    T staticNew[capacity];
-
-    for (int i=0; i<capacity; i++)
-        staticNew[i] = mylist.list[i];
-
-    delete [] list;
+    capacity = mylist.capacity;
     list = new T[capacity];
-
+    // copy constructor
     for (int i=0; i<capacity; i++)
-        list[i] = staticNew[i];
-
-    return list;
-    //
-    // delete [] list;
-    // list = NULL;
-    // capacity = mylist.capacity;
-    // list = new T[capacity];
-    // for (int i=0; i<capacity; i++)
-    // {
-    //     list[i] = mylist.list[i];
-    // }
-    //
-    // return list;
+        list[i] = mylist.list[i];
+    // List<T> list2 = List(mylist);
+    // cout<<list2.to_string()<<endl;
+    // // size = mylist.size;
+    // // capacity = mylist.capacity;
+    // size = list2.size;
+    // capacity = list2.capacity;
+    return *this;
 }
+
 //==========================================================
 // to_string
 // This function allows for lists to be outputted through
@@ -249,12 +212,12 @@ void        List<T>::insert ( const T &item, int index )
 
     delete [] list;
 
-    cout << "After " << item << " was added at " << index << " , this is list: " << endl;
+    // cout << "After " << item << " was added at " << index << " , this is list: " << endl;
 
     for (int i=0; i<capacity; i++)
     {
         list[i] = temp[i];
-        cout << "Item: " << list[i] << " Index: " << i << endl;
+        // cout << "Item: " << list[i] << " Index: " << i << endl;
     }
     if (index == size){
             size += 1;
@@ -280,10 +243,7 @@ void        List<T>::remove ( int index )
     cout << "New list after removal: " << endl;
 
     for (int ind = index+1; ind < size; ind++)
-    {
         list[ind] = list[ind+1];
-        cout << "--- Item: " << list[ind] << " at Index: " << ind << endl;
-    }
     size = size-1;
 }
 
@@ -301,28 +261,11 @@ void        List<T>::remove ( int index )
 template <class T>
 List<T>     List<T>::operator+ ( const List<T> &mylist ) const
 {
+    List<T> newlist(mylist);
+    // for (int i=0; i<mylist.size; i++)
+    //     newlist.append(mylist.list[i]);
 
-    int newCapacity = capacity + mylist.capacity;
-    int newSize = size + mylist.size;
-    T staticNew[newCapacity];
-
-    for (int i=0; i<size; i++)
-        staticNew[i] = list[i];
-
-
-    for (int i=0; i<mylist.size; i++)
-        staticNew[size+i] = mylist.list[i];
-
-    delete [] list;
-
-    // capacity = newCapacity;
-    // size = newSize;
-    // list = new T[capacity];
-    //
-    // for (int i=0; i<capacity; i++)
-    //     list[i] = staticNew[i];
-
-    return staticNew;
+    return newlist;
 }
 
 //==========================================================

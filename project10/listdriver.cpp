@@ -30,6 +30,7 @@ int main ( void )
 	cout << "list2 = " << list2.to_string() << endl;
 	cout << "list1 = " << list1.to_string() << endl;
 
+
 	cout << "\nlist3 new empty\n";
 	List<int> list3;
 	cout << "list3 size = " << list3.length() << endl;
@@ -38,10 +39,16 @@ int main ( void )
 	else
 		cout << "list3 not empty\n";
 
+	list3 = list1;
+	cout << "List 3: "<< list1.to_string() << endl;
+
+/*
+
 	cout << "\nlist3 = list1+list2\n";
 	list3 = list1 + list2;
 	cout << "list3 = " << list3.to_string() << endl;
-/*
+
+
 
 	cout << "list3 size = " << list3.length() << endl;
 	if ( list3.isEmpty() )
