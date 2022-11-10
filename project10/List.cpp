@@ -83,18 +83,18 @@ template <class T>
 template <class T>
 List<T>     List<T>::operator= ( const List<T> &mylist )
 {
+    delete [] list;
+    capacity = 0;
+    size = 0;
+
     size = mylist.size;
     capacity = mylist.capacity;
     list = new T[capacity];
     // copy constructor
     for (int i=0; i<capacity; i++)
         list[i] = mylist.list[i];
-    // List<T> list2 = List(mylist);
-    // cout<<list2.to_string()<<endl;
-    // // size = mylist.size;
-    // // capacity = mylist.capacity;
-    // size = list2.size;
-    // capacity = list2.capacity;
+
+
     return *this;
 }
 
@@ -110,8 +110,7 @@ List<T>     List<T>::operator= ( const List<T> &mylist )
 template <class T>
 string      List<T>::to_string ( void ) const
 {
-    stringstream stream;    // int mylistCapacity = mylist.capacity;
-    // int mylistSize = mylist.size;
+    stringstream stream;
 
     for ( int i = 0; i < size; i++ )
 		stream << list[i] << " ";
@@ -154,6 +153,9 @@ void        List<T>::append ( const T &item )
 template <class T>
 T &         List<T>::operator[] ( int index )
 {
+    // check for illegal indices
+    if (index < 0 || index > size)
+        cout << "Runtime Error: Illegal Indices" << endl;
     return list[index];
 }
 
@@ -177,52 +179,26 @@ void        List<T>::insert ( const T &item, int index )
         reallocate();
     }
     // if list isn't full
-
-    temp = new T[capacity];
-    T curItem;
-
-    if (index > 0)          // if insertion isnt at beginning
+    cout << " ############ WE ARE INSERTING " << item << endl;
+    // cout << "Current Size: " << size << endl;
+    if (index+1>=size)
     {
-        for (int i=0; i<=index-1; i++)
-        {
-            temp[i] = list[i];
-            // cout << " ======= item: " << curItem << " added to index: " << i << endl;
-        }
-        // cout << "NEW ITEM BEING ADDED !!!" << endl; //item at index being added
-        temp[index] = item;
-        T curItem;
-
-        for (int i=index+1; i<size; i++)    //all items to right of index being added
-        {
-            temp[i] = list[i];
-            // cout << " $$$$$$$ item: " << curItem << " being added to index: " << i << endl;
-        }
+        cout << "!!! Assigning " << item << " at " << index << " over " << list[index] << endl;
+        list[index] = item;
     }
-
-    else if (index == 0)        // if insertion is at the beginning
+    else
     {
-        temp[0] = item;
-        for (int i=1; i<size; i++)
+        for (int ind = size; ind == index; ind--)
         {
-                temp[i] = list[i];
-                // cout << " $$$$$$$ item: " << curItem << " being added to index: " << i << endl;
+            cout << "%%% " << list[ind+1] << " is being assigned to " << list[ind] << endl;
+            list[ind+1] = list[ind];
         }
+        cout << "!!! Assigning " << list[index] << " at " << index << " to " << item << endl;
+        list[index] = item;
+
     }
+    size = size + 1;
 
-
-    delete [] list;
-
-    // cout << "After " << item << " was added at " << index << " , this is list: " << endl;
-
-    for (int i=0; i<capacity; i++)
-    {
-        list[i] = temp[i];
-        // cout << "Item: " << list[i] << " Index: " << i << endl;
-    }
-    if (index == size){
-            size += 1;
-    }
-    delete [] temp;
 }
 
 //==========================================================
@@ -232,19 +208,16 @@ void        List<T>::insert ( const T &item, int index )
 // of the list after a remove is unaffected.
 // PARAMS:
 //
-// RETURNS:    size = size-1;
-
+// RETURNS:
 //
 //==========================================================
 template <class T>
 void        List<T>::remove ( int index )
 {
-
-    cout << "New list after removal: " << endl;
-
-    for (int ind = index+1; ind < size; ind++)
+    for (int ind = index; ind < size-1; ind++)
         list[ind] = list[ind+1];
-    size = size-1;
+    size = size - 1;
+
 }
 
 //==========================================================
@@ -262,8 +235,8 @@ template <class T>
 List<T>     List<T>::operator+ ( const List<T> &mylist ) const
 {
     List<T> newlist(mylist);
-    // for (int i=0; i<mylist.size; i++)
-    //     newlist.append(mylist.list[i]);
+    for (int i=0; i<mylist.size; i++)
+        newlist.append(mylist.list[i]);
 
     return newlist;
 }
@@ -310,10 +283,7 @@ bool        List<T>::isEmpty ( void ) const
 template <class T>
 void        List<T>::clear ( void )
 {
-    list = NULL;
-    delete [] list;
     size = 0;
-    list = new T[capacity];
 }
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -321,7 +291,6 @@ void        List<T>::clear ( void )
 // PRIVATE METHODS
 //
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-	//cout << "list2 = " << list2.to_string() << endl;
 
 //==========================================================
 // reallocate
@@ -329,11 +298,7 @@ void        List<T>::clear ( void )
 // and needs to make space for more items. It first creates
 // a new dynamic list with double the amount of capacity,
 // then copies every value from the first into the second.
-// The old, smaller li    // for (int j=0; j<capacity; j++)
-    // {
-    //     item = list[j];
-    //     cout << "Item: " << item << " at index: " << j << endl;
-    // }st is then deleted for memory and
+// The old, smaller list is then deleted for memory and
 // capacity is adjusted for the new one.
 // PARAMS:
 //
@@ -343,35 +308,18 @@ void        List<T>::clear ( void )
 template <class T>
 void        List<T>::reallocate ( void )
 {
-    // default constructor
+    T	*temp;
     int newCapacity = capacity*2;
     temp = new T[newCapacity];
-    T item;
     for (int i=0; i<size; i++)
     {
-        if (list[i] != 0)
-        {
-            item = list[i];
-            // cout << "in temp item: " << item << " in index: " << i << endl;
-            temp[i] = item;
-        }
+        temp[i] = list[i];
     }
-    // cout << "Temp Built!" << endl;
 
     delete [] list;
     capacity = newCapacity;
-    list = new T[capacity];
-
-    for (int i=0; i<size; i++)      // temp and list merge
-        list[i] = temp[i];
-
-    delete [] temp;
-    cout << " @@@@ " << "Reallocated!" << " @@@@ " << endl;
-    // cout << "THIS IS IN LIST: " << endl;
-
-    // for (int j=0; j<capacity; j++)
-    // {
-    //     item = list[j];
-    //     cout << "Item: " << item << " at index: " << j << endl;
-    // }
+    list = temp;
+    cout << " @@@ Reallocated ! " << endl;
+    cout << " @@@ Size: " << size << endl;
+    cout << " @@@ Capcacity: " << capacity << endl;
 }

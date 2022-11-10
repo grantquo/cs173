@@ -21,15 +21,22 @@ int main ( void )
 	List<int> list2(list1);
 	cout << "list2 = " << list2.to_string() << endl;
 
-	cout << "\nlist1.insert(50,10);\nlist1.insert(0,0)\n";
-	cout << "list1.remove(1);\n";
+	// cout << "\nlist1.insert(50,10);\nlist1.insert(0,0)\n";
+	// cout << "list1.remove(1);\n";
 	list2[2] = 100;
+	cout << "INSERTING 50" << endl;
 	list1.insert(50,10);
-	list1.insert(0,0);
-	list1.remove(1);
-	cout << "list2 = " << list2.to_string() << endl;
 	cout << "list1 = " << list1.to_string() << endl;
 
+	cout << "INSERTING 0" << endl;
+	list1.insert(0,0);
+	cout << "list1 = " << list1.to_string() << endl;
+
+	cout << "REMOVING 1" << endl;
+ 	list1.remove(1);
+	cout << "list1 = " << list1.to_string() << endl;
+
+	cout << "list2 = " << list2.to_string() << endl;
 
 	cout << "\nlist3 new empty\n";
 	List<int> list3;
@@ -39,15 +46,11 @@ int main ( void )
 	else
 		cout << "list3 not empty\n";
 
-	list3 = list1;
-	cout << "List 3: "<< list1.to_string() << endl;
-
-/*
 
 	cout << "\nlist3 = list1+list2\n";
 	list3 = list1 + list2;
 	cout << "list3 = " << list3.to_string() << endl;
-
+/*
 
 
 	cout << "list3 size = " << list3.length() << endl;

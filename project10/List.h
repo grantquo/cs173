@@ -41,7 +41,6 @@ friend ostream & operator<< ( ostream &os, List<T> &mylist )
 
 private:
 	T	*list;			// pointer for the dynamic array
-	T	*temp;			// pointer for a temporary array
 	int capacity;		// the size of the array
 	int size;			// the number of items in the list
 
