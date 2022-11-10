@@ -179,24 +179,18 @@ void        List<T>::insert ( const T &item, int index )
         reallocate();
     }
     // if list isn't full
-    cout << " ############ WE ARE INSERTING " << item << endl;
-    // cout << "Current Size: " << size << endl;
-    if (index+1>=size)
-    {
-        cout << "!!! Assigning " << item << " at " << index << " over " << list[index] << endl;
-        list[index] = item;
-    }
-    else
-    {
-        for (int ind = size; ind == index; ind--)
-        {
-            cout << "%%% " << list[ind+1] << " is being assigned to " << list[ind] << endl;
-            list[ind+1] = list[ind];
-        }
-        cout << "!!! Assigning " << list[index] << " at " << index << " to " << item << endl;
-        list[index] = item;
+    cout << " ############ WE ARE INSERTING " << item << " in index: " << index << "\n" << endl;
+    // cout << "BEFORE LOOP::: INDEX = " << index << " <> SIZE = " << size << "\n" << endl;
+    // cout << size << " should be GREATER THAN " << index << " TO BEGIN LOOP! " << endl;
 
+    for (int i = size; i>=index; i--)
+    {
+        // cout << "[][][] IN LOOP::: INDEX = " << index << " <> SIZE = " << size << " <> i = " << i << "\n" << endl;
+        // cout << "LIST[i+1] = " << list[i+1] << " and is being assigned to LIST[i]: " << list[i] << "\n" << endl;
+        list[i+1] = list[i];
     }
+    // cout << "LIST[index]: " << list[index] << " is being assigned to item: " << item << endl;
+    list[index] = item;
     size = size + 1;
 
 }
@@ -321,5 +315,5 @@ void        List<T>::reallocate ( void )
     list = temp;
     cout << " @@@ Reallocated ! " << endl;
     cout << " @@@ Size: " << size << endl;
-    cout << " @@@ Capcacity: " << capacity << endl;
+    cout << " @@@ Capacity: " << capacity << "\n" << endl;
 }
