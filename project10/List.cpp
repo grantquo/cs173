@@ -47,14 +47,11 @@ template <class T>
 template <class T>
             List<T>::List ( const List<T> &mylist )
 {
-    // default constructor
     size = mylist.size;
     capacity = mylist.capacity;
     list = new T[capacity];
-    // copy constructor
     for (int i=0; i<capacity; i++)
         list[i] = mylist.list[i];
-
 }
 
 //==========================================================
@@ -97,11 +94,9 @@ List<T>     List<T>::operator= ( const List<T> &mylist )
     size = mylist.size;
     capacity = mylist.capacity;
     list = new T[capacity];
-    // copy constructor
+
     for (int i=0; i<capacity; i++)
         list[i] = mylist.list[i];
-
-
     return *this;
 }
 
@@ -138,14 +133,10 @@ template <class T>
 void        List<T>::append ( const T &item )
 {
     if (size == capacity)
-    {
-        // if list is full
         reallocate();
-    }
-    // if list isn't full
+
     list[size] = item;
     size = size + 1;
-
 }
 
 //==========================================================
@@ -163,9 +154,8 @@ void        List<T>::append ( const T &item )
 template <class T>
 T &         List<T>::operator[] ( int index )
 {
-    // check for illegal indices
     if (index < 0 || index > size)
-        cout << "Runtime Error: Illegal Indices" << endl;
+    cout << "Runtime Error: Illegal Indices" << endl;
     return list[index];
 }
 
@@ -187,25 +177,13 @@ template <class T>
 void        List<T>::insert ( const T &item, int index )
 {
     if (size == capacity)
-    {
-        // if list is full
         reallocate();
-    }
-    // if list isn't full
-    // cout << " ############ WE ARE INSERTING " << item << " in index: " << index << "\n" << endl;
-    // cout << "BEFORE LOOP::: INDEX = " << index << " <> SIZE = " << size << "\n" << endl;
-    // cout << size << " should be GREATER THAN " << index << " TO BEGIN LOOP! " << endl;
 
     for (int i = size; i>=index; i--)
-    {
-        // cout << "[][][] IN LOOP::: INDEX = " << index << " <> SIZE = " << size << " <> i = " << i << "\n" << endl;
-        // cout << "LIST[i+1] = " << list[i+1] << " and is being assigned to LIST[i]: " << list[i] << "\n" << endl;
         list[i+1] = list[i];
-    }
-    // cout << "LIST[index]: " << list[index] << " is being assigned to item: " << item << endl;
+
     list[index] = item;
     size = size + 1;
-
 }
 
 //==========================================================
@@ -332,7 +310,4 @@ void        List<T>::reallocate ( void )
     delete [] list;
     capacity = newCapacity;
     list = temp;
-    // cout << " @@@ Reallocated ! " << endl;
-    // cout << " @@@ Size: " << size << endl;
-    // cout << " @@@ Capacity: " << capacity << "\n" << endl;
 }
