@@ -229,8 +229,8 @@ template <class T>
 List<T>     List<T>::operator+ ( const List<T> &mylist ) const
 {
     List<T> newlist(mylist);
-    for (int i=0; i<mylist.size; i++)
-        newlist.append(mylist.list[i]);
+    for (int i=0; i<size; i++)
+        newlist.append(list[i]);
 
     return newlist;
 }
