@@ -80,14 +80,14 @@ void        List<T>::append ( const T &item )
     qtr->item = item;
     qtr->next = NULL;
 
-    if ( head == NULL )         //special case of empty list
+    if (head == NULL)         //special case of empty list
         head = qtr;
     else
     {
         Node *ptr;
         ptr = head;
 
-        while ( ptr->next != NULL )
+        while (ptr->next != NULL)
             ptr = ptr->next;
         ptr->next = qtr;
     }
@@ -96,13 +96,23 @@ void        List<T>::append ( const T &item )
 //============================================
 // operator[]
 //============================================
-/*
 template <class T>
 T &         List<T>::operator[] ( int index )
 {
-
+    Node *ptr = head;
+    int curInd = 0;
+    while (ptr->next != NULL)
+    {
+        if (curInd == index)
+            return ptr->item;
+        else
+        {
+            ptr = ptr->next;
+            curInd++;
+        }
+    }
+    return temp;
 }
-*/
 
 //============================================
 // insert

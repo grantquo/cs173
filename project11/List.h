@@ -2,7 +2,7 @@
 // Matt Kretchmar
 // October 2022
 // List.h
-// This file contains the List class declaration.  
+// This file contains the List class declaration.
 //========================================================
 
 #include <iostream>
@@ -15,7 +15,7 @@ using namespace std;
 #define DEFAULT_LIST_CAPACITY 10
 
 
-template <class T> 
+template <class T>
 class List
 {
 private:
@@ -25,15 +25,15 @@ private:
 		T		item;
 		Node 	*next;
 	};
-	
+	T		temp;
 	Node	*head;		// the pointer for the linked list
-	
+
 public:
 			List		( void );
 			List		( const List<T> &mylist );
 		   ~List		( void );
 List<T>		operator=	( const List<T> &mylist );
-string		to_string	( void ) const;	
+string		to_string	( void ) const;
 void		append		( const T &item	);
 T &			operator[]	( int index );
 void		insert		( const T &item, int index );
@@ -54,8 +54,8 @@ friend ostream & operator<< ( ostream &os, List<T> &mylist )
 			os << ptr->item;
 		ptr = ptr->next;
 	}
-		
-	return os;	
+
+	return os;
 }
 
 
@@ -65,5 +65,3 @@ friend ostream & operator<< ( ostream &os, List<T> &mylist )
 #include "List.cpp"
 
 #endif
-
-

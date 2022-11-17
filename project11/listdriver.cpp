@@ -17,7 +17,7 @@ int main ( void )
 		list1.append(i);
 
 	cout << "list1 = " << list1.to_string() << endl;
-	cout << "list1 length = " << list1.length() << endl;
+	cout << "list1[2] = "<< list1[2] << endl;
 	/*
 	List<int> list2(list1);
 	cout << "list2 = " << list2 << endl;
