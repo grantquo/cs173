@@ -36,27 +36,36 @@ template <class T>
 template <class T>
             List<T>::List ( const List<T> &mylist )
 {
-    Node *ptr = head;
-    Node *qtr = mylist.head;
+    Node *mylistPtr;
+    Node *ptr;
 
-    // if mylist is empty
-    if (qtr == NULL)
+    if (mylist.head == NULL)
     {
-        ptr = NULL;
+        head = NULL;
         return;
     }
-    while (qtr != NULL)
+
+    mylistPtr = mylist.head;
+    head = new Node;
+    head->item = mylistPtr->item;
+
+    ptr = head;
+    mylistPtr = mylistPtr->next;
+
+    while (mylistPtr != NULL)
     {
-        ptr->item = qtr->mylist.item;
+        ptr->next = new Node;
         ptr = ptr->next;
-        qtr = qtr->mylist.next;
+        ptr->item = mylistPtr->item;
+        mylistPtr = mylistPtr->next;
     }
-    return;
+    ptr->next = NULL;
+
+
 }
 
 //============================================
 // destructor
-// This is wrong fix later.
 //============================================
 template <class T>
             List<T>::~List ( void )
@@ -69,6 +78,7 @@ template <class T>
         ptr = ptr->next;
         delete tempPtr;
     }
+    head = NULL;
 }
 
 //============================================
@@ -149,6 +159,7 @@ T &         List<T>::operator[] ( int index )
 //============================================
 // insert
 //============================================
+/*
 template <class T>
 void        List<T>::insert ( const T &item, int index )
 {
@@ -163,11 +174,11 @@ void        List<T>::insert ( const T &item, int index )
         ptr->
     }
 }
-
+*/
 //============================================
 // remove
 //============================================
-
+/*
 template <class T>
 void        List<T>::remove ( int index )
 {
@@ -184,7 +195,7 @@ void        List<T>::remove ( int index )
         curInd++;
     }
 }
-
+*/
 
 //============================================
 // operator+
@@ -245,6 +256,6 @@ bool        List<T>::isEmpty ( void ) const
 template <class T>
 void        List<T>::clear ( void )
 {
-    Node *ptr = head;
+    Node *ptr = head; // PROBABLY DOESNT WORK YET !!!
     ptr = NULL;
 }
