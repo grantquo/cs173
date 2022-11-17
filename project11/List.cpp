@@ -131,13 +131,20 @@ T &         List<T>::operator[] ( int index )
 //============================================
 // insert
 //============================================
-/*
 template <class T>
 void        List<T>::insert ( const T &item, int index )
 {
+    Node *ptr = head;
+    Node *qtr;
+    qtr = new Node;
+    qtr->item = item;
 
+    if (index == 0)
+    {
+        ptr->item = qtr->item;
+        ptr->
+    }
 }
-*/
 
 //============================================
 // remove
@@ -157,6 +164,22 @@ void        List<T>::remove ( int index )
 template <class T>
 List<T>     List<T>::operator+ ( const List<T> &mylist ) const
 {
+    Node *ptr = head;
+    Node *qtr = mylist.head;
+
+    while (ptr->next != NULL) // get to the end of list 1
+        ptr = ptr->next;
+
+    while (qtr->next != NULL)
+    {
+        ptr = ptr->next;
+        ptr->item = qtr->item;
+        qtr = qtr->next;
+    }
+    ptr->item = qtr->item;
+    ptr->next = NULL;
+
+    return; //need to figure out return setup
 
 }
 */
@@ -194,6 +217,7 @@ bool        List<T>::isEmpty ( void ) const
 template <class T>
 void        List<T>::clear ( void )
 {
-
+    Node *ptr = head;
+    ptr = NULL;
 }
 */
