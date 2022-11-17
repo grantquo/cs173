@@ -17,15 +17,45 @@ template <class T>
 }
 
 //============================================
+//
+//============================================
+/*
+template <class T>
+            List<T>::List ( const List<T> &mylist )
+{
+
+}
+*/
+//============================================
 // destructor
 // This is wrong fix later.
 //============================================
 template <class T>
             List<T>::~List ( void )
 {
-    // code here
+
 }
 
+//============================================
+// operator=
+//============================================
+/*
+template <class T>
+List<T>     List<T>::operator= ( const List<T> &mylist )
+{
+
+}
+*/
+//============================================
+// to_string
+//============================================
+/*
+template <class T>
+string      List<T>::to_string ( void )
+{
+
+}
+*/
 //============================================
 // append
 // Appends a new item onto the end of the list
@@ -50,17 +80,80 @@ void        List<T>::append ( const T &item )
         ptr->next = qtr;
     }
 }
+
+//============================================
+// operator[]
+//============================================
 /*
-1. delcare qtr
-2. allocate memory for qtr
-3. put value in qtr
-4. put qtr->next NULL
-5. declare ptr
-6. traverse ptr to last node
-7. fix last node link
+template <class T>
+T &         List<T>::operator[] ( int index )
+{
+
+}
 */
 
-// common problem: if you are doing something at the
-// front of back of the linked list, those are special
-// cases. if you dont treat them like so, you will get
-// a segmentation fault / bad pointer dereference error
+//============================================
+// insert
+//============================================
+/*
+template <class T>
+void        List<T>::insert ( const T &item, int index )
+{
+
+}
+*/
+
+//============================================
+// remove
+//============================================
+/*
+template <class T>
+void        List<T>::remove ( int index )
+{
+
+}
+*/
+
+//============================================
+// operator+
+//============================================
+/*
+template <class T>
+List<T>     List<T>::operator+ ( const List<T> &mylist ) const
+{
+
+}
+*/
+
+//============================================
+// length
+//============================================
+/*
+template <class T>
+int         List<T>::length ( void ) const
+{
+
+}
+*/
+
+//============================================
+// isEmpty
+//============================================
+/*
+template <class T>
+bool        List<T>::isEmpty ( void ) const
+{
+
+}
+*/
+
+//============================================
+// clear
+//============================================
+/*
+template <class T>
+void        List<T>::clear ( void )
+{
+
+}
+*/
