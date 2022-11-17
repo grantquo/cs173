@@ -140,13 +140,18 @@ List<T>     List<T>::operator+ ( const List<T> &mylist ) const
 //============================================
 // length
 //============================================
-/*
 template <class T>
 int         List<T>::length ( void ) const
 {
-
+    Node *ptr= head;
+    int total = 0;
+    while (ptr != NULL)
+    {
+        total++;
+        ptr = ptr->next;
+    }
+    return total;
 }
-*/
 
 //============================================
 // isEmpty
