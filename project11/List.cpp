@@ -6,6 +6,9 @@
 // for our linked list implementation.
 //============================================
 
+#include <iomanip>
+#include <string>
+
 //============================================
 // default constructor
 // creates an empty list
@@ -17,7 +20,7 @@ template <class T>
 }
 
 //============================================
-//
+// copy constructor
 //============================================
 /*
 template <class T>
@@ -49,13 +52,22 @@ List<T>     List<T>::operator= ( const List<T> &mylist )
 //============================================
 // to_string
 //============================================
-/*
 template <class T>
-string      List<T>::to_string ( void )
+string      List<T>::to_string ( void ) const
 {
-
+    stringstream stream;
+    Node *ptr = head;
+    while (ptr != NULL)
+    {
+        if (ptr->next != NULL)
+            stream << ptr->item << " ";
+        else
+            stream << ptr->item;
+        ptr = ptr->next;
+    }
+    return stream.str();
 }
-*/
+
 //============================================
 // append
 // Appends a new item onto the end of the list
