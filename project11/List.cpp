@@ -22,13 +22,27 @@ template <class T>
 //============================================
 // copy constructor
 //============================================
-/*
 template <class T>
             List<T>::List ( const List<T> &mylist )
 {
+    Node *ptr = head;
+    Node *qtr = mylist.head;
 
+    // if mylist is empty
+    if (qtr == NULL)
+    {
+        ptr = NULL;
+        return;
+    }
+    while (qtr != NULL)
+    {
+        ptr->item = qtr->mylist.item;
+        ptr = ptr->next;
+        qtr = qtr->mylist.next;
+    }
+    return;
 }
-*/
+
 //============================================
 // destructor
 // This is wrong fix later.
@@ -111,7 +125,7 @@ T &         List<T>::operator[] ( int index )
             curInd++;
         }
     }
-    return temp;
+    return temp; // NEEDS ERROR CASE !!!!
 }
 
 //============================================
