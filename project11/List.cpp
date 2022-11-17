@@ -151,13 +151,12 @@ int         List<T>::length ( void ) const
 //============================================
 // isEmpty
 //============================================
-/*
 template <class T>
 bool        List<T>::isEmpty ( void ) const
 {
-
+    Node *ptr = head;
+    return (ptr == NULL);
 }
-*/
 
 //============================================
 // clear
