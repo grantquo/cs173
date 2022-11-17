@@ -9,6 +9,17 @@
 #include <iomanip>
 #include <string>
 
+/*
+
+To do:
+
+1. copy constructor debugging
+2. remove needs to be finished in built
+3. insert cases - beginning, middle, end of list
+4. operator+ built
+
+*/
+
 //============================================
 // default constructor
 // creates an empty list
@@ -165,8 +176,12 @@ void        List<T>::remove ( int index )
     while (ptr->next != NULL)
     {
         if (curInd == index){
-            ptr->
+            delete ptr->item;
+            ptr->next = ptr->next;
+
         }
+        ptr = ptr->next;
+        curInd++;
     }
 }
 
