@@ -60,8 +60,6 @@ template <class T>
         mylistPtr = mylistPtr->next;
     }
     ptr->next = NULL;
-
-
 }
 
 //============================================
@@ -159,43 +157,73 @@ T &         List<T>::operator[] ( int index )
 //============================================
 // insert
 //============================================
-/*
 template <class T>
 void        List<T>::insert ( const T &item, int index )
 {
-    Node *ptr = head;
-    Node *qtr;
-    qtr = new Node;
-    qtr->item = item;
+    // need a case for beginning, middle, and end insertions
+    // Node *ptr = head;
+    // Node *qtr;
+    // qtr = new Node;
+    // qtr->item = item;
+    //
+    // if (index == 0)
+    // {
+    //     ptr->item = qtr->item;
+    //     ptr->
+    // }
+    Node *frontPtr;
+    Node *trailPtr;
+    Node *newNodePtr;
 
-    if (index == 0)
+    newNodePtr = new Node;
+    newNodePtr->item = item;
+    newNodePtr->next = NULL;
+
+    if (head==NULL)     // empty list case
     {
-        ptr->item = qtr->item;
-        ptr->
+        // newNodePtr->item = NULL;
+        head = newNodePtr;
+    }
+    else
+    {
+        frontPtr = head;
+        trailPtr = NULL;
+        while (frontPtr != NULL && frontPtr->item < item)
+        {
+            trailPtr = frontPtr;
+            frontPtr = frontPtr->next;
+        }
+
+        newNodePtr->next = frontPtr;
+        if (trailPtr == NULL)
+            head = trailPtr;
+        else
+            trailPtr->next = newNodePtr;
+        if (frontPtr == NULL)
+            trailPtr = newNodePtr;
     }
 }
-*/
+
 //============================================
 // remove
 //============================================
-/*
 template <class T>
 void        List<T>::remove ( int index )
 {
     Node *ptr = head;
+    Node *trailPtr = NULL;
     int curInd = 0;
     while (ptr->next != NULL)
     {
         if (curInd == index){
             delete ptr->item;
-            ptr->next = ptr->next;
-
+            trailPtr->next = ptr->next;
         }
+        trailPtr = ptr;
         ptr = ptr->next;
         curInd++;
     }
 }
-*/
 
 //============================================
 // operator+
