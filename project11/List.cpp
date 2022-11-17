@@ -50,7 +50,14 @@ template <class T>
 template <class T>
             List<T>::~List ( void )
 {
-
+    Node *tempPtr;
+    Node *ptr = head;
+    while (ptr != NULL)
+    {
+        tempPtr = ptr;
+        ptr = ptr->next;
+        delete tempPtr;
+    }
 }
 
 //============================================
@@ -149,13 +156,20 @@ void        List<T>::insert ( const T &item, int index )
 //============================================
 // remove
 //============================================
-/*
+
 template <class T>
 void        List<T>::remove ( int index )
 {
-
+    Node *ptr = head;
+    int curInd = 0;
+    while (ptr->next != NULL)
+    {
+        if (curInd == index){
+            ptr->
+        }
+    }
 }
-*/
+
 
 //============================================
 // operator+
@@ -213,11 +227,9 @@ bool        List<T>::isEmpty ( void ) const
 //============================================
 // clear
 //============================================
-/*
 template <class T>
 void        List<T>::clear ( void )
 {
     Node *ptr = head;
     ptr = NULL;
 }
-*/
