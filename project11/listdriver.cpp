@@ -38,9 +38,9 @@ int main ( void )
 	else
 		cout << "list3 not empty\n";
 
-// 	cout << "\nlist3 = list1+list2\n";
-// 	list3 = list1 + list2;
-// 	cout << "list3 = " << list3 << endl;
+	cout << "\nlist3 = list1\n";
+	list3 = list1;
+	cout << "list3 = " << list3 << endl;
 
 /*
 	cout << "list3 size = " << list3.length() << endl;
@@ -48,7 +48,7 @@ int main ( void )
 		cout << "list3 empty\n";
 	else
 		cout << "list3 not empty\n";
-*/
+
 	cout << "\nlist3.clear()\n";
 	list3.clear();
 
@@ -57,6 +57,6 @@ int main ( void )
 		cout << "list3 empty\n";
 	else
 		cout << "list3 not empty\n";
-
+*/
 	return 0;
 }
