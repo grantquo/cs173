@@ -29,9 +29,10 @@ template <class T>
 // copy constructor
 // Copy constructor that takes everything from a linked
 // list in its argument and makes a copy of it within
-// the class local linked list.
+// the class local linked list. If mylist is empty,
+// the class's list will be a blank state.
 // PARAMS:
-//      none
+//      mylist - Linked list of type T.
 // RETURNS:
 //      Has no returns. Makes the list given in the
 //      function argument identical to the class linked
@@ -70,6 +71,13 @@ template <class T>
 
 //====================================================
 // destructor
+// Destructor class implementation that wipes the class's
+// memory and resets the linked list to a blank state.
+// PARAMS:
+//      none
+// RETURNS:
+//      Has no returns. Deletes all Nodes stored in
+//      memory and sets the linked list head to NULL.
 //====================================================
 template <class T>
             List<T>::~List ( void )
@@ -87,6 +95,15 @@ template <class T>
 
 //====================================================
 // operator=
+// This function overloads operator= and sets the class
+// linked list equal to the argument's list. The destructor
+// is called to ensure that the memory is cleared before
+// reassignment.
+// PARAMS:
+//      mylist - Linked list of type T.
+// RETURNS:
+//      Returns the class local linked list reassigned
+//      to the parameter list.
 //====================================================
 template <class T>
 List<T>     List<T>::operator= ( const List<T> &mylist )
@@ -120,6 +137,13 @@ List<T>     List<T>::operator= ( const List<T> &mylist )
 
 //====================================================
 // to_string
+// Function for turning a linked list into a string
+// that can be outputted.
+// PARAMS:
+//      none
+// RETURNS:
+//      Returns a string of a iostream output, formatted
+//      for outputting each value within a linked list.
 //====================================================
 template <class T>
 string      List<T>::to_string ( void ) const
@@ -139,7 +163,12 @@ string      List<T>::to_string ( void ) const
 
 //====================================================
 // append
-// Appends a new item onto the end of the list
+// Appends a new item onto the end of the linked list.
+// PARAMS:
+//      item = An object of type T.
+// RETURNS:
+//      Has no returns. The class local linked list
+//      will have item attached to the end.
 //====================================================
 template <class T>
 void        List<T>::append ( const T &item )
@@ -164,6 +193,13 @@ void        List<T>::append ( const T &item )
 
 //====================================================
 // operator[]
+// Operator "[]" overloading function that gives linked
+// lists the ability to call a value by its index number.
+// PARAMS:
+//      int index: An integer index number from 0-length.
+// RETURNS:
+//      An object of type T that is in the linked list
+//      at the specified index number.
 //====================================================
 template <class T>
 T &         List<T>::operator[] ( int index )
@@ -185,6 +221,15 @@ T &         List<T>::operator[] ( int index )
 
 //====================================================
 // insert
+// Insertion function that inserts an item at a specific
+// index number. All values to the right of the index
+// number are shifted to make room for the new item.
+// PARAMS:
+//      int index: An integer index number from 0-length.
+//      item = An object of type T.
+// RETURNS:
+//      Has no returns. Only adds an object to be stored
+//      in the list.
 //====================================================
 template <class T>
 void        List<T>::insert ( const T &item, int index )
@@ -237,6 +282,12 @@ void        List<T>::insert ( const T &item, int index )
 
 //====================================================
 // remove
+// Removal function that takes a specific index and
+// deletes the item from it.
+// PARAMS:
+//      int index: An integer index number from 0-length.
+// RETURNS:
+//      Has no returns. Removes an object from the list.
 //====================================================
 template <class T>
 void        List<T>::remove ( int index )
@@ -257,6 +308,14 @@ void        List<T>::remove ( int index )
 
 //====================================================
 // operator+
+// Operator "+" overloading function that concatenates
+// a list given in its parameter to the end of the class
+// list.
+// PARAMS:
+//      mylist - Linked list of type T.
+// RETURNS:
+//      A new list that has parameter list attached
+//      to the end of the class local list.
 //====================================================
 template <class T>
 List<T>     List<T>::operator+ ( const List<T> &mylist ) const
@@ -275,6 +334,13 @@ List<T>     List<T>::operator+ ( const List<T> &mylist ) const
 
 //====================================================
 // length
+// Length function that calculates the linked list's
+// number of items.
+// PARAMS:
+//      none
+// RETURNS:
+//      An integer that represents the number of items
+//      stored.
 //====================================================
 template <class T>
 int         List<T>::length ( void ) const
@@ -291,6 +357,12 @@ int         List<T>::length ( void ) const
 
 //====================================================
 // isEmpty
+// Simple boolean function returning a true or false
+// for whether the linked list is empty.
+// PARAMS:
+//      none
+// RETURNS:
+//      A true or false for if the list has no objects.
 //====================================================
 template <class T>
 bool        List<T>::isEmpty ( void ) const
@@ -301,6 +373,13 @@ bool        List<T>::isEmpty ( void ) const
 
 //====================================================
 // clear
+// Clear function that wipes all objects from the list,
+// leaving the list empty.
+// PARAMS:
+//      none
+// RETURNS:
+//      Has no return, but calls the destructor to clear
+//      items from the list.
 //====================================================
 template <class T>
 void        List<T>::clear ( void )
