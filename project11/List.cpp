@@ -171,37 +171,52 @@ void        List<T>::insert ( const T &item, int index )
     //     ptr->item = qtr->item;
     //     ptr->
     // }
-    Node *frontPtr;
-    Node *trailPtr;
+    Node *frontPtr = head;
+    Node *trailPtr = NULL;
     Node *newNodePtr;
+    int curInd = 0;
 
     newNodePtr = new Node;
     newNodePtr->item = item;
     newNodePtr->next = NULL;
 
-    if (head==NULL)     // empty list case
+    if (head==NULL)
     {
-        // newNodePtr->item = NULL;
         head = newNodePtr;
+        return;
     }
     else
     {
-        frontPtr = head;
-        trailPtr = NULL;
-        while (frontPtr != NULL && frontPtr->item < item)
+        while (frontPtr != NULL)
         {
+            if (curInd == index)
+            {
+                if (trailPtr == NULL)
+                {
+                    head = newNodePtr;
+                    newNodePtr->next = frontPtr;
+                    frontPtr = frontPtr->next;
+                    return;
+                }
+                trailPtr->next = newNodePtr;
+                newNodePtr->next = frontPtr;
+                frontPtr = frontPtr->next;
+                return;
+            }
             trailPtr = frontPtr;
             frontPtr = frontPtr->next;
+            curInd++;
+        }
+        if (frontPtr == NULL && curInd == index)
+        {
+            frontPtr = newNodePtr;
+            trailPtr->next = newNodePtr;
+            return;
         }
 
-        newNodePtr->next = frontPtr;
-        if (trailPtr == NULL)
-            head = trailPtr;
-        else
-            trailPtr->next = newNodePtr;
-        if (frontPtr == NULL)
-            trailPtr = newNodePtr;
     }
+    cout << "!!! INVALID INDEX FOR INSERTION !!!" << endl;
+    return;
 }
 
 //============================================
@@ -216,7 +231,6 @@ void        List<T>::remove ( int index )
     while (ptr->next != NULL)
     {
         if (curInd == index){
-            delete ptr->item;
             trailPtr->next = ptr->next;
         }
         trailPtr = ptr;
