@@ -41,3 +41,29 @@
 //
 // frontPtr = head;
 // return List<T> finalPtr(frontPtr);
+
+
+template <class T>
+void        List<T>::remove ( int index )
+{
+    Node *ptr = head;
+    Node *trailPtr = NULL;
+    int curInd = 0;
+    while (ptr->next != NULL && curInd != index)
+    {
+        trailPtr = ptr;
+        ptr = ptr->next;
+        curInd++;
+    }
+    if (ptr != NULL)
+    {
+        if (ptr == head)
+            head = ptr->next;
+        else
+            trailPtr->next = ptr->next;
+        if (ptr->next == NULL)
+            ptr->next = trailPtr;
+        delete ptr;
+    }
+    // cout << "!!! INVALID INDEX: OUTSIDE OF BOUNDS !!!" << endl;
+}

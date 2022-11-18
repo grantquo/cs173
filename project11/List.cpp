@@ -50,7 +50,7 @@ template <class T>
         return;
     }
 
-    this->~List();
+    // this->~List();
 
     mylistPtr = mylist.head;
     head = new Node;
@@ -295,17 +295,25 @@ void        List<T>::remove ( int index )
     Node *ptr = head;
     Node *trailPtr = NULL;
     int curInd = 0;
-    while (ptr->next != NULL)
+    while (ptr->next != NULL && curInd != index)
     {
-        if (curInd == index){
-            trailPtr->next = ptr->next;
-        }
         trailPtr = ptr;
         ptr = ptr->next;
         curInd++;
     }
+    if (ptr != NULL)
+    {
+        if (ptr == head)
+            head = ptr->next;
+        else
+            trailPtr->next = ptr->next;
+        if (ptr->next == NULL)
+            ptr->next = trailPtr;
+        delete ptr;
+    }
+    cout << "!!! INVALID INDEX: OUTSIDE OF BOUNDS !!!" << endl;
+    return;
 }
-
 //====================================================
 // operator+
 // Operator "+" overloading function that concatenates
