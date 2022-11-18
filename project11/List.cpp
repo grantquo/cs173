@@ -311,8 +311,6 @@ void        List<T>::remove ( int index )
             ptr->next = trailPtr;
         delete ptr;
     }
-    cout << "!!! INVALID INDEX: OUTSIDE OF BOUNDS !!!" << endl;
-    return;
 }
 
 //====================================================
