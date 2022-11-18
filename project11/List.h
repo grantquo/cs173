@@ -25,8 +25,8 @@ private:
 		T		item;
 		Node 	*next;
 	};
-	T		temp;
-	Node	*head;		// the pointer for the linked list
+		T		temp;
+		Node	*head;		// the pointer for the linked list
 
 public:
 			List		( void );

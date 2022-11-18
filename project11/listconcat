@@ -1,0 +1,25 @@
+Node *frontPtr = head;
+Node *mylistPtr = mylist.head;
+Node *trailPtr = NULL;
+Node *newNodePtr;
+newNodePtr = new Node;
+int curInd = 0;
+
+while (frontPtr != NULL)
+{
+    trailPtr = frontPtr;
+    frontPtr = frontPtr->next;
+}
+
+
+while (mylistPtr != NULL)
+{
+    newNodePtr = mylistPtr;
+    trailPtr->next = newNodePtr;
+    trailPtr = mylistPtr;
+    mylistPtr = mylistPtr->next;
+}
+
+trailPtr->next = NULL;
+List<T> list(frontPtr);
+return list;

@@ -160,17 +160,6 @@ T &         List<T>::operator[] ( int index )
 template <class T>
 void        List<T>::insert ( const T &item, int index )
 {
-    // need a case for beginning, middle, and end insertions
-    // Node *ptr = head;
-    // Node *qtr;
-    // qtr = new Node;
-    // qtr->item = item;
-    //
-    // if (index == 0)
-    // {
-    //     ptr->item = qtr->item;
-    //     ptr->
-    // }
     Node *frontPtr = head;
     Node *trailPtr = NULL;
     Node *newNodePtr;
@@ -180,40 +169,38 @@ void        List<T>::insert ( const T &item, int index )
     newNodePtr->item = item;
     newNodePtr->next = NULL;
 
-    if (head==NULL)
+    if (head==NULL)     // empty list case
     {
         head = newNodePtr;
         return;
     }
-    else
+    while (frontPtr != NULL)
     {
-        while (frontPtr != NULL)
+        if (curInd == index)
         {
-            if (curInd == index)
+            if (trailPtr == NULL)   // beginning of list case
             {
-                if (trailPtr == NULL)
-                {
-                    head = newNodePtr;
-                    newNodePtr->next = frontPtr;
-                    frontPtr = frontPtr->next;
-                    return;
-                }
-                trailPtr->next = newNodePtr;
+                head = newNodePtr;
                 newNodePtr->next = frontPtr;
                 frontPtr = frontPtr->next;
                 return;
             }
-            trailPtr = frontPtr;
+
+            trailPtr->next = newNodePtr;    // index != 0 case
+            newNodePtr->next = frontPtr;
             frontPtr = frontPtr->next;
-            curInd++;
-        }
-        if (frontPtr == NULL && curInd == index)
-        {
-            frontPtr = newNodePtr;
-            trailPtr->next = newNodePtr;
             return;
         }
+        trailPtr = frontPtr;
+        frontPtr = frontPtr->next;
+        curInd++;
+    }
 
+    if (frontPtr == NULL && curInd == index) // end of list case
+    {
+        frontPtr = newNodePtr;
+        trailPtr->next = newNodePtr;
+        return;
     }
     cout << "!!! INVALID INDEX FOR INSERTION !!!" << endl;
     return;
@@ -246,26 +233,41 @@ void        List<T>::remove ( int index )
 template <class T>
 List<T>     List<T>::operator+ ( const List<T> &mylist ) const
 {
+    // Node *ptr = head;
+    // Node *qtr = mylist.head;
+    //
+    // while (ptr->next != NULL) // get to the end of list 1
+    //     ptr = ptr->next;
+    //
+    // while (qtr->next != NULL)
+    // {
+    //     ptr = ptr->next;
+    //     ptr->item = qtr->item;
+    //     qtr = qtr->next;
+    // }
+    // ptr->item = qtr->item;
+    // ptr->next = NULL;
+    //
+    // return List<T> ptr;
+
+    List<T> newlist();
     Node *ptr = head;
     Node *qtr = mylist.head;
-
-    while (ptr->next != NULL) // get to the end of list 1
-        ptr = ptr->next;
-
-    while (qtr->next != NULL)
+    while (ptr != NULL)
     {
+        T toAdd = ptr->item;
+        newlist.append(toAdd);
         ptr = ptr->next;
-        ptr->item = qtr->item;
+    }
+    while (qtr != NULL)
+    {
+        T toAdd = qtr->item;
+        newlist.append(toAdd);
         qtr = qtr->next;
     }
-    ptr->item = qtr->item;
-    ptr->next = NULL;
-
-    return; //need to figure out return setup
-
+    return newlist;
 }
 */
-
 //============================================
 // length
 //============================================
@@ -298,6 +300,13 @@ bool        List<T>::isEmpty ( void ) const
 template <class T>
 void        List<T>::clear ( void )
 {
-    Node *ptr = head; // PROBABLY DOESNT WORK YET !!!
-    ptr = NULL;
+    Node *tempPtr;
+    Node *ptr = head;
+    while (ptr != NULL)
+    {
+        tempPtr = ptr;
+        ptr = ptr->next;
+        delete tempPtr;
+    }
+    head = NULL;
 }
