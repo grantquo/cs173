@@ -1,49 +1,55 @@
-//============================================
+//====================================================
 // Grant Gutterman
 // 11-18-22
 // List.cpp
 // This is the class method implementation file
 // for our linked list implementation.
-//============================================
+//====================================================
 
 #include <iomanip>
 #include <string>
 
-/*
-
-To do:
-
-1. copy constructor debugging
-2. remove needs to be finished in built
-3. insert cases - beginning, middle, end of list
-4. operator+ built
-
-*/
-
-//============================================
+//====================================================
 // default constructor
-// creates an empty list
-//============================================
+// Main constructor that initializes a linked list
+// without arguments.
+// PARAMS:
+//      none
+// RETURNS:
+//      Has no returns. Initializes the class with a
+//      blank linked list.
+//====================================================
 template <class T>
             List<T>::List ( void )
 {
     head = NULL;
 }
 
-//============================================
+//====================================================
 // copy constructor
-//============================================
+// Copy constructor that takes everything from a linked
+// list in its argument and makes a copy of it within
+// the class local linked list.
+// PARAMS:
+//      none
+// RETURNS:
+//      Has no returns. Makes the list given in the
+//      function argument identical to the class linked
+//      list.
+//====================================================
 template <class T>
             List<T>::List ( const List<T> &mylist )
 {
     Node *mylistPtr;
     Node *ptr;
 
-    if (mylist.head == NULL)
+    if (mylist.head == NULL) // if mylist is empty
     {
         head = NULL;
         return;
     }
+
+    this->~List();
 
     mylistPtr = mylist.head;
     head = new Node;
@@ -62,9 +68,9 @@ template <class T>
     ptr->next = NULL;
 }
 
-//============================================
+//====================================================
 // destructor
-//============================================
+//====================================================
 template <class T>
             List<T>::~List ( void )
 {
@@ -79,9 +85,9 @@ template <class T>
     head = NULL;
 }
 
-//============================================
+//====================================================
 // operator=
-//============================================
+//====================================================
 template <class T>
 List<T>     List<T>::operator= ( const List<T> &mylist )
 {
@@ -93,17 +99,18 @@ List<T>     List<T>::operator= ( const List<T> &mylist )
     Node *trailPtr = NULL;
     if (qtr != NULL)    // if mylist is not empty
     {
-        Node *newNodePtr = new Node;
-        newNodePtr->item = qtr->item;
-        trailPtr = qtr;
+        Node *firstNode = new Node;
+        head = firstNode;
+        firstNode->item = qtr->item;
+        trailPtr = firstNode;
         qtr = qtr->next;
 
         while (qtr != NULL)
         {
-            newNodePtr = new Node;
+            Node *newNodePtr = new Node;
             newNodePtr->item = qtr->item;
             trailPtr->next = newNodePtr;
-            trailPtr = qtr;
+            trailPtr = newNodePtr;
             qtr = qtr->next;
         }
     }
@@ -111,9 +118,9 @@ List<T>     List<T>::operator= ( const List<T> &mylist )
     return *this;
 }
 
-//============================================
+//====================================================
 // to_string
-//============================================
+//====================================================
 template <class T>
 string      List<T>::to_string ( void ) const
 {
@@ -130,10 +137,10 @@ string      List<T>::to_string ( void ) const
     return stream.str();
 }
 
-//============================================
+//====================================================
 // append
 // Appends a new item onto the end of the list
-//============================================
+//====================================================
 template <class T>
 void        List<T>::append ( const T &item )
 {
@@ -155,9 +162,9 @@ void        List<T>::append ( const T &item )
     }
 }
 
-//============================================
+//====================================================
 // operator[]
-//============================================
+//====================================================
 template <class T>
 T &         List<T>::operator[] ( int index )
 {
@@ -176,9 +183,9 @@ T &         List<T>::operator[] ( int index )
     return temp; // NEEDS ERROR CASE !!!!
 }
 
-//============================================
+//====================================================
 // insert
-//============================================
+//====================================================
 template <class T>
 void        List<T>::insert ( const T &item, int index )
 {
@@ -228,9 +235,9 @@ void        List<T>::insert ( const T &item, int index )
     return;
 }
 
-//============================================
+//====================================================
 // remove
-//============================================
+//====================================================
 template <class T>
 void        List<T>::remove ( int index )
 {
@@ -248,9 +255,9 @@ void        List<T>::remove ( int index )
     }
 }
 
-//============================================
+//====================================================
 // operator+
-//============================================
+//====================================================
 template <class T>
 List<T>     List<T>::operator+ ( const List<T> &mylist ) const
 {
@@ -266,9 +273,9 @@ List<T>     List<T>::operator+ ( const List<T> &mylist ) const
     return newlist;
 }
 
-//============================================
+//====================================================
 // length
-//============================================
+//====================================================
 template <class T>
 int         List<T>::length ( void ) const
 {
@@ -282,9 +289,9 @@ int         List<T>::length ( void ) const
     return total;
 }
 
-//============================================
+//====================================================
 // isEmpty
-//============================================
+//====================================================
 template <class T>
 bool        List<T>::isEmpty ( void ) const
 {
@@ -292,9 +299,9 @@ bool        List<T>::isEmpty ( void ) const
     return (ptr == NULL);
 }
 
-//============================================
+//====================================================
 // clear
-//============================================
+//====================================================
 template <class T>
 void        List<T>::clear ( void )
 {
