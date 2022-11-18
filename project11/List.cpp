@@ -82,13 +82,42 @@ template <class T>
 //============================================
 // operator=
 //============================================
-/*
 template <class T>
 List<T>     List<T>::operator= ( const List<T> &mylist )
 {
+    Node *qtr = mylist.head;
 
+    this->~List();
+    head = new Node;
+
+    Node *trailPtr = NULL;
+    int curInd = 0;
+    while (qtr != NULL)
+    {
+        Node *newNodePtr = new Node;
+        cout << qtr->item << endl;
+        newNodePtr->item = qtr->item;
+        if (curInd > 0)
+            trailPtr->next = newNodePtr;
+        trailPtr = qtr;
+        qtr = qtr->next;
+        curInd++;
+    }
+
+    return *this;
+
+    // List<T> newlist;
+    //
+    // while (qtr != NULL)
+    // {
+    //     cout << qtr->item << endl;
+    //     newlist.append(qtr->item);
+    //     cout << newlist << endl;
+    //     qtr = qtr->next;
+    // }
+    // return newlist;
 }
-*/
+
 //============================================
 // to_string
 //============================================
@@ -229,45 +258,21 @@ void        List<T>::remove ( int index )
 //============================================
 // operator+
 //============================================
-/*
 template <class T>
 List<T>     List<T>::operator+ ( const List<T> &mylist ) const
 {
-    // Node *ptr = head;
-    // Node *qtr = mylist.head;
-    //
-    // while (ptr->next != NULL) // get to the end of list 1
-    //     ptr = ptr->next;
-    //
-    // while (qtr->next != NULL)
-    // {
-    //     ptr = ptr->next;
-    //     ptr->item = qtr->item;
-    //     qtr = qtr->next;
-    // }
-    // ptr->item = qtr->item;
-    // ptr->next = NULL;
-    //
-    // return List<T> ptr;
-
-    List<T> newlist();
+    List<T> newlist(mylist);
     Node *ptr = head;
-    Node *qtr = mylist.head;
+    int curInd = 0;
     while (ptr != NULL)
     {
-        T toAdd = ptr->item;
-        newlist.append(toAdd);
+        newlist.insert(ptr->item, curInd);
         ptr = ptr->next;
-    }
-    while (qtr != NULL)
-    {
-        T toAdd = qtr->item;
-        newlist.append(toAdd);
-        qtr = qtr->next;
+        curInd++;
     }
     return newlist;
 }
-*/
+
 //============================================
 // length
 //============================================
@@ -300,13 +305,5 @@ bool        List<T>::isEmpty ( void ) const
 template <class T>
 void        List<T>::clear ( void )
 {
-    Node *tempPtr;
-    Node *ptr = head;
-    while (ptr != NULL)
-    {
-        tempPtr = ptr;
-        ptr = ptr->next;
-        delete tempPtr;
-    }
-    head = NULL;
+    this->~List();
 }
