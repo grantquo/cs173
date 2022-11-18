@@ -314,6 +314,7 @@ void        List<T>::remove ( int index )
     cout << "!!! INVALID INDEX: OUTSIDE OF BOUNDS !!!" << endl;
     return;
 }
+
 //====================================================
 // operator+
 // Operator "+" overloading function that concatenates
