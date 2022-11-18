@@ -86,7 +86,6 @@ template <class T>
 List<T>     List<T>::operator= ( const List<T> &mylist )
 {
     Node *qtr = mylist.head;
-<<<<<<< HEAD
     Node *ptr = head;
 
     this->~List();
@@ -110,38 +109,6 @@ List<T>     List<T>::operator= ( const List<T> &mylist )
     }
 
     return *this;
-=======
-
-    this->~List();
-    head = new Node;
-
-    Node *trailPtr = NULL;
-    int curInd = 0;
-    while (qtr != NULL)
-    {
-        Node *newNodePtr = new Node;
-        cout << qtr->item << endl;
-        newNodePtr->item = qtr->item;
-        if (curInd > 0)
-            trailPtr->next = newNodePtr;
-        trailPtr = qtr;
-        qtr = qtr->next;
-        curInd++;
-    }
-
-    return *this;
-
-    // List<T> newlist;
-    //
-    // while (qtr != NULL)
-    // {
-    //     cout << qtr->item << endl;
-    //     newlist.append(qtr->item);
-    //     cout << newlist << endl;
-    //     qtr = qtr->next;
-    // }
-    // return newlist;
->>>>>>> 04a3fb6ad3cd4d5a3f316292317e57fa64394548
 }
 
 //============================================
