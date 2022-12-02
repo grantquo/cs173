@@ -12,6 +12,7 @@
 #include <string>
 #include <stack>
 
+string charReader( void );
 void errorReport(int type, int lineNum, int charNum);
 
 using namespace std;
@@ -33,4 +34,14 @@ int main ( void )
 void errorReport(int type, int lineNum, int charNum)
 {
     return;
+}
+
+string charReader( void )
+{
+    string character;
+
+    while (cin.get(character) != " ")
+        cin.get(character);
+
+    return character;
 }
