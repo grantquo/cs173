@@ -13,52 +13,65 @@
 #include <stack>
 using namespace std;
 
-string lineReader( void );
-void parenBalance(stack<string> s);
-bool comparator(string s1, string s2);
-void clearStacks(stack<string> s, stack<string> l);
-// void errorReport(int type, int lineNum, int charNum);
-
 struct Loc
 {
     int lineNum;
     int charNum;
 };
 
+string lineReader( void );
+void paremBalance(stack<char> s);
+bool comparator(char s1, char s2);
+void clearStacks(stack<char> s, stack<Loc> l);
+void errorReport(char openParem, char closedParem, int type, int lineNum, int charNum);
+
+
+
 int main ( void )
 {
-
-    // read in file
-
-    stack<string> s;
-    parenBalancer(s);
-
+    stack<char> s;
+    paremBalance(s);
+    // string curLine = lineReader();
+    // while (curLine != "")
+    // {
+    //     cout << "curLine : " << curLine << endl;
+    //     curLine = lineReader();
+    // }
+    // cout << "curLine : " << curLine << endl;
+    // cout << curLine << endl;
     return 0;
 }
 
 string lineReader( void )
 {
-    string input = "0";
-    if (cin.eof() == false)
-        getline(cin, input);
+    cout << "lineReader called!" << endl;
+    // string input = "O";
+    string input;
+    // if (cin.eof() == false)
+    //     getline(cin, input);
+    getline(cin, input);
+    // cout << "Input : " << input << endl;
     return input;
 }
 
-void parenBalance(stack<string> s)
+void paremBalance(stack<char> s)
 {
-
+    cout << "paremBalance called!" << endl;
     stack<Loc> l;
     int curLineNum = 0;
     string curLine = lineReader(); // take first line
-
-
-    while (curLine != "O" && curLine == "\n") // if line isn't empty
+    cout << "curLineNum: " << curLineNum << endl;
+    cout << "Pre-while loop curLine: " << curLine << endl;
+    while (curLine != "") // if line isn't empty
     {
-        for (int curCharNum = 0; curCharNum <= curLine.length()) // loop through line
+        cout << "In while loop curLine: " << curLine << endl;
+        for (int curCharNum = 0; curCharNum <= curLine.length(); curCharNum++) // loop through line
         {
-            string curChar = curLine[curCharNum]; // obtain character from line string
+            cout << "curCharNum: " << curCharNum << endl;
+            char curChar = curLine[curCharNum]; // obtain character from line string
+            cout << "curChar: " << curChar << endl;
 
-            if (curChar == "(" || curChar == "[" || curChar == "{") // if open
+            if (curChar == '(' || curChar == '[' || curChar == '{') // if open
             {
                 s.push(curChar);
                 Loc curLoc;
@@ -66,18 +79,18 @@ void parenBalance(stack<string> s)
                 curLoc.charNum = curCharNum;
                 l.push(curLoc);
             }
-            elif (curChar == ")" || curChar == "]" || curChar = "}") // if not open
+            else if (curChar == ')' || curChar == ']' || curChar == '}') // if not open
             {
                 if (s.empty() == false) // if stack isn't empty
                 {
 
-                    // assign open param
-                    // remove open param from stack
-                    string stackTop = s.top();
+                    // assign open parem
+                    // remove open parem from stack
+                    char stackTop = s.top();
                     s.pop();
 
-                    // assign open param locs
-                    // remove open param locs from stack
+                    // assign open parem locs
+                    // remove open parem locs from stack
                     Loc topLoc = l.top();
                     int openLineNum = topLoc.lineNum;
                     int openCharNum = topLoc.charNum;
@@ -88,58 +101,76 @@ void parenBalance(stack<string> s)
                     {
                         errorReport(stackTop, curChar, 1, curLineNum, curCharNum);
                         // finishing output with error locs data
+                        cout << " found at line " << openLineNum << " char "
+                        << openCharNum << " ." << endl;
                     }
                 }
+
                 // if stack is empty
                 // report Type ERROR 3 !!!!!!!!!!!!!
-                errorReport("", curChar, 3, curLineNum, curCharNum);
+                errorReport('O', curChar, 3, curLineNum, curCharNum);
             }
-            curCharNum++; // +1 char index
+
+            // end of checkk
         }
 
         // report Type ERROR 2 !!!!!
         clearStacks(s, l);
 
         curLineNum++; // +1 line index
-        curCharNum = 0; // reset char index
         curLine = lineReader(); // go to next line
     }
 
+    cout << "paremBalance closing!" << endl;
     // end of string reached
 }
 
-bool comparator(string open, string closed)
+bool comparator(char open, char closed)
 {
-    if (open == "(" && closed == ")")
+    if (open == '(' && closed == ')')
         return true;
-    elif (open == "[" && closed == "]")
+    else if (open == '[' && closed == ']')
         return true;
-    elif (open == "{" && closed == "}")
+    else if (open == '{' && closed == '}')
         return true;
     return false;
 }
 
-void clearStacks(stack<string> s, stack<string> l)
+void clearStacks(stack<char> s, stack<Loc> l)
 {
+    cout << "clearStacks called!" << endl;
     while (s.empty() != false && l.empty() != false)
     {
-        string topOpenParam = s.top();
+        char topOpenParem = s.top();
         Loc topLoc = l.top();
         int topLineNum = topLoc.lineNum;
         int topCharNum = topLoc.charNum;
-        errorReport(topOpenParam, "", 2, topLineNum, topCharNum);
+        errorReport(topOpenParem, 'O', 2, topLineNum, topCharNum);
         s.pop();
         l.pop();
     }
+    cout << "clearStacks closed!" << endl;
 }
 
-// void errorReport(char paren1, char paren2, int type, int lineNum, int charNum)
-// {
-//     if (type == 1){
-//         cout << "Type " << type << " Error: " << paren1 << " found at line: " <<
-//         lineNum << " char: " << charNum << " does not match " << paren2 <<
-//         " (found "
-//     }
-//     cout << "Type " << type << " Error: found at line: " <<
-//     lineNum << " char: " <<
-// }
+void errorReport(char openParem, char closedParem, int type, int lineNum, int charNum)
+{
+    cout << "Error Report Called!!" << endl;
+    if (type == 1)
+    {
+        cout << "Type I Error: " << openParem << " found at line " << lineNum
+        << " char " << charNum << " does not match " << closedParem;
+    }
+
+    else if (type == 2)
+    {
+        cout << "Type II Error: " << openParem << " found at line " << lineNum
+        << " char " << charNum << " with no matching close paren." << endl;
+    }
+
+    else
+    {
+        cout << "Type III Error: " << closedParem << " found at line " << lineNum
+        << " char " << charNum << " with no matching open paren." << endl;
+    }
+    cout << "Error Report Closed!!" << endl;
+}
