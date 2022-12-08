@@ -11,13 +11,17 @@
 #include <iostream>
 #include <string>
 #include <stack>
+using namespace std;
 
-char charReader( void );
-void parenBalancer(stack<string> s)
+string charReader( void );
+// void parenBalance(stack<string> s)
 // void errorReport(int type, int lineNum, int charNum);
 
-
-using namespace std;
+struct Loc
+{
+    int lineNum;
+    int charNum;
+};
 
 int main ( void )
 {
@@ -30,23 +34,54 @@ int main ( void )
     return 0;
 }
 
-// function definitions
-
-char charReader( void )
+string charReader( void )
 {
-    char input = 'O';
+    string input = "0";
     if (cin.eof() == false)
-        cin >> input;
+        getline(cin, input);
     return input;
 }
 
-void parenBalancer(stack<char> s)
-{
-    curChar = charReader();
-    while (curChar != "O"){
-        if (curChar == )
-    }
-}
+
+// function definitions
+
+
+// void parenBalance(stack<char> s)
+// {
+//
+//     stack<Loc> l;
+//     int line = 0;
+//     int char = 0;
+//     char curChar = charReader();
+//     while (curChar != "O"){
+//         if (curChar == "(" || curChar == "[" || curChar == "{") // if open
+//         {
+//             s.push(curChar);
+//             Loc curLoc;
+//             curLoc.lineNum =
+//
+//         }
+//         elif (curChar != "\n") // if not open
+//         {
+//             if (s.empty() == false) // if stack isn't empty
+//             {
+//                 char stackTop = s.top();
+//                 s.pop();
+//
+//             }
+//             // if stack is empty
+//             // report Type Error 3
+//
+//         }
+//         else
+//         {
+//
+//         }
+//         curChar = charReader(); // cycle next charReader
+//     }
+//
+//     // end of string reached
+// }
 
 // void errorReport(char paren1, char paren2, int type, int lineNum, int charNum)
 // {
@@ -58,12 +93,3 @@ void parenBalancer(stack<char> s)
 //     cout << "Type " << type << " Error: found at line: " <<
 //     lineNum << " char: " <<
 // }
-
-
-
-
-struct curParenLoc
-{
-int lineNum;
-int charNum;
-}

@@ -11,7 +11,7 @@ int main ( void )
 {
     string inputStr;
 
-
+    while 
     cin >> inputStr;
     cout << inputStr;
 }
