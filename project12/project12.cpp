@@ -31,45 +31,26 @@ int main ( void )
 {
     stack<char> s;
     paremBalance(s);
-    // string curLine = lineReader();
-    // while (curLine != "")
-    // {
-    //     cout << "curLine : " << curLine << endl;
-    //     curLine = lineReader();
-    // }
-    // cout << "curLine : " << curLine << endl;
-    // cout << curLine << endl;
     return 0;
 }
 
 string lineReader( void )
 {
-    cout << "lineReader called!" << endl;
-    // string input = "O";
     string input;
-    // if (cin.eof() == false)
-    //     getline(cin, input);
     getline(cin, input);
-    // cout << "Input : " << input << endl;
     return input;
 }
 
 void paremBalance(stack<char> s)
 {
-    cout << "paremBalance called!" << endl;
     stack<Loc> l;
     int curLineNum = 0;
     string curLine = lineReader(); // take first line
-    cout << "curLineNum: " << curLineNum << endl;
-    cout << "Pre-while loop curLine: " << curLine << endl;
     while (curLine != "") // if line isn't empty
     {
-        cout << "In while loop curLine: " << curLine << endl;
         for (int curCharNum = 0; curCharNum <= curLine.length(); curCharNum++) // loop through line
         {
-            cout << "curCharNum: " << curCharNum << endl;
             char curChar = curLine[curCharNum]; // obtain character from line string
-            cout << "curChar: " << curChar << endl;
 
             if (curChar == '(' || curChar == '[' || curChar == '{') // if open
             {
@@ -121,7 +102,6 @@ void paremBalance(stack<char> s)
         curLine = lineReader(); // go to next line
     }
 
-    cout << "paremBalance closing!" << endl;
     // end of string reached
 }
 
@@ -154,23 +134,21 @@ void clearStacks(stack<char> s, stack<Loc> l)
 
 void errorReport(char openParem, char closedParem, int type, int lineNum, int charNum)
 {
-    cout << "Error Report Called!!" << endl;
     if (type == 1)
     {
-        cout << "Type I Error: " << openParem << " found at line " << lineNum
-        << " char " << charNum << " does not match " << closedParem;
+        cout << "Type I Error: " << closedParem << " found at line " << lineNum+1
+        << " char " << charNum+1 << " does not match " << openParem;
     }
 
     else if (type == 2)
     {
-        cout << "Type II Error: " << openParem << " found at line " << lineNum
-        << " char " << charNum << " with no matching close paren." << endl;
+        cout << "Type II Error: " << openParem << " found at line " << lineNum+1
+        << " char " << charNum+1 << " with no matching close paren." << endl;
     }
 
     else
     {
-        cout << "Type III Error: " << closedParem << " found at line " << lineNum
-        << " char " << charNum << " with no matching open paren." << endl;
+        cout << "Type III Error: " << closedParem << " found at line " << lineNum+1
+        << " char " << charNum+1 << " with no matching open paren." << endl;
     }
-    cout << "Error Report Closed!!" << endl;
 }
