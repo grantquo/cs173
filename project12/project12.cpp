@@ -42,46 +42,49 @@ string charReader( void )
     return input;
 }
 
+void parenBalance(stack<char> s)
+{
 
-// function definitions
+    stack<Loc> l;
+    int curLineNum = 0;
+    string curLine = charReader(); // take first line
 
 
-// void parenBalance(stack<char> s)
-// {
-//
-//     stack<Loc> l;
-//     int line = 0;
-//     int char = 0;
-//     char curChar = charReader();
-//     while (curChar != "O"){
-//         if (curChar == "(" || curChar == "[" || curChar == "{") // if open
-//         {
-//             s.push(curChar);
-//             Loc curLoc;
-//             curLoc.lineNum =
-//
-//         }
-//         elif (curChar != "\n") // if not open
-//         {
-//             if (s.empty() == false) // if stack isn't empty
-//             {
-//                 char stackTop = s.top();
-//                 s.pop();
-//
-//             }
-//             // if stack is empty
-//             // report Type Error 3
-//
-//         }
-//         else
-//         {
-//
-//         }
-//         curChar = charReader(); // cycle next charReader
-//     }
-//
-//     // end of string reached
-// }
+    while (curLine != "O" && curLine == "\n") // if line isn't empty
+    {
+        for (int curCharNum = 0; curCharNum <= curLine.length()) // loop through line
+        {
+            curChar = curLine[curCharNum]; // obtain character from line string
+
+            if (curChar == "(" || curChar == "[" || curChar == "{") // if open
+            {
+                s.push(curChar);
+                Loc curLoc;
+                curLoc.lineNum = curLineNum;
+                curLoc.charNum = curCharNum;
+                l.push(curLoc);
+            }
+            elif (curChar == ")" || curChar == "]" || curChar = "}") // if not open
+            {
+                if (s.empty() == false) // if stack isn't empty
+                {
+                    char stackTop = s.top();
+                    s.pop();
+
+                }
+                // if stack is empty
+                // report Type Error 3
+
+            }
+            curCharNum++; // +1 char index
+        }
+        curLineNum++; // +1 line index
+        curCharNum = 0; // reset char index
+        curLine = charReader(); // go to next line
+    }
+
+    // end of string reached
+}
 
 // void errorReport(char paren1, char paren2, int type, int lineNum, int charNum)
 // {
