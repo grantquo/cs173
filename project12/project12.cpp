@@ -13,8 +13,10 @@
 #include <stack>
 using namespace std;
 
-string charReader( void );
-// void parenBalance(stack<string> s)
+string lineReader( void );
+void parenBalance(stack<string> s);
+bool comparator(string s1, string s2);
+void clearStacks(stack<string> s, stack<string> l);
 // void errorReport(int type, int lineNum, int charNum);
 
 struct Loc
@@ -28,13 +30,13 @@ int main ( void )
 
     // read in file
 
-    stack<char> s;
+    stack<string> s;
     parenBalancer(s);
 
     return 0;
 }
 
-string charReader( void )
+string lineReader( void )
 {
     string input = "0";
     if (cin.eof() == false)
@@ -42,19 +44,19 @@ string charReader( void )
     return input;
 }
 
-void parenBalance(stack<char> s)
+void parenBalance(stack<string> s)
 {
 
     stack<Loc> l;
     int curLineNum = 0;
-    string curLine = charReader(); // take first line
+    string curLine = lineReader(); // take first line
 
 
     while (curLine != "O" && curLine == "\n") // if line isn't empty
     {
         for (int curCharNum = 0; curCharNum <= curLine.length()) // loop through line
         {
-            curChar = curLine[curCharNum]; // obtain character from line string
+            string curChar = curLine[curCharNum]; // obtain character from line string
 
             if (curChar == "(" || curChar == "[" || curChar == "{") // if open
             {
@@ -68,22 +70,67 @@ void parenBalance(stack<char> s)
             {
                 if (s.empty() == false) // if stack isn't empty
                 {
-                    char stackTop = s.top();
+
+                    // assign open param
+                    // remove open param from stack
+                    string stackTop = s.top();
                     s.pop();
 
+                    // assign open param locs
+                    // remove open param locs from stack
+                    Loc topLoc = l.top();
+                    int openLineNum = topLoc.lineNum;
+                    int openCharNum = topLoc.charNum;
+                    l.pop();
+
+                    // if no match, ERROR 1 !!!!!!!!!!!
+                    if (comparator(stackTop, curChar) == false)
+                    {
+                        errorReport(stackTop, curChar, 1, curLineNum, curCharNum);
+                        // finishing output with error locs data
+                    }
                 }
                 // if stack is empty
-                // report Type Error 3
-
+                // report Type ERROR 3 !!!!!!!!!!!!!
+                errorReport("", curChar, 3, curLineNum, curCharNum);
             }
             curCharNum++; // +1 char index
         }
+
+        // report Type ERROR 2 !!!!!
+        clearStacks(s, l);
+
         curLineNum++; // +1 line index
         curCharNum = 0; // reset char index
-        curLine = charReader(); // go to next line
+        curLine = lineReader(); // go to next line
     }
 
     // end of string reached
+}
+
+bool comparator(string open, string closed)
+{
+    if (open == "(" && closed == ")")
+        return true;
+    elif (open == "[" && closed == "]")
+        return true;
+    elif (open == "{" && closed == "}")
+        return true;
+    return false;
+}
+
+void clearStacks(stack<string> s, stack<string> l)
+{
+    while (s.empty() != false && l.empty() != false)
+    {
+        string topOpenParam = s.top();
+        Loc topLoc = l.top();
+        int topLineNum = topLoc.lineNum;
+        int topCharNum = topLoc.charNum;
+        errorReport(topOpenParam, "", 2, topLineNum, topCharNum);
+        s.pop();
+        l.pop();
+    }
 }
 
 // void errorReport(char paren1, char paren2, int type, int lineNum, int charNum)
