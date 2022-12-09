@@ -20,7 +20,7 @@ struct Loc
 };
 
 string lineReader( void );
-void paremBalance(stack<char> s);
+void paremBalance(stack<char> s, stack<Loc> l, string curLine, int curLineNum);
 bool comparator(char s1, char s2);
 void clearStacks(stack<char> s, stack<Loc> l);
 void errorReport(char openParem, char closedParem, int type, int lineNum, int charNum);
@@ -30,7 +30,17 @@ void errorReport(char openParem, char closedParem, int type, int lineNum, int ch
 int main ( void )
 {
     stack<char> s;
-    paremBalance(s);
+    stack<Loc> l;
+    int curLineNum = 0;
+
+    string curLine = lineReader();
+    while (curLine != "")
+    {
+        paremBalance(s, l, curLine, curLineNum);
+        curLineNum++; // +1 line index
+        curLine = lineReader(); // go to next line
+    }
+
     return 0;
 }
 
@@ -41,79 +51,59 @@ string lineReader( void )
     return input;
 }
 
-void paremBalance(stack<char> s)
+void paremBalance(stack<char> s, stack<Loc> l, string curLine, int curLineNum)
 {
-    stack<Loc> l;
-    int curLineNum = 0;
-    string curLine = lineReader(); // take first line
-    while (curLine != "") // if line isn't empty
+    for (int curCharNum = 0; curCharNum <= curLine.length(); curCharNum++) // loop through line
     {
-        for (int curCharNum = 0; curCharNum <= curLine.length(); curCharNum++) // loop through line
+        char curChar = curLine[curCharNum]; // obtain character from line string
+        // if an open parem
+        if (curChar == '(' || curChar == '[' || curChar == '{')
         {
-            char curChar = curLine[curCharNum]; // obtain character from line string
-            // cout << "curChar is " << curChar << endl;
+            s.push(curChar);
+            Loc curLoc;
+            curLoc.lineNum = curLineNum;
+            curLoc.charNum = curCharNum;
+            l.push(curLoc);
+        }
 
-
-            // if an open parem
-            if (curChar == '(' || curChar == '[' || curChar == '{')
+        // if a closed parem
+        else if (curChar == ')' || curChar == ']' || curChar == '}')
+        {
+            if (s.empty() == false) // if stack isn't empty
             {
-                // cout << curChar << " is being passed into stacks!" << endl;
-                s.push(curChar);
-                Loc curLoc;
-                curLoc.lineNum = curLineNum;
-                curLoc.charNum = curCharNum;
-                l.push(curLoc);
+                // assign open parem
+                // remove open parem from stack
+                char stackTop = s.top();
+                s.pop();
+
+                // assign open parem locs
+                // remove open parem locs from stack
+                Loc topLoc = l.top();
+                int openLineNum = topLoc.lineNum;
+                int openCharNum = topLoc.charNum;
+                l.pop();
+
+                // if no match, ERROR 1 !!!!!!!!!!!
+                if (comparator(stackTop, curChar) == false)
+                {
+                    errorReport(stackTop, curChar, 1, curLineNum, curCharNum);
+                    // finishing output with error locs data
+                    cout << " found at line " << openLineNum+1 << " char "
+                    << openCharNum+1 << " ." << endl;
+                }
             }
 
-            // if a closed parem
-            else if (curChar == ')' || curChar == ']' || curChar == '}')
+            else if (s.empty() == true)
             {
-                // cout << "s.empty = " << s.empty() << endl;
-
-                if (s.empty() == false) // if stack isn't empty
-                {
-                    // cout << "Empty passed as false!" << endl;
-                    // assign open parem
-                    // remove open parem from stack
-                    char stackTop = s.top();
-                    s.pop();
-
-                    // assign open parem locs
-                    // remove open parem locs from stack
-                    Loc topLoc = l.top();
-                    int openLineNum = topLoc.lineNum;
-                    int openCharNum = topLoc.charNum;
-                    l.pop();
-
-                    // if no match, ERROR 1 !!!!!!!!!!!
-                    if (comparator(stackTop, curChar) == false)
-                    {
-                        errorReport(stackTop, curChar, 1, curLineNum, curCharNum);
-                        // finishing output with error locs data
-                        cout << " found at line " << openLineNum+1 << " char "
-                        << openCharNum+1 << " ." << endl;
-                    }
-                }
-
-                else if (s.empty() == true)
-                {
-                    // cout << "Empty passed as true!" << endl;
-                    // if stack is empty
-                    // report Type ERROR 3 !!!!!!!!!!!!!
-                    errorReport('O', curChar, 3, curLineNum, curCharNum);
-                }
-
+                // if stack is empty
+                // report Type ERROR 3 !!!!!!!!!!!!!
+                errorReport('O', curChar, 3, curLineNum, curCharNum);
             }
 
         }
-    // end of line
 
-    // report Type ERROR 2 !!!!!
-    clearStacks(s, l);
-    curLineNum++; // +1 line index
-    curLine = lineReader(); // go to next line
     }
-// end of string
+    clearStacks(s, l);
 }
 
 bool comparator(char open, char closed)
@@ -129,10 +119,8 @@ bool comparator(char open, char closed)
 
 void clearStacks(stack<char> s, stack<Loc> l)
 {
-    // cout << "clearStacks called!" << endl;
     while (s.empty() == false && l.empty() == false)
     {
-        // cout << "clearStacks while loop called!" << endl;
         char topOpenParem = s.top();
         Loc topLoc = l.top();
         int topLineNum = topLoc.lineNum;
@@ -142,7 +130,7 @@ void clearStacks(stack<char> s, stack<Loc> l)
         l.pop();
     }
 }
-
+//
 void errorReport(char openParem, char closedParem, int type, int lineNum, int charNum)
 {
     if (type == 1)
